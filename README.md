@@ -10,6 +10,16 @@ tl;dr index:
 
         git clone git@github.com:dddrrreee/cs240lx-22spr.git
 
+    Put the path to the repo in your shell startup file:
+
+    E.g. for `tcsh` I put the following in my `.tcshrc` file (and
+    did `source ~/.tcshrc` after):
+ 
+        setenv CS240LX_2022_PATH /home/engler/class/cs240lx-22spr/
+
+    If these steps worked, you should be able to type `make` and have
+    it work.
+
 This is a implementation-heavy, lab-based class that will cover similar
 topics as CS240 --- threads, virtual memory, file systems and distributed
 systems --- but by writing code versus discussing papers.  After taking an
