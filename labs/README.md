@@ -18,11 +18,36 @@ level and how to best implement them is still up in the air, so the only
 constant will be change.
 
 ----------------------------------------------------------------------------
-##### Compilation tricks
+##### low level code module
 
   - [1-dynamic-code-gen](1-dynamic-code-gen/README.md): you'll learn
     how to generate executable machine code at runtime and how to 
-    use this trick to do neat stuff.
+    use this trick to do neat stuff.  
+
+    Possible things to build:
+      - generate exact cycle write schedules where you give a set
+        of reads and writes and the cycle they should occur at.
+      - do real generic routines in C where you "curry" a parameter
+        into a runtime thunk that calls the original routine.  this
+        for example lets you replace `int foo(a,b,c)` with `int fp()` and, thus
+        have a set of data structure routines that can work on routines
+        that take no parameters and return an `int` rather than needing to 
+        make (for example) an iterator routine for each different 
+        data-structure.
+      - simple packet filter JIT engine --- these are being heavily used
+        in linux for monitoring.  could do BPF (what they use) or our own.
+      - 
+
+
+  - speed stuff [below]: open question: can be enable caching when no
+    VM?  Not sure where to place this.
+
+MAYBE:
+  - linker script hacks.
+  - bootloader that can copy itself out of the way + use this to 
+    make a network bootloader.
+  - a runtime code gen system that can work on riscv, x86, arm,
+    etc.
 
 ---------------------------------------------------------------------
 ### Simple binary-analysis tools.
