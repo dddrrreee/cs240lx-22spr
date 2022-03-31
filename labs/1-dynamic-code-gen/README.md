@@ -39,10 +39,10 @@ The key files:
 If you look at `main` you'll see five parts to build --- each is pretty
 simple, but it gives you a feel for how the more general tricks are played:
 
-  0. Define the environment variable `CS240LX_2021_PATH` to be where your
+  0. Define the environment variable `CS240LX_2022_PATH` to be where your
      repo is.  For example:
         
-        setenv CS240LX_2021_PATH /home/engler/class/cs240lx-20spr/
+        setenv CS240LX_2022_PATH /home/engler/class/cs240lx-22spr/
 
 
   1. Write the code (`insts_emit`) to emit strings of assembly 
