@@ -21,6 +21,9 @@ a bunch of different things so that it removes a bunch of the mystery.
 Subsequent lab(s?) will go more in depth, where you can build out the things
 you do today.
 
+----------------------------------------------------------------------------
+### Part 1: reverse engineer instructions (main work today)
+
 The code you'll hack on today is in `code/unix-side`.  Feel free to
 refactor it to make it more clean and elegant.    I ran out of time to
 iterate over it, unfortunately.
@@ -56,13 +59,13 @@ simple, but it gives you a feel for how the more general tricks are played:
      three register operations.  It shows how to determine the encoding 
      for `dst` --- you will have to do `src1` and `src2`.  You should
      pull your generated function back in and cross check it.
-  5. Do a few other instructions!
+  5. Do: load, stores, some ALU and jump instructions.
 
 Congratulations, you have the `hello world` version of a bunch of neat
 tricks.  We will build these out more next lab and use them.
 
-
-### Part 1: write a `hello world`
+----------------------------------------------------------------------------
+### Part 2: write a `hello world`
 
 Generate a routine to call `printk("hello world\n")` and return.
   - `code/1-hello` has the starter code.
