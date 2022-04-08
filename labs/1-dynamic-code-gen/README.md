@@ -186,3 +186,96 @@ Now, some issues:
 
 There are hacks to get around (1) and (2) but for expediency we just
 declare success, at least for this lab.
+
+#### Extension: making a `curry` routine
+
+One big drawback of C is it's poor support for context and generic arguments.
+
+For example, if we want to pass a routine `fn` to an `apply` routine to 
+run on each entry in some data structure:
+  1. Any internal state `fn` needs must be explicitly passed.  
+  2. Further, unless we want to write an `apply` for each time, we have
+     to do some gross hack like passing a `void \*` (see: `qsort` or
+     `bsearch`).
+
+So, for example even something as simple as counting the number of
+entries less than some threshold becomes a mess:
+
+        struct ctx {
+            int thres;  // threshold value;
+            int sum;    // number of entries < thres
+        };
+
+        // count the number of entries < val
+        void smaller_than(void *ctx, const void *elem) {
+            struct ctx *c = ctx;
+            int e = *(int *)elem;
+
+            if(e < ctx->thres)
+                ctx->thres++;
+        }
+
+
+        typedef void (*apply_fn)(void *ctx,  const void *elem);
+
+        // apply <fn> to linked list <l> passing <ctx> in each time.
+        void apply(linked_list *l, void *ctx, apply_fn fn);
+
+        ...
+
+        // count the number of entries in <ll> less than <threshold
+        int less_than(linked_list *ll, int threshold) {
+            struct ctx c = { .thres = 10 };
+            apply(ll, &c, smaller_than);
+            return c.sum;
+        }
+        
+
+This is gross.
+
+Intuition: if we generate code at runtime, we can absorb each argument
+into a new function pointer.  This means the type disppears.  Which 
+makes it all more generic.
+
+
+To keep it simple:
+
+    1. allocate memory for code and to store the argument.
+    2. generate code to load the argument and call the original
+       routine.
+
+
+    int foo(int x);
+    int print_msg(const char *msg) {
+        printk("%s\n", msg);
+    }
+
+    typedef (*curry_fn)(void);
+
+    curry_fn curry(const char *type, ...) {
+        p = alloc_mem();
+        p[0] = arg;
+        code = &p[1];
+
+        va_list args;
+        va_start(args, fmt);
+        switch(*type) {
+        case 'p':
+                code[0] = load_uimm32(va_arg(args, void *);
+                break;
+
+        case 'i':
+                code[0] = load_uimm32(va_arg(args, int);
+                break;
+        default:
+                panic("bad type: <%s>\n", type);
+        }
+        code[1] = gen_jal(fp);
+        code[2] = gen_bx(reg_lr);
+        return &code[0];
+    }
+
+
+    curry_fn foo5 = curry("i", foo, 5);
+    curry_fn hello = curry("i", bar, 5);
+

@@ -16,6 +16,9 @@ unsigned ident(unsigned x) {
 unsigned add_1(unsigned x) { 
     return x+1; 
 }
+unsigned add_2(unsigned x) { 
+    return x+2; 
+}
 
 void notmain() { 
 	// emit code for <ident>

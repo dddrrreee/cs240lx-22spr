@@ -20,7 +20,7 @@ int ret_11(void) { return 11; }
 
 void notmain() { 
     // Q: if we enable the icache, what is going on?
-    // enable_cache();
+    //enable_cache();
 
     // generate the code to return 11
     //
@@ -47,18 +47,11 @@ void notmain() {
     printk("about to make code return 10\n");
     code[0] = 0xe3a0000a; // mov r0, #10
 
+    asm volatile ("nop");
+    asm volatile ("nop");
     // Q: experiment w/ deleting these: what is going on?
-    asm volatile ("nop");
-    asm volatile ("nop");
-    asm volatile ("nop");
-    asm volatile ("nop");
 
     x = fp();
-	printk("fp() = %d [should be 10]\n", x);
-	printk("fp() = %d [should be 10]\n", x);
-	printk("fp() = %d [should be 10]\n", x);
-	printk("fp() = %d [should be 10]\n", x);
-	printk("fp() = %d [should be 10]\n", x);
 	printk("fp() = %d [should be 10]\n", x);
     assert(x == 10);
 
@@ -71,9 +64,6 @@ void notmain() {
         code[0] = (code[0] & ~0xff) | u;
 
         // Q: if delete these?
-        asm volatile ("nop");
-        asm volatile ("nop");
-        asm volatile ("nop");
         asm volatile ("nop");
 
         assert(fp() == u);
