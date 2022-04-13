@@ -1,0 +1,20 @@
+
+
+   - It's easy to think because we are building small things, they are
+     toys.
+   - However, because they are small, and you write all the code,
+     you can make them do things essentially impossible on a large
+     system.
+
+     For example: any property that must be obeyed by every single line of
+     code often gets combinatorially harder as you as you add more code.
+     Such as security, real time guarantees, low jitter.  The fact that
+     you have a tiny system makes this easy.
+
+   - Today we'll build a digital analyzer which after you tune it should
+     have around 20 nanosecond error rates.  This would be impossible
+     on stock linux or macos, with any reasonable amount of effort And,
+     interestingly enough, it's much faster than a $400 Salaea from last
+     year (which could only do samples every 100 nanoseconds).
+
+
