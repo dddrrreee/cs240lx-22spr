@@ -110,5 +110,7 @@ void int_clear_state(void);
 void int_init_vec_set(void *vec);
 // same, using default table.
 void int_init_vec(void);
+void int_vec_init(uint32_t interrupt_table[]);
+
 
 #endif 

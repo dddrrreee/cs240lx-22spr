@@ -85,6 +85,7 @@ libs::
 ifneq ($(LIB),libpi.a)
 ifneq ($(LIB),libpi-fp.a)
 	@make -C $(LPP)
+	@make -C $(LPP)
 endif
 endif
 
@@ -92,6 +93,7 @@ ifneq ($(LIB),libpi.a)
 ifneq ($(LIB),libpi-fp.a)
 $(LPI):
 	@make  -C $(LPP)
+	@make -C $(LPP)
 endif
 endif
 

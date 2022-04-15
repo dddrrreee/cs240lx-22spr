@@ -23,6 +23,7 @@ STAFF_OBJS += staff-objs/interrupts-vec-asm.o
 STAFF_OBJS += staff-objs/rpi-thread.o 
 STAFF_OBJS += staff-objs/rpi-thread-asm.o 
 STAFF_OBJS += staff-objs/sw-spi.o
+STAFF_OBJS += staff-objs/interrupts-vec-init.o
 endif
 endif
 

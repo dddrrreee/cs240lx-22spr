@@ -67,6 +67,10 @@ int gpio_get_pud(unsigned pin);
 enum { GPIO_INT0 = 49, GPIO_INT1, GPIO_INT2, GPIO_INT3 };
 
 
+// p99: does not double sample: faster.
+void gpio_int_async_falling_edge(unsigned pin);
+void gpio_int_async_rising_edge(unsigned pin);
+
 
 // gpio_int_rising_edge and gpio_int_falling_edge (and any other) should
 // call this routine (you must implement) to setup the right GPIO event.
