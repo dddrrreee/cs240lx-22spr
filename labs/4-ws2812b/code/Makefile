@@ -17,4 +17,4 @@ TTYUSB =
 
 DEPS = ./Makefile
 SUPPORT_OBJS := $(SRC:.c=.o)
-include $(CS49N_2021_PATH)/libpi/mk/Makefile.template
+include $(CS240LX_2022_PATH)/libpi/mk/Makefile.template
