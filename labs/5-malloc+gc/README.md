@@ -29,7 +29,62 @@ You'll import the K&R `malloc` into libpi:
      on the pi by calling `kmalloc`.
 
 ---------------------------------------------------------------------------
-### Part 1: leak detection (90 minutes?)
+### Part 1: write a `ckalloc` wrapper on `kr_malloc`
+
+For GC and leak detection we need a way to determine what allocated
+block a pointer `p` points to (so that we can mark that block).
+
+For this part you'll do simple veneer on `kr_malloc` to add a header that
+lets us determine this information.  We are going to do it in a stupid
+way so that we're more sure it's correct.
+
+What we are doing is:
+  1. For each allocation call to `ckalloc`: allocate enough to prepend
+     a `ckalloc.h:hdr_t` to the block and add that block to a list of
+     allocated pointers.
+
+  2. On each deallocation call to `ckfree`: check that the block is
+     allocated, remove it from the allocated list, an call `kr_free`
+     on it.
+
+What to write:
+  1. The interface is in `2-ckalloc/ckalloc.h` the starter code in 
+     `2-ckalloc/ckalloc.c`.
+  2. There are some simple accessors you should implement.
+
+
+Here's a dumb linked list removal to save you time if that's an issue:
+
+    static void list_remove(hdr_t **l, hdr_t *h) {
+        assert(l);
+        hdr_t *prev = *l;
+     
+        if(prev == h) {
+            *l = h->next;
+            return;
+        }
+
+        hdr_t *p;
+        while((p = ck_next_hdr(prev))) {
+            if(p == h) {
+                prev->next = p->next;
+                return;
+            }
+            prev = p;
+        }
+        panic("did not find %p in list\n", h);
+    }
+
+Invariants:
+  1. `ckalloc`: before you add it to the allocated list `ck_ptr_is_alloced`
+      should fail, after you add it it should succeed.
+  2. `ckfree`: before you free it, 
+      `ck_ptr_is_alloced(ptr)` should return 1; after you remove it
+      from the allocated list, it should return 0.  The state should    
+      be `ALLOCED`.
+
+---------------------------------------------------------------------------
+### Part 2: leak detection (90 minutes?)
 
 We will build a simple leak detector based on the approaches described in
 the Purify paper and Boehm's GC paper.  The tool will attempt to detect
