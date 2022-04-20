@@ -25,15 +25,8 @@ You'll import the K&R `malloc` into libpi:
   1. Copy and paste and adapt the code in `kr-malloc.pdf` so that it 
      runs on Unix.
   2. Check that the tests pass (these are weak: write some more if you can!).
-
-  3. Implement the two iterators for allocated blocks:
-
-            // returns pointer to the first header block.
-            hdr_t *kr_first_hdr(void);
-
-            // returns pointer to next hdr or 0 if none.
-            hdr_t *kr_next_hdr(hdr_t *p);
-
+  3. Modify it so it will work on the pi.  In particular: implement `sbrk()`
+     on the pi by calling `kmalloc`.
 
 ---------------------------------------------------------------------------
 ### Part 1: leak detection (90 minutes?)
@@ -209,6 +202,15 @@ Some code mistakes:
      doesn't need this).  This will break your checksum unless you
      are careful: recompute it, or just don't checksum these fields.
      Kinda gross, sorry.
+
+
+  4. Implement the two iterators for allocated blocks:
+
+            // returns pointer to the first header block.
+            hdr_t *kr_first_hdr(void);
+
+            // returns pointer to next hdr or 0 if none.
+            hdr_t *kr_next_hdr(hdr_t *p);
 
 ---------------------------------------------------------------------------
 ### Part 2: Garbage collection (30 minutes)
