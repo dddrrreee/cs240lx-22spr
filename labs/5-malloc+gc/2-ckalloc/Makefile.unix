@@ -1,0 +1,10 @@
+PROG_SRC = 3-ckalloc.c 5-test-ckalloc.c # 0-test-malloc.c 2-test-malloc.c 1-test-malloc.c
+SRC = kr-malloc.c ckalloc.c unix-libpi.c
+
+RUN = 1
+
+OPT_FLAGS = -Og
+CFLAGS += -DCOMPILE_FOR_UNIX -g
+
+# LIBS = -lutil
+include $(CS240LX_2022_PATH)/libunix/mk/Makefile.unix
