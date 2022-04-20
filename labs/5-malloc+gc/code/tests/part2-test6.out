@@ -1,0 +1,48 @@
+find-ttyusb.c:find_ttyusb_first:106:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+my-install: tty-usb=</dev/ttyUSB0> program=<./tests/part2-test6.bin> about to boot
+******************sending 11492 bytes
+waiting for a start
+got a start
+putting code
+put code and got back
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test6
+sizeof hdr=56, redzone=128
+TRACE:allocating 4 bytes
+ckalloc.c:ckalloc:170:CK_DEBUG:hdr=0x100000, alloc=0x1000b8, cksum=0x84104c2, (get=0x84104c2)
+ckalloc.c:ckalloc:172:CK_DEBUG:header checked
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1000b8
+TRACE:alloc returned 0x1000b8
+TRACE:test1 returned 0x1000b9
+TRACE:going to check heap: 320 bytes allocated, 1048256 bytes left
+TRACE:SUCCESS: checked 1 blocks, detected no errors
+TRACE:SUCCESS heap checked out
+ck-gc.c:mark_all:207:stack has 30 words
+ck-gc.c:mark:94:CK_DEBUG:checking pointer 0x1000b9
+ck-gc.c:mark:102:CK_DEBUG:addr 0x7ffffe8: referenced middle = 0x1000b8
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:140:CK_DEBUG:checking pointer: 0x1000b8, start=0, middle=1
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+ck-gc.c:mark_all:207:stack has 30 words
+ck-gc.c:mark:94:CK_DEBUG:checking pointer 0x1000b9
+ck-gc.c:mark:102:CK_DEBUG:addr 0x7ffffe8: referenced middle = 0x1000b8
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:140:CK_DEBUG:checking pointer: 0x1000b8, start=0, middle=1
+TRACE:ERROR:GC:MAYBE LEAK of 0x1000b8 (no pointer to the start)
+TRACE:	nbytes=4
+TRACE:	Block allocated at: tests/part2-test6.c:test1:7
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 0 errors, 1 maybe_errors
+----------------------------------------------------------
+TRACE:SUCCESS: detected a maybe leak!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

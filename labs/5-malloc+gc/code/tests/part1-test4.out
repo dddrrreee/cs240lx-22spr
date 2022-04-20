@@ -1,0 +1,13 @@
+TRACE:allocating 4 bytes
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1000b8
+TRACE:freeing 0x1000b8
+TRACE:going to check heap: 320 bytes allocated, 1048256 bytes left
+TRACE:SUCCESS: checked 1 blocks, detected no errors
+TRACE:SUCCESS heap checked out
+TRACE:going to check heap: 320 bytes allocated, 1048256 bytes left
+TRACE:ERROR:block 0x1000b8 corrupted at offset 4
+TRACE:	nbytes=4
+TRACE:	Block allocated at: part1-test4.c:notmain:13
+TRACE:	Block freed at: part1-test4.c:notmain:15
+TRACE:checked 1 blocks, detected 1 errors
+TRACE:SUCCESS: detected corruption

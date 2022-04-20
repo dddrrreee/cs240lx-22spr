@@ -1,0 +1,228 @@
+find-ttyusb.c:find_ttyusb_first:106:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+my-install: tty-usb=</dev/ttyUSB0> program=<./part2-test4.bin> about to boot
+******************sending 9760 bytes
+waiting for a start
+got a start
+putting code
+put code and got back
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a doubly-linked list is handled.
+sizeof hdr=56, redzone=128
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1000b8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100200
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100348
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100490
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1005d8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100720
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100868
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1009b0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100af8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100c40
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100d88
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100ed0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101018
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101160
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1012a8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1013f0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101538
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101680
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1017c8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101910
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101a58
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101ba0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101ce8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101e30
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x101f78
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1020c0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102208
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102350
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102498
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1025e0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102728
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102870
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1029b8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102b00
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102c48
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102d90
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x102ed8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103020
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103168
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1032b0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1033f8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103540
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103688
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1037d0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103918
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103a60
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103ba8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103cf0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103e38
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x103f80
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1040c8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104210
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104358
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1044a0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1045e8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104730
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104878
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1049c0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104b08
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104c50
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104d98
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x104ee0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105028
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105170
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1052b8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105400
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105548
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105690
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1057d8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105920
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105a68
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105bb0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105cf8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105e40
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x105f88
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1060d0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106218
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106360
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1064a8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1065f0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106738
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106880
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1069c8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106b10
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106c58
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106da0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x106ee8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107030
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107178
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1072c0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107408
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107550
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107698
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1077e0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107928
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107a70
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107bb8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107d00
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107e48
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x107f90
+TRACE:going to check heap: 32800 bytes allocated, 1015776 bytes left
+TRACE:SUCCESS: checked 100 blocks, detected no errors
+TRACE:GC: SUCCESS heap checked out
+ck-gc.c:mark_all:211:stack has 34 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 100 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+last alloc =0x107f90
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

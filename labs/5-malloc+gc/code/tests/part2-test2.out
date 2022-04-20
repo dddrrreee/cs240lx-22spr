@@ -1,0 +1,33 @@
+find-ttyusb.c:find_ttyusb_first:106:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+my-install: tty-usb=</dev/ttyUSB0> program=<./part2-test2.bin> about to boot
+******************sending 9756 bytes
+waiting for a start
+got a start
+putting code
+put code and got back
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test2: checking that local (stack or reg) pointers are detected.
+sizeof hdr=56, redzone=128
+global_p=0xaa30 datastart=0x9c1c, dataend=0x9c2c
+TRACE:allocating 4 bytes
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1000b8
+TRACE:allocating 4 bytes
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1001f8
+TRACE:going to check heap: 640 bytes allocated, 1047936 bytes left
+TRACE:SUCCESS: checked 2 blocks, detected no errors
+TRACE:GC: SUCCESS heap checked out
+ck-gc.c:mark_all:211:stack has 34 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 2 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+last alloc =0x1001f8
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

@@ -1,0 +1,7 @@
+TRACE:allocating 4 bytes
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1000b8
+TRACE:alloc returned 0x1000b8
+TRACE:freeing 0x1000b8
+TRACE:going to check heap: 320 bytes allocated, 1048256 bytes left
+TRACE:SUCCESS: checked 1 blocks, detected no errors
+TRACE:SUCCESS heap checked out

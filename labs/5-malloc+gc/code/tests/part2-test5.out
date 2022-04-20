@@ -1,0 +1,124 @@
+find-ttyusb.c:find_ttyusb_first:106:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+my-install: tty-usb=</dev/ttyUSB0> program=<./part2-test5.bin> about to boot
+******************sending 10576 bytes
+waiting for a start
+got a start
+putting code
+put code and got back
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a doubly-linked list is handled.
+sizeof hdr=56, redzone=128
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1000b8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100200
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100348
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100490
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1005d8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100720
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100868
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x1009b0
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100af8
+TRACE:allocating 12 bytes
+TRACE:ckalloc:allocated 12 bytes, (total=328), ptr=0x100c40
+TRACE:going to check heap: 3280 bytes allocated, 1045296 bytes left
+TRACE:SUCCESS: checked 10 blocks, detected no errors
+TRACE:GC: SUCCESS heap checked out
+ck-gc.c:mark_all:216:stack has 38 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 10 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+TRACE:going to check heap: 3280 bytes allocated, 1045296 bytes left
+TRACE:SUCCESS: checked 10 blocks, detected no errors
+TRACE:GC: SUCCESS heap checked out
+ck-gc.c:mark_all:216:stack has 32 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:ERROR:GC:DEFINITE LEAK of 0x1000b8
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100200
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100348
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100490
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x1005d8
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100720
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100868
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x1009b0
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100af8
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:ERROR:GC:DEFINITE LEAK of 0x100c40
+TRACE:	nbytes=12
+TRACE:	Block allocated at: part2-test5.c:test:16
+TRACE:	GC:Checked 10 blocks.
+TRACE:		GC:ERRORS: 10 errors, 0 maybe_errors
+----------------------------------------------------------
+TRACE:GC: SUCCESS: found 10 leaks!
+ck-gc.c:mark_all:216:stack has 30 words
+---------------------------------------------------------
+compacting:
+TRACE:GC:FREEing ptr=0x1000b8
+TRACE:freeing 0x1000b8
+TRACE:GC:FREEing ptr=0x100200
+TRACE:freeing 0x100200
+TRACE:GC:FREEing ptr=0x100348
+TRACE:freeing 0x100348
+TRACE:GC:FREEing ptr=0x100490
+TRACE:freeing 0x100490
+TRACE:GC:FREEing ptr=0x1005d8
+TRACE:freeing 0x1005d8
+TRACE:GC:FREEing ptr=0x100720
+TRACE:freeing 0x100720
+TRACE:GC:FREEing ptr=0x100868
+TRACE:freeing 0x100868
+TRACE:GC:FREEing ptr=0x1009b0
+TRACE:freeing 0x1009b0
+TRACE:GC:FREEing ptr=0x100af8
+TRACE:freeing 0x100af8
+TRACE:GC:FREEing ptr=0x100c40
+TRACE:freeing 0x100c40
+TRACE:	GC:Checked 10 blocks, freed 10, 120 bytes
+TRACE:	GC:total allocated = 120, total deallocated = 120
+----------------------------------------------------------
+compacted = 120
+TRACE:going to check heap: 3280 bytes allocated, 1045296 bytes left
+TRACE:SUCCESS: checked 10 blocks, detected no errors
+TRACE:GC: SUCCESS heap checked out
+ck-gc.c:mark_all:216:stack has 32 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 10 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up
