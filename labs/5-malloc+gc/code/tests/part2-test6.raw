@@ -1,0 +1,43 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/part2-test6.bin> about to boot
+HASH: simple_boot: sending 10920 bytes, crc32=be54eb8
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test6
+tests/part2-test6.c:test1:7:allocating 0x17fffc
+found 0x17fffc in 0x17ffd8
+tests/part2-test6.c:test1:7:successful alloc of 0x17fffc
+TRACE:alloc returned 0x17fffc
+TRACE:test1 returned 0x17fffd
+ck-gc.c:mark_all:204:stack has 26 words
+found 0x17fffd in 0x17ffd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fffd
+ck-gc.c:mark:105:CK_DEBUG:addr 0x7ffffe8: referenced middle = 0x17fffc
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fffc, start=0, middle=1
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+ck-gc.c:mark_all:204:stack has 26 words
+found 0x17fffd in 0x17ffd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fffd
+ck-gc.c:mark:105:CK_DEBUG:addr 0x7ffffe8: referenced middle = 0x17fffc
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fffc, start=0, middle=1
+TRACE:ERROR:GC:MAYBE LEAK of 0x17fffc (no pointer to the start)
+TRACE:	nbytes=4
+TRACE:	Block allocated at: tests/part2-test6.c:test1:7
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 0 errors, 1 maybe_errors
+----------------------------------------------------------
+TRACE:SUCCESS: detected a maybe leak!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

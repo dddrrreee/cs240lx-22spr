@@ -1,0 +1,731 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/part2-test3.bin> about to boot
+HASH: simple_boot: sending 10688 bytes, crc32=d1b860d8
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a linked list is successfully traversed.
+tests/part2-test3.c:test:18:allocating 0x17fff4
+found 0x17fff4 in 0x17ffd0
+tests/part2-test3.c:test:18:successful alloc of 0x17fff4
+tests/part2-test3.c:test:18:allocating 0x17ffbc
+found 0x17ffbc in 0x17ff98
+tests/part2-test3.c:test:18:successful alloc of 0x17ffbc
+tests/part2-test3.c:test:18:allocating 0x17ff84
+found 0x17ff84 in 0x17ff60
+tests/part2-test3.c:test:18:successful alloc of 0x17ff84
+tests/part2-test3.c:test:18:allocating 0x17ff4c
+found 0x17ff4c in 0x17ff28
+tests/part2-test3.c:test:18:successful alloc of 0x17ff4c
+tests/part2-test3.c:test:18:allocating 0x17ff14
+found 0x17ff14 in 0x17fef0
+tests/part2-test3.c:test:18:successful alloc of 0x17ff14
+tests/part2-test3.c:test:18:allocating 0x17fedc
+found 0x17fedc in 0x17feb8
+tests/part2-test3.c:test:18:successful alloc of 0x17fedc
+tests/part2-test3.c:test:18:allocating 0x17fea4
+found 0x17fea4 in 0x17fe80
+tests/part2-test3.c:test:18:successful alloc of 0x17fea4
+tests/part2-test3.c:test:18:allocating 0x17fe6c
+found 0x17fe6c in 0x17fe48
+tests/part2-test3.c:test:18:successful alloc of 0x17fe6c
+tests/part2-test3.c:test:18:allocating 0x17fe34
+found 0x17fe34 in 0x17fe10
+tests/part2-test3.c:test:18:successful alloc of 0x17fe34
+tests/part2-test3.c:test:18:allocating 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+tests/part2-test3.c:test:18:successful alloc of 0x17fdfc
+tests/part2-test3.c:test:18:allocating 0x17fdc4
+found 0x17fdc4 in 0x17fda0
+tests/part2-test3.c:test:18:successful alloc of 0x17fdc4
+tests/part2-test3.c:test:18:allocating 0x17fd8c
+found 0x17fd8c in 0x17fd68
+tests/part2-test3.c:test:18:successful alloc of 0x17fd8c
+tests/part2-test3.c:test:18:allocating 0x17fd54
+found 0x17fd54 in 0x17fd30
+tests/part2-test3.c:test:18:successful alloc of 0x17fd54
+tests/part2-test3.c:test:18:allocating 0x17fd1c
+found 0x17fd1c in 0x17fcf8
+tests/part2-test3.c:test:18:successful alloc of 0x17fd1c
+tests/part2-test3.c:test:18:allocating 0x17fce4
+found 0x17fce4 in 0x17fcc0
+tests/part2-test3.c:test:18:successful alloc of 0x17fce4
+tests/part2-test3.c:test:18:allocating 0x17fcac
+found 0x17fcac in 0x17fc88
+tests/part2-test3.c:test:18:successful alloc of 0x17fcac
+tests/part2-test3.c:test:18:allocating 0x17fc74
+found 0x17fc74 in 0x17fc50
+tests/part2-test3.c:test:18:successful alloc of 0x17fc74
+tests/part2-test3.c:test:18:allocating 0x17fc3c
+found 0x17fc3c in 0x17fc18
+tests/part2-test3.c:test:18:successful alloc of 0x17fc3c
+tests/part2-test3.c:test:18:allocating 0x17fc04
+found 0x17fc04 in 0x17fbe0
+tests/part2-test3.c:test:18:successful alloc of 0x17fc04
+tests/part2-test3.c:test:18:allocating 0x17fbcc
+found 0x17fbcc in 0x17fba8
+tests/part2-test3.c:test:18:successful alloc of 0x17fbcc
+tests/part2-test3.c:test:18:allocating 0x17fb94
+found 0x17fb94 in 0x17fb70
+tests/part2-test3.c:test:18:successful alloc of 0x17fb94
+tests/part2-test3.c:test:18:allocating 0x17fb5c
+found 0x17fb5c in 0x17fb38
+tests/part2-test3.c:test:18:successful alloc of 0x17fb5c
+tests/part2-test3.c:test:18:allocating 0x17fb24
+found 0x17fb24 in 0x17fb00
+tests/part2-test3.c:test:18:successful alloc of 0x17fb24
+tests/part2-test3.c:test:18:allocating 0x17faec
+found 0x17faec in 0x17fac8
+tests/part2-test3.c:test:18:successful alloc of 0x17faec
+tests/part2-test3.c:test:18:allocating 0x17fab4
+found 0x17fab4 in 0x17fa90
+tests/part2-test3.c:test:18:successful alloc of 0x17fab4
+tests/part2-test3.c:test:18:allocating 0x17fa7c
+found 0x17fa7c in 0x17fa58
+tests/part2-test3.c:test:18:successful alloc of 0x17fa7c
+tests/part2-test3.c:test:18:allocating 0x17fa44
+found 0x17fa44 in 0x17fa20
+tests/part2-test3.c:test:18:successful alloc of 0x17fa44
+tests/part2-test3.c:test:18:allocating 0x17fa0c
+found 0x17fa0c in 0x17f9e8
+tests/part2-test3.c:test:18:successful alloc of 0x17fa0c
+tests/part2-test3.c:test:18:allocating 0x17f9d4
+found 0x17f9d4 in 0x17f9b0
+tests/part2-test3.c:test:18:successful alloc of 0x17f9d4
+tests/part2-test3.c:test:18:allocating 0x17f99c
+found 0x17f99c in 0x17f978
+tests/part2-test3.c:test:18:successful alloc of 0x17f99c
+tests/part2-test3.c:test:18:allocating 0x17f964
+found 0x17f964 in 0x17f940
+tests/part2-test3.c:test:18:successful alloc of 0x17f964
+tests/part2-test3.c:test:18:allocating 0x17f92c
+found 0x17f92c in 0x17f908
+tests/part2-test3.c:test:18:successful alloc of 0x17f92c
+tests/part2-test3.c:test:18:allocating 0x17f8f4
+found 0x17f8f4 in 0x17f8d0
+tests/part2-test3.c:test:18:successful alloc of 0x17f8f4
+tests/part2-test3.c:test:18:allocating 0x17f8bc
+found 0x17f8bc in 0x17f898
+tests/part2-test3.c:test:18:successful alloc of 0x17f8bc
+tests/part2-test3.c:test:18:allocating 0x17f884
+found 0x17f884 in 0x17f860
+tests/part2-test3.c:test:18:successful alloc of 0x17f884
+tests/part2-test3.c:test:18:allocating 0x17f84c
+found 0x17f84c in 0x17f828
+tests/part2-test3.c:test:18:successful alloc of 0x17f84c
+tests/part2-test3.c:test:18:allocating 0x17f814
+found 0x17f814 in 0x17f7f0
+tests/part2-test3.c:test:18:successful alloc of 0x17f814
+tests/part2-test3.c:test:18:allocating 0x17f7dc
+found 0x17f7dc in 0x17f7b8
+tests/part2-test3.c:test:18:successful alloc of 0x17f7dc
+tests/part2-test3.c:test:18:allocating 0x17f7a4
+found 0x17f7a4 in 0x17f780
+tests/part2-test3.c:test:18:successful alloc of 0x17f7a4
+tests/part2-test3.c:test:18:allocating 0x17f76c
+found 0x17f76c in 0x17f748
+tests/part2-test3.c:test:18:successful alloc of 0x17f76c
+tests/part2-test3.c:test:18:allocating 0x17f734
+found 0x17f734 in 0x17f710
+tests/part2-test3.c:test:18:successful alloc of 0x17f734
+tests/part2-test3.c:test:18:allocating 0x17f6fc
+found 0x17f6fc in 0x17f6d8
+tests/part2-test3.c:test:18:successful alloc of 0x17f6fc
+tests/part2-test3.c:test:18:allocating 0x17f6c4
+found 0x17f6c4 in 0x17f6a0
+tests/part2-test3.c:test:18:successful alloc of 0x17f6c4
+tests/part2-test3.c:test:18:allocating 0x17f68c
+found 0x17f68c in 0x17f668
+tests/part2-test3.c:test:18:successful alloc of 0x17f68c
+tests/part2-test3.c:test:18:allocating 0x17f654
+found 0x17f654 in 0x17f630
+tests/part2-test3.c:test:18:successful alloc of 0x17f654
+tests/part2-test3.c:test:18:allocating 0x17f61c
+found 0x17f61c in 0x17f5f8
+tests/part2-test3.c:test:18:successful alloc of 0x17f61c
+tests/part2-test3.c:test:18:allocating 0x17f5e4
+found 0x17f5e4 in 0x17f5c0
+tests/part2-test3.c:test:18:successful alloc of 0x17f5e4
+tests/part2-test3.c:test:18:allocating 0x17f5ac
+found 0x17f5ac in 0x17f588
+tests/part2-test3.c:test:18:successful alloc of 0x17f5ac
+tests/part2-test3.c:test:18:allocating 0x17f574
+found 0x17f574 in 0x17f550
+tests/part2-test3.c:test:18:successful alloc of 0x17f574
+tests/part2-test3.c:test:18:allocating 0x17f53c
+found 0x17f53c in 0x17f518
+tests/part2-test3.c:test:18:successful alloc of 0x17f53c
+tests/part2-test3.c:test:18:allocating 0x17f504
+found 0x17f504 in 0x17f4e0
+tests/part2-test3.c:test:18:successful alloc of 0x17f504
+tests/part2-test3.c:test:18:allocating 0x17f4cc
+found 0x17f4cc in 0x17f4a8
+tests/part2-test3.c:test:18:successful alloc of 0x17f4cc
+tests/part2-test3.c:test:18:allocating 0x17f494
+found 0x17f494 in 0x17f470
+tests/part2-test3.c:test:18:successful alloc of 0x17f494
+tests/part2-test3.c:test:18:allocating 0x17f45c
+found 0x17f45c in 0x17f438
+tests/part2-test3.c:test:18:successful alloc of 0x17f45c
+tests/part2-test3.c:test:18:allocating 0x17f424
+found 0x17f424 in 0x17f400
+tests/part2-test3.c:test:18:successful alloc of 0x17f424
+tests/part2-test3.c:test:18:allocating 0x17f3ec
+found 0x17f3ec in 0x17f3c8
+tests/part2-test3.c:test:18:successful alloc of 0x17f3ec
+tests/part2-test3.c:test:18:allocating 0x17f3b4
+found 0x17f3b4 in 0x17f390
+tests/part2-test3.c:test:18:successful alloc of 0x17f3b4
+tests/part2-test3.c:test:18:allocating 0x17f37c
+found 0x17f37c in 0x17f358
+tests/part2-test3.c:test:18:successful alloc of 0x17f37c
+tests/part2-test3.c:test:18:allocating 0x17f344
+found 0x17f344 in 0x17f320
+tests/part2-test3.c:test:18:successful alloc of 0x17f344
+tests/part2-test3.c:test:18:allocating 0x17f30c
+found 0x17f30c in 0x17f2e8
+tests/part2-test3.c:test:18:successful alloc of 0x17f30c
+tests/part2-test3.c:test:18:allocating 0x17f2d4
+found 0x17f2d4 in 0x17f2b0
+tests/part2-test3.c:test:18:successful alloc of 0x17f2d4
+tests/part2-test3.c:test:18:allocating 0x17f29c
+found 0x17f29c in 0x17f278
+tests/part2-test3.c:test:18:successful alloc of 0x17f29c
+tests/part2-test3.c:test:18:allocating 0x17f264
+found 0x17f264 in 0x17f240
+tests/part2-test3.c:test:18:successful alloc of 0x17f264
+tests/part2-test3.c:test:18:allocating 0x17f22c
+found 0x17f22c in 0x17f208
+tests/part2-test3.c:test:18:successful alloc of 0x17f22c
+tests/part2-test3.c:test:18:allocating 0x17f1f4
+found 0x17f1f4 in 0x17f1d0
+tests/part2-test3.c:test:18:successful alloc of 0x17f1f4
+tests/part2-test3.c:test:18:allocating 0x17f1bc
+found 0x17f1bc in 0x17f198
+tests/part2-test3.c:test:18:successful alloc of 0x17f1bc
+tests/part2-test3.c:test:18:allocating 0x17f184
+found 0x17f184 in 0x17f160
+tests/part2-test3.c:test:18:successful alloc of 0x17f184
+tests/part2-test3.c:test:18:allocating 0x17f14c
+found 0x17f14c in 0x17f128
+tests/part2-test3.c:test:18:successful alloc of 0x17f14c
+tests/part2-test3.c:test:18:allocating 0x17f114
+found 0x17f114 in 0x17f0f0
+tests/part2-test3.c:test:18:successful alloc of 0x17f114
+tests/part2-test3.c:test:18:allocating 0x17f0dc
+found 0x17f0dc in 0x17f0b8
+tests/part2-test3.c:test:18:successful alloc of 0x17f0dc
+tests/part2-test3.c:test:18:allocating 0x17f0a4
+found 0x17f0a4 in 0x17f080
+tests/part2-test3.c:test:18:successful alloc of 0x17f0a4
+tests/part2-test3.c:test:18:allocating 0x17f06c
+found 0x17f06c in 0x17f048
+tests/part2-test3.c:test:18:successful alloc of 0x17f06c
+tests/part2-test3.c:test:18:allocating 0x17f034
+found 0x17f034 in 0x17f010
+tests/part2-test3.c:test:18:successful alloc of 0x17f034
+tests/part2-test3.c:test:18:allocating 0x17effc
+found 0x17effc in 0x17efd8
+tests/part2-test3.c:test:18:successful alloc of 0x17effc
+tests/part2-test3.c:test:18:allocating 0x17efc4
+found 0x17efc4 in 0x17efa0
+tests/part2-test3.c:test:18:successful alloc of 0x17efc4
+tests/part2-test3.c:test:18:allocating 0x17ef8c
+found 0x17ef8c in 0x17ef68
+tests/part2-test3.c:test:18:successful alloc of 0x17ef8c
+tests/part2-test3.c:test:18:allocating 0x17ef54
+found 0x17ef54 in 0x17ef30
+tests/part2-test3.c:test:18:successful alloc of 0x17ef54
+tests/part2-test3.c:test:18:allocating 0x17ef1c
+found 0x17ef1c in 0x17eef8
+tests/part2-test3.c:test:18:successful alloc of 0x17ef1c
+tests/part2-test3.c:test:18:allocating 0x17eee4
+found 0x17eee4 in 0x17eec0
+tests/part2-test3.c:test:18:successful alloc of 0x17eee4
+tests/part2-test3.c:test:18:allocating 0x17eeac
+found 0x17eeac in 0x17ee88
+tests/part2-test3.c:test:18:successful alloc of 0x17eeac
+tests/part2-test3.c:test:18:allocating 0x17ee74
+found 0x17ee74 in 0x17ee50
+tests/part2-test3.c:test:18:successful alloc of 0x17ee74
+tests/part2-test3.c:test:18:allocating 0x17ee3c
+found 0x17ee3c in 0x17ee18
+tests/part2-test3.c:test:18:successful alloc of 0x17ee3c
+tests/part2-test3.c:test:18:allocating 0x17ee04
+found 0x17ee04 in 0x17ede0
+tests/part2-test3.c:test:18:successful alloc of 0x17ee04
+tests/part2-test3.c:test:18:allocating 0x17edcc
+found 0x17edcc in 0x17eda8
+tests/part2-test3.c:test:18:successful alloc of 0x17edcc
+tests/part2-test3.c:test:18:allocating 0x17ed94
+found 0x17ed94 in 0x17ed70
+tests/part2-test3.c:test:18:successful alloc of 0x17ed94
+tests/part2-test3.c:test:18:allocating 0x17ed5c
+found 0x17ed5c in 0x17ed38
+tests/part2-test3.c:test:18:successful alloc of 0x17ed5c
+tests/part2-test3.c:test:18:allocating 0x17ed24
+found 0x17ed24 in 0x17ed00
+tests/part2-test3.c:test:18:successful alloc of 0x17ed24
+tests/part2-test3.c:test:18:allocating 0x17ecec
+found 0x17ecec in 0x17ecc8
+tests/part2-test3.c:test:18:successful alloc of 0x17ecec
+tests/part2-test3.c:test:18:allocating 0x17ecb4
+found 0x17ecb4 in 0x17ec90
+tests/part2-test3.c:test:18:successful alloc of 0x17ecb4
+tests/part2-test3.c:test:18:allocating 0x17ec7c
+found 0x17ec7c in 0x17ec58
+tests/part2-test3.c:test:18:successful alloc of 0x17ec7c
+tests/part2-test3.c:test:18:allocating 0x17ec44
+found 0x17ec44 in 0x17ec20
+tests/part2-test3.c:test:18:successful alloc of 0x17ec44
+tests/part2-test3.c:test:18:allocating 0x17ec0c
+found 0x17ec0c in 0x17ebe8
+tests/part2-test3.c:test:18:successful alloc of 0x17ec0c
+tests/part2-test3.c:test:18:allocating 0x17ebd4
+found 0x17ebd4 in 0x17ebb0
+tests/part2-test3.c:test:18:successful alloc of 0x17ebd4
+tests/part2-test3.c:test:18:allocating 0x17eb9c
+found 0x17eb9c in 0x17eb78
+tests/part2-test3.c:test:18:successful alloc of 0x17eb9c
+tests/part2-test3.c:test:18:allocating 0x17eb64
+found 0x17eb64 in 0x17eb40
+tests/part2-test3.c:test:18:successful alloc of 0x17eb64
+tests/part2-test3.c:test:18:allocating 0x17eb2c
+found 0x17eb2c in 0x17eb08
+tests/part2-test3.c:test:18:successful alloc of 0x17eb2c
+tests/part2-test3.c:test:18:allocating 0x17eaf4
+found 0x17eaf4 in 0x17ead0
+tests/part2-test3.c:test:18:successful alloc of 0x17eaf4
+tests/part2-test3.c:test:18:allocating 0x17eabc
+found 0x17eabc in 0x17ea98
+tests/part2-test3.c:test:18:successful alloc of 0x17eabc
+tests/part2-test3.c:test:18:allocating 0x17ea84
+found 0x17ea84 in 0x17ea60
+tests/part2-test3.c:test:18:successful alloc of 0x17ea84
+tests/part2-test3.c:test:18:allocating 0x17ea4c
+found 0x17ea4c in 0x17ea28
+tests/part2-test3.c:test:18:successful alloc of 0x17ea4c
+found 0x17ea4c in 0x17ea28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ea4c
+ck-gc.c:mark:101:CK_DEBUG:0x7ffff90: referenced start = 0x17ea4c
+found 0x17ea84 in 0x17ea60
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ea84
+ck-gc.c:mark:101:CK_DEBUG:0x17ea50: referenced start = 0x17ea84
+found 0x17eabc in 0x17ea98
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eabc
+ck-gc.c:mark:101:CK_DEBUG:0x17ea88: referenced start = 0x17eabc
+found 0x17eaf4 in 0x17ead0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eaf4
+ck-gc.c:mark:101:CK_DEBUG:0x17eac0: referenced start = 0x17eaf4
+found 0x17eb2c in 0x17eb08
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eb2c
+ck-gc.c:mark:101:CK_DEBUG:0x17eaf8: referenced start = 0x17eb2c
+found 0x17eb64 in 0x17eb40
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eb64
+ck-gc.c:mark:101:CK_DEBUG:0x17eb30: referenced start = 0x17eb64
+found 0x17eb9c in 0x17eb78
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eb9c
+ck-gc.c:mark:101:CK_DEBUG:0x17eb68: referenced start = 0x17eb9c
+found 0x17ebd4 in 0x17ebb0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ebd4
+ck-gc.c:mark:101:CK_DEBUG:0x17eba0: referenced start = 0x17ebd4
+found 0x17ec0c in 0x17ebe8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ec0c
+ck-gc.c:mark:101:CK_DEBUG:0x17ebd8: referenced start = 0x17ec0c
+found 0x17ec44 in 0x17ec20
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ec44
+ck-gc.c:mark:101:CK_DEBUG:0x17ec10: referenced start = 0x17ec44
+found 0x17ec7c in 0x17ec58
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ec7c
+ck-gc.c:mark:101:CK_DEBUG:0x17ec48: referenced start = 0x17ec7c
+found 0x17ecb4 in 0x17ec90
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ecb4
+ck-gc.c:mark:101:CK_DEBUG:0x17ec80: referenced start = 0x17ecb4
+found 0x17ecec in 0x17ecc8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ecec
+ck-gc.c:mark:101:CK_DEBUG:0x17ecb8: referenced start = 0x17ecec
+found 0x17ed24 in 0x17ed00
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ed24
+ck-gc.c:mark:101:CK_DEBUG:0x17ecf0: referenced start = 0x17ed24
+found 0x17ed5c in 0x17ed38
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ed5c
+ck-gc.c:mark:101:CK_DEBUG:0x17ed28: referenced start = 0x17ed5c
+found 0x17ed94 in 0x17ed70
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ed94
+ck-gc.c:mark:101:CK_DEBUG:0x17ed60: referenced start = 0x17ed94
+found 0x17edcc in 0x17eda8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17edcc
+ck-gc.c:mark:101:CK_DEBUG:0x17ed98: referenced start = 0x17edcc
+found 0x17ee04 in 0x17ede0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ee04
+ck-gc.c:mark:101:CK_DEBUG:0x17edd0: referenced start = 0x17ee04
+found 0x17ee3c in 0x17ee18
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ee3c
+ck-gc.c:mark:101:CK_DEBUG:0x17ee08: referenced start = 0x17ee3c
+found 0x17ee74 in 0x17ee50
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ee74
+ck-gc.c:mark:101:CK_DEBUG:0x17ee40: referenced start = 0x17ee74
+found 0x17eeac in 0x17ee88
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eeac
+ck-gc.c:mark:101:CK_DEBUG:0x17ee78: referenced start = 0x17eeac
+found 0x17eee4 in 0x17eec0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17eee4
+ck-gc.c:mark:101:CK_DEBUG:0x17eeb0: referenced start = 0x17eee4
+found 0x17ef1c in 0x17eef8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ef1c
+ck-gc.c:mark:101:CK_DEBUG:0x17eee8: referenced start = 0x17ef1c
+found 0x17ef54 in 0x17ef30
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ef54
+ck-gc.c:mark:101:CK_DEBUG:0x17ef20: referenced start = 0x17ef54
+found 0x17ef8c in 0x17ef68
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ef8c
+ck-gc.c:mark:101:CK_DEBUG:0x17ef58: referenced start = 0x17ef8c
+found 0x17efc4 in 0x17efa0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17efc4
+ck-gc.c:mark:101:CK_DEBUG:0x17ef90: referenced start = 0x17efc4
+found 0x17effc in 0x17efd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17effc
+ck-gc.c:mark:101:CK_DEBUG:0x17efc8: referenced start = 0x17effc
+found 0x17f034 in 0x17f010
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f034
+ck-gc.c:mark:101:CK_DEBUG:0x17f000: referenced start = 0x17f034
+found 0x17f06c in 0x17f048
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f06c
+ck-gc.c:mark:101:CK_DEBUG:0x17f038: referenced start = 0x17f06c
+found 0x17f0a4 in 0x17f080
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f0a4
+ck-gc.c:mark:101:CK_DEBUG:0x17f070: referenced start = 0x17f0a4
+found 0x17f0dc in 0x17f0b8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f0dc
+ck-gc.c:mark:101:CK_DEBUG:0x17f0a8: referenced start = 0x17f0dc
+found 0x17f114 in 0x17f0f0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f114
+ck-gc.c:mark:101:CK_DEBUG:0x17f0e0: referenced start = 0x17f114
+found 0x17f14c in 0x17f128
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f14c
+ck-gc.c:mark:101:CK_DEBUG:0x17f118: referenced start = 0x17f14c
+found 0x17f184 in 0x17f160
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f184
+ck-gc.c:mark:101:CK_DEBUG:0x17f150: referenced start = 0x17f184
+found 0x17f1bc in 0x17f198
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f1bc
+ck-gc.c:mark:101:CK_DEBUG:0x17f188: referenced start = 0x17f1bc
+found 0x17f1f4 in 0x17f1d0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f1f4
+ck-gc.c:mark:101:CK_DEBUG:0x17f1c0: referenced start = 0x17f1f4
+found 0x17f22c in 0x17f208
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f22c
+ck-gc.c:mark:101:CK_DEBUG:0x17f1f8: referenced start = 0x17f22c
+found 0x17f264 in 0x17f240
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f264
+ck-gc.c:mark:101:CK_DEBUG:0x17f230: referenced start = 0x17f264
+found 0x17f29c in 0x17f278
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f29c
+ck-gc.c:mark:101:CK_DEBUG:0x17f268: referenced start = 0x17f29c
+found 0x17f2d4 in 0x17f2b0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f2d4
+ck-gc.c:mark:101:CK_DEBUG:0x17f2a0: referenced start = 0x17f2d4
+found 0x17f30c in 0x17f2e8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f30c
+ck-gc.c:mark:101:CK_DEBUG:0x17f2d8: referenced start = 0x17f30c
+found 0x17f344 in 0x17f320
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f344
+ck-gc.c:mark:101:CK_DEBUG:0x17f310: referenced start = 0x17f344
+found 0x17f37c in 0x17f358
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f37c
+ck-gc.c:mark:101:CK_DEBUG:0x17f348: referenced start = 0x17f37c
+found 0x17f3b4 in 0x17f390
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f3b4
+ck-gc.c:mark:101:CK_DEBUG:0x17f380: referenced start = 0x17f3b4
+found 0x17f3ec in 0x17f3c8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f3ec
+ck-gc.c:mark:101:CK_DEBUG:0x17f3b8: referenced start = 0x17f3ec
+found 0x17f424 in 0x17f400
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f424
+ck-gc.c:mark:101:CK_DEBUG:0x17f3f0: referenced start = 0x17f424
+found 0x17f45c in 0x17f438
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f45c
+ck-gc.c:mark:101:CK_DEBUG:0x17f428: referenced start = 0x17f45c
+found 0x17f494 in 0x17f470
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f494
+ck-gc.c:mark:101:CK_DEBUG:0x17f460: referenced start = 0x17f494
+found 0x17f4cc in 0x17f4a8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f4cc
+ck-gc.c:mark:101:CK_DEBUG:0x17f498: referenced start = 0x17f4cc
+found 0x17f504 in 0x17f4e0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f504
+ck-gc.c:mark:101:CK_DEBUG:0x17f4d0: referenced start = 0x17f504
+found 0x17f53c in 0x17f518
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f53c
+ck-gc.c:mark:101:CK_DEBUG:0x17f508: referenced start = 0x17f53c
+found 0x17f574 in 0x17f550
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f574
+ck-gc.c:mark:101:CK_DEBUG:0x17f540: referenced start = 0x17f574
+found 0x17f5ac in 0x17f588
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f5ac
+ck-gc.c:mark:101:CK_DEBUG:0x17f578: referenced start = 0x17f5ac
+found 0x17f5e4 in 0x17f5c0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f5e4
+ck-gc.c:mark:101:CK_DEBUG:0x17f5b0: referenced start = 0x17f5e4
+found 0x17f61c in 0x17f5f8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f61c
+ck-gc.c:mark:101:CK_DEBUG:0x17f5e8: referenced start = 0x17f61c
+found 0x17f654 in 0x17f630
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f654
+ck-gc.c:mark:101:CK_DEBUG:0x17f620: referenced start = 0x17f654
+found 0x17f68c in 0x17f668
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f68c
+ck-gc.c:mark:101:CK_DEBUG:0x17f658: referenced start = 0x17f68c
+found 0x17f6c4 in 0x17f6a0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f6c4
+ck-gc.c:mark:101:CK_DEBUG:0x17f690: referenced start = 0x17f6c4
+found 0x17f6fc in 0x17f6d8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f6fc
+ck-gc.c:mark:101:CK_DEBUG:0x17f6c8: referenced start = 0x17f6fc
+found 0x17f734 in 0x17f710
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f734
+ck-gc.c:mark:101:CK_DEBUG:0x17f700: referenced start = 0x17f734
+found 0x17f76c in 0x17f748
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f76c
+ck-gc.c:mark:101:CK_DEBUG:0x17f738: referenced start = 0x17f76c
+found 0x17f7a4 in 0x17f780
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f7a4
+ck-gc.c:mark:101:CK_DEBUG:0x17f770: referenced start = 0x17f7a4
+found 0x17f7dc in 0x17f7b8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f7dc
+ck-gc.c:mark:101:CK_DEBUG:0x17f7a8: referenced start = 0x17f7dc
+found 0x17f814 in 0x17f7f0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f814
+ck-gc.c:mark:101:CK_DEBUG:0x17f7e0: referenced start = 0x17f814
+found 0x17f84c in 0x17f828
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f84c
+ck-gc.c:mark:101:CK_DEBUG:0x17f818: referenced start = 0x17f84c
+found 0x17f884 in 0x17f860
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f884
+ck-gc.c:mark:101:CK_DEBUG:0x17f850: referenced start = 0x17f884
+found 0x17f8bc in 0x17f898
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f8bc
+ck-gc.c:mark:101:CK_DEBUG:0x17f888: referenced start = 0x17f8bc
+found 0x17f8f4 in 0x17f8d0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f8f4
+ck-gc.c:mark:101:CK_DEBUG:0x17f8c0: referenced start = 0x17f8f4
+found 0x17f92c in 0x17f908
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f92c
+ck-gc.c:mark:101:CK_DEBUG:0x17f8f8: referenced start = 0x17f92c
+found 0x17f964 in 0x17f940
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f964
+ck-gc.c:mark:101:CK_DEBUG:0x17f930: referenced start = 0x17f964
+found 0x17f99c in 0x17f978
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f99c
+ck-gc.c:mark:101:CK_DEBUG:0x17f968: referenced start = 0x17f99c
+found 0x17f9d4 in 0x17f9b0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17f9d4
+ck-gc.c:mark:101:CK_DEBUG:0x17f9a0: referenced start = 0x17f9d4
+found 0x17fa0c in 0x17f9e8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fa0c
+ck-gc.c:mark:101:CK_DEBUG:0x17f9d8: referenced start = 0x17fa0c
+found 0x17fa44 in 0x17fa20
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fa44
+ck-gc.c:mark:101:CK_DEBUG:0x17fa10: referenced start = 0x17fa44
+found 0x17fa7c in 0x17fa58
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fa7c
+ck-gc.c:mark:101:CK_DEBUG:0x17fa48: referenced start = 0x17fa7c
+found 0x17fab4 in 0x17fa90
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fab4
+ck-gc.c:mark:101:CK_DEBUG:0x17fa80: referenced start = 0x17fab4
+found 0x17faec in 0x17fac8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17faec
+ck-gc.c:mark:101:CK_DEBUG:0x17fab8: referenced start = 0x17faec
+found 0x17fb24 in 0x17fb00
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fb24
+ck-gc.c:mark:101:CK_DEBUG:0x17faf0: referenced start = 0x17fb24
+found 0x17fb5c in 0x17fb38
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fb5c
+ck-gc.c:mark:101:CK_DEBUG:0x17fb28: referenced start = 0x17fb5c
+found 0x17fb94 in 0x17fb70
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fb94
+ck-gc.c:mark:101:CK_DEBUG:0x17fb60: referenced start = 0x17fb94
+found 0x17fbcc in 0x17fba8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fbcc
+ck-gc.c:mark:101:CK_DEBUG:0x17fb98: referenced start = 0x17fbcc
+found 0x17fc04 in 0x17fbe0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fc04
+ck-gc.c:mark:101:CK_DEBUG:0x17fbd0: referenced start = 0x17fc04
+found 0x17fc3c in 0x17fc18
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fc3c
+ck-gc.c:mark:101:CK_DEBUG:0x17fc08: referenced start = 0x17fc3c
+found 0x17fc74 in 0x17fc50
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fc74
+ck-gc.c:mark:101:CK_DEBUG:0x17fc40: referenced start = 0x17fc74
+found 0x17fcac in 0x17fc88
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fcac
+ck-gc.c:mark:101:CK_DEBUG:0x17fc78: referenced start = 0x17fcac
+found 0x17fce4 in 0x17fcc0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fce4
+ck-gc.c:mark:101:CK_DEBUG:0x17fcb0: referenced start = 0x17fce4
+found 0x17fd1c in 0x17fcf8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fd1c
+ck-gc.c:mark:101:CK_DEBUG:0x17fce8: referenced start = 0x17fd1c
+found 0x17fd54 in 0x17fd30
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fd54
+ck-gc.c:mark:101:CK_DEBUG:0x17fd20: referenced start = 0x17fd54
+found 0x17fd8c in 0x17fd68
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fd8c
+ck-gc.c:mark:101:CK_DEBUG:0x17fd58: referenced start = 0x17fd8c
+found 0x17fdc4 in 0x17fda0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdc4
+ck-gc.c:mark:101:CK_DEBUG:0x17fd90: referenced start = 0x17fdc4
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x17fdc8: referenced start = 0x17fdfc
+found 0x17fe34 in 0x17fe10
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe34
+ck-gc.c:mark:101:CK_DEBUG:0x17fe00: referenced start = 0x17fe34
+found 0x17fe6c in 0x17fe48
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe6c
+ck-gc.c:mark:101:CK_DEBUG:0x17fe38: referenced start = 0x17fe6c
+found 0x17fea4 in 0x17fe80
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fea4
+ck-gc.c:mark:101:CK_DEBUG:0x17fe70: referenced start = 0x17fea4
+found 0x17fedc in 0x17feb8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fedc
+ck-gc.c:mark:101:CK_DEBUG:0x17fea8: referenced start = 0x17fedc
+found 0x17ff14 in 0x17fef0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff14
+ck-gc.c:mark:101:CK_DEBUG:0x17fee0: referenced start = 0x17ff14
+found 0x17ff4c in 0x17ff28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff4c
+ck-gc.c:mark:101:CK_DEBUG:0x17ff18: referenced start = 0x17ff4c
+found 0x17ff84 in 0x17ff60
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff84
+ck-gc.c:mark:101:CK_DEBUG:0x17ff50: referenced start = 0x17ff84
+found 0x17ffbc in 0x17ff98
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ffbc
+ck-gc.c:mark:101:CK_DEBUG:0x17ff88: referenced start = 0x17ffbc
+found 0x17fff4 in 0x17ffd0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fff4
+ck-gc.c:mark:101:CK_DEBUG:0x17ffc0: referenced start = 0x17fff4
+ck-gc.c:mark_all:204:stack has 36 words
+found 0x17ea4c in 0x17ea28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ea4c
+ck-gc.c:mark:101:CK_DEBUG:0x7ffff90: referenced start = 0x17ea4c
+found 0x17ea4c in 0x17ea28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ea4c
+ck-gc.c:mark:101:CK_DEBUG:0x7ffffc0: referenced start = 0x17ea4c
+found 0x17ea4c in 0x17ea28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ea4c
+ck-gc.c:mark:101:CK_DEBUG:0x7ffffc8: referenced start = 0x17ea4c
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ea4c, start=4, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ea84, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eabc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eaf4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eb2c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eb64, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eb9c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ebd4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ec0c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ec44, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ec7c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ecb4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ecec, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ed24, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ed5c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ed94, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17edcc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ee04, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ee3c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ee74, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eeac, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17eee4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ef1c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ef54, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ef8c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17efc4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17effc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f034, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f06c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f0a4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f0dc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f114, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f14c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f184, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f1bc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f1f4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f22c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f264, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f29c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f2d4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f30c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f344, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f37c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f3b4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f3ec, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f424, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f45c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f494, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f4cc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f504, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f53c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f574, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f5ac, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f5e4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f61c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f654, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f68c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f6c4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f6fc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f734, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f76c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f7a4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f7dc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f814, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f84c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f884, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f8bc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f8f4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f92c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f964, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f99c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17f9d4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fa0c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fa44, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fa7c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fab4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17faec, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fb24, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fb5c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fb94, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fbcc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fc04, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fc3c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fc74, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fcac, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fce4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fd1c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fd54, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fd8c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fdc4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fdfc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe34, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe6c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fea4, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fedc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff14, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff4c, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff84, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ffbc, start=1, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fff4, start=1, middle=0
+TRACE:	GC:Checked 100 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+last alloc =0x17ea4c
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

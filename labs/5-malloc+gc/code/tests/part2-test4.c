@@ -35,12 +35,6 @@ void *test(void) {
 
 void notmain(void) {
     printk("GC test: checking that a doubly-linked list is handled.\n");
-
-    // start heap allocating after the first mb.   give it 1mb to use.
-    kmalloc_init_set_start(0x100000,0x100000);
-    unsigned n = 1024*1024;
-    ck_init(kmalloc(n),n);
-
     // note: if we do a check after this, may miss b/c the value is laying around
     // on the stack or reg
     printk("last alloc =%p\n", test());

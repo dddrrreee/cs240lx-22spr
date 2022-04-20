@@ -1,0 +1,216 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/part2-test5.bin> about to boot
+HASH: simple_boot: sending 10788 bytes, crc32=f5fe8594
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a doubly-linked list is handled.
+tests/part2-test5.c:test:16:allocating 0x17fff4
+found 0x17fff4 in 0x17ffd0
+tests/part2-test5.c:test:16:successful alloc of 0x17fff4
+tests/part2-test5.c:test:16:allocating 0x17ffbc
+found 0x17ffbc in 0x17ff98
+tests/part2-test5.c:test:16:successful alloc of 0x17ffbc
+tests/part2-test5.c:test:16:allocating 0x17ff84
+found 0x17ff84 in 0x17ff60
+tests/part2-test5.c:test:16:successful alloc of 0x17ff84
+tests/part2-test5.c:test:16:allocating 0x17ff4c
+found 0x17ff4c in 0x17ff28
+tests/part2-test5.c:test:16:successful alloc of 0x17ff4c
+tests/part2-test5.c:test:16:allocating 0x17ff14
+found 0x17ff14 in 0x17fef0
+tests/part2-test5.c:test:16:successful alloc of 0x17ff14
+tests/part2-test5.c:test:16:allocating 0x17fedc
+found 0x17fedc in 0x17feb8
+tests/part2-test5.c:test:16:successful alloc of 0x17fedc
+tests/part2-test5.c:test:16:allocating 0x17fea4
+found 0x17fea4 in 0x17fe80
+tests/part2-test5.c:test:16:successful alloc of 0x17fea4
+tests/part2-test5.c:test:16:allocating 0x17fe6c
+found 0x17fe6c in 0x17fe48
+tests/part2-test5.c:test:16:successful alloc of 0x17fe6c
+tests/part2-test5.c:test:16:allocating 0x17fe34
+found 0x17fe34 in 0x17fe10
+tests/part2-test5.c:test:16:successful alloc of 0x17fe34
+tests/part2-test5.c:test:16:allocating 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+tests/part2-test5.c:test:16:successful alloc of 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x7ffff7c: referenced start = 0x17fdfc
+found 0x17fe34 in 0x17fe10
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe34
+ck-gc.c:mark:101:CK_DEBUG:0x17fe00: referenced start = 0x17fe34
+found 0x17fe6c in 0x17fe48
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe6c
+ck-gc.c:mark:101:CK_DEBUG:0x17fe38: referenced start = 0x17fe6c
+found 0x17fea4 in 0x17fe80
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fea4
+ck-gc.c:mark:101:CK_DEBUG:0x17fe70: referenced start = 0x17fea4
+found 0x17fedc in 0x17feb8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fedc
+ck-gc.c:mark:101:CK_DEBUG:0x17fea8: referenced start = 0x17fedc
+found 0x17ff14 in 0x17fef0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff14
+ck-gc.c:mark:101:CK_DEBUG:0x17fee0: referenced start = 0x17ff14
+found 0x17ff4c in 0x17ff28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff4c
+ck-gc.c:mark:101:CK_DEBUG:0x17ff18: referenced start = 0x17ff4c
+found 0x17ff84 in 0x17ff60
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff84
+ck-gc.c:mark:101:CK_DEBUG:0x17ff50: referenced start = 0x17ff84
+found 0x17ffbc in 0x17ff98
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ffbc
+ck-gc.c:mark:101:CK_DEBUG:0x17ff88: referenced start = 0x17ffbc
+found 0x17fff4 in 0x17ffd0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fff4
+ck-gc.c:mark:101:CK_DEBUG:0x17ffc0: referenced start = 0x17fff4
+found 0x17ffbc in 0x17ff98
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ffbc
+ck-gc.c:mark:101:CK_DEBUG:0x17fffc: referenced start = 0x17ffbc
+found 0x17ff84 in 0x17ff60
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff84
+ck-gc.c:mark:101:CK_DEBUG:0x17ffc4: referenced start = 0x17ff84
+found 0x17ff4c in 0x17ff28
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff4c
+ck-gc.c:mark:101:CK_DEBUG:0x17ff8c: referenced start = 0x17ff4c
+found 0x17ff14 in 0x17fef0
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17ff14
+ck-gc.c:mark:101:CK_DEBUG:0x17ff54: referenced start = 0x17ff14
+found 0x17fedc in 0x17feb8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fedc
+ck-gc.c:mark:101:CK_DEBUG:0x17ff1c: referenced start = 0x17fedc
+found 0x17fea4 in 0x17fe80
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fea4
+ck-gc.c:mark:101:CK_DEBUG:0x17fee4: referenced start = 0x17fea4
+found 0x17fe6c in 0x17fe48
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe6c
+ck-gc.c:mark:101:CK_DEBUG:0x17feac: referenced start = 0x17fe6c
+found 0x17fe34 in 0x17fe10
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fe34
+ck-gc.c:mark:101:CK_DEBUG:0x17fe74: referenced start = 0x17fe34
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x17fe3c: referenced start = 0x17fdfc
+ck-gc.c:mark_all:204:stack has 40 words
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x7ffff7c: referenced start = 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x7ffffb0: referenced start = 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+ck-gc.c:mark:97:CK_DEBUG:checking pointer 0x17fdfc
+ck-gc.c:mark:101:CK_DEBUG:0x7ffffb8: referenced start = 0x17fdfc
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fdfc, start=5, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe34, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe6c, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fea4, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fedc, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff14, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff4c, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff84, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ffbc, start=2, middle=0
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fff4, start=1, middle=0
+TRACE:	GC:Checked 10 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+ck-gc.c:mark_all:204:stack has 28 words
+---------------------------------------------------------
+checking for leaks:
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fdfc, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fdfc
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe34, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fe34
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fe6c, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fe6c
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fea4, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fea4
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fedc, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fedc
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff14, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17ff14
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff4c, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17ff4c
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ff84, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17ff84
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17ffbc, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17ffbc
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+ck-gc.c:sweep_leak:142:CK_DEBUG:checking pointer: 0x17fff4, start=0, middle=0
+TRACE:ERROR:GC:DEFINITE LEAK of 0x17fff4
+TRACE:	nbytes=12
+TRACE:	Block allocated at: tests/part2-test5.c:test:16
+TRACE:	GC:Checked 10 blocks.
+TRACE:		GC:ERRORS: 10 errors, 0 maybe_errors
+----------------------------------------------------------
+TRACE:GC: SUCCESS: found 10 leaks!
+ck-gc.c:mark_all:204:stack has 26 words
+---------------------------------------------------------
+compacting:
+TRACE:GC:FREEing ptr=0x17fdfc
+ck-gc.c:sweep_free:283:freeing 0x17fdfc
+found 0x17fdfc in 0x17fdd8
+TRACE:GC:FREEing ptr=0x17fe34
+ck-gc.c:sweep_free:283:freeing 0x17fe34
+found 0x17fe34 in 0x17fe10
+TRACE:GC:FREEing ptr=0x17fe6c
+ck-gc.c:sweep_free:283:freeing 0x17fe6c
+found 0x17fe6c in 0x17fe48
+TRACE:GC:FREEing ptr=0x17fea4
+ck-gc.c:sweep_free:283:freeing 0x17fea4
+found 0x17fea4 in 0x17fe80
+TRACE:GC:FREEing ptr=0x17fedc
+ck-gc.c:sweep_free:283:freeing 0x17fedc
+found 0x17fedc in 0x17feb8
+TRACE:GC:FREEing ptr=0x17ff14
+ck-gc.c:sweep_free:283:freeing 0x17ff14
+found 0x17ff14 in 0x17fef0
+TRACE:GC:FREEing ptr=0x17ff4c
+ck-gc.c:sweep_free:283:freeing 0x17ff4c
+found 0x17ff4c in 0x17ff28
+TRACE:GC:FREEing ptr=0x17ff84
+ck-gc.c:sweep_free:283:freeing 0x17ff84
+found 0x17ff84 in 0x17ff60
+TRACE:GC:FREEing ptr=0x17ffbc
+ck-gc.c:sweep_free:283:freeing 0x17ffbc
+found 0x17ffbc in 0x17ff98
+TRACE:GC:FREEing ptr=0x17fff4
+ck-gc.c:sweep_free:283:freeing 0x17fff4
+found 0x17fff4 in 0x17ffd0
+TRACE:	GC:Checked 10 blocks, freed 10, 120 bytes
+compacted = 120
+ck-gc.c:mark_all:204:stack has 28 words
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 0 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up
