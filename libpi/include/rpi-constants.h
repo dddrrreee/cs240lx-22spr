@@ -12,6 +12,8 @@
 #define STACK_ADDR          0x8000000
 #define STACK_ADDR2         0x7000000
 
+#define STACK_NBYTES (1024*1024)
+
 // put right above STACK_ADDR
 #define INT_STACK_ADDR      0x9000000  
 #define INT_STACK_ADDR2      0xA000000  

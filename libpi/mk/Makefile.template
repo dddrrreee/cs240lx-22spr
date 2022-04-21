@@ -84,16 +84,16 @@ all:: libs $(TEST_PROGS) $(TEST_RUN) $(CHECK_RUN)
 libs::
 ifneq ($(LIB),libpi.a)
 ifneq ($(LIB),libpi-fp.a)
-	@make -C $(LPP)
-	@make -C $(LPP)
+	@make -s -C $(LPP)
+	@make -s -C $(LPP)
 endif
 endif
 
 ifneq ($(LIB),libpi.a)
 ifneq ($(LIB),libpi-fp.a)
 $(LPI):
-	@make  -C $(LPP)
-	@make -C $(LPP)
+	@make -s  -C $(LPP)
+	@make -s -C $(LPP)
 endif
 endif
 
@@ -114,9 +114,9 @@ endif
 endif
 
 ./%.d: %.c $(DEPS)
-	$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+	@$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
 ./%.d: %.S $(DEPS)
-	$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+	@$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
 
 %.list: %.elf
 	$(OD) -D   $*.elf > $*.list

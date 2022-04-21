@@ -21,7 +21,7 @@
 } while(0)
 
 
-#define trace(args...) do { printk("TRACE:"); printk(args); } while(0)
+#define trace(args...) do { printk("TRACE:" args); } while(0)
 #define trace_notreached() trace_panic("should not reach\n")
 
 #define trace_panic(args...) do { \

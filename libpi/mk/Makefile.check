@@ -20,6 +20,7 @@ MAKEFLAGS += --no-print-directory
 # we only look at this output
 GREP_STR ?= 'TRACE:\|ERROR:\|PANIC:' 
 BOOT_CMD := $(BOOTLOADER) $(TTYUSB)
+STRIP_BRACKETS := 's/\[.*\]//'
 
 .SUFFIXES: .out .run .check 
 
@@ -53,14 +54,14 @@ all: $(TEST_RUN) # $(TEST_CHECK)
 %.out: %.bin
 	@echo -n "generating <$*.out> and <$*.raw>: ";
 	$(BOOT_CMD) ./$< >  $*.raw 2>&1
-	@grep -v simple_boot $*.raw | grep $(GREP_STR) > $*.out
+	@grep -v simple_boot $*.raw | sed $(STRIP_BRACKETS) | grep $(GREP_STR) > $*.out
 	@echo " success!";
 
 %.check: %.bin
-	@echo -n "checking <$*>: ";
-	@$(BOOT_CMD) ./$< 2>&1 > /dev/null | grep -v simple_boot | grep  $(GREP_STR) > $*.test
+	@echo -n "checking <$*>:\n";
+	@$(BOOT_CMD) ./$< 2>&1 > /dev/null | sed $(STRIP_BRACKETS) | grep -v simple_boot | grep  $(GREP_STR) > $*.test
 	@diff ./$*.out ./$*.test || (echo "mismatch in reference ($*.out) and test ($*.test): compare them (and $*.raw) directly to see why"; exit 1)
-	@echo " Success: <$*.test> matched reference <$*.out>!";
+	@echo "\tSuccess: <$*.test> matched reference <$*.out>!";
 	@rm ./$*.test
 
 # we could just cksum all the .outs, but this lets us be more targeted.

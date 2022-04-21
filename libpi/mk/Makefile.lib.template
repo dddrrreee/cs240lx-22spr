@@ -132,12 +132,12 @@ $(LIB): $(ALL_OBJS) $(DEPS) $(LINK_DEPS)
 
 
 %.d: %.c $(DEPS) $(BUILD_DIR)
-	$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+	@$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
 
 # XXX: without this BUILD_DIR dependency, the BUILD_DIR
 # recipe does not run first.  wth?
 $(BUILD_DIR)/%.d: %.c $(DEPS) $(BUILD_DIR)
-	$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+	@$(CC) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
 %.list: %.elf
 	$(OD) -D   $*.elf > $*.list
 %.bin: %.list

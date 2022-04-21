@@ -24,6 +24,8 @@ STAFF_OBJS += staff-objs/rpi-thread.o
 STAFF_OBJS += staff-objs/rpi-thread-asm.o 
 STAFF_OBJS += staff-objs/sw-spi.o
 STAFF_OBJS += staff-objs/interrupts-vec-init.o
+SRC += $(wildcard ./staff-dev/*.[Sc])
+
 endif
 endif
 
