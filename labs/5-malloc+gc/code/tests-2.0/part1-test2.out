@@ -1,0 +1,6 @@
+TRACE:allocating 4 bytes
+TRACE:ckalloc:allocated 4 bytes, (total=320), ptr=0x1000b8
+TRACE:freeing 0x1000b8
+TRACE:ERROR:block 0x1000b8 corrupted at offset 4
+TRACE:	nbytes=4
+TRACE:	Block allocated at: part1-test2.c:notmain:13

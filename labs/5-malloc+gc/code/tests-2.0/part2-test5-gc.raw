@@ -1,0 +1,47 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part2-test5-gc.bin> about to boot
+HASH: simple_boot: sending 11532 bytes, crc32=9abd76df
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a doubly-linked list is handled.
+TRACE:have a live pointer <h>: should not leak
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+TRACE:should leak
+---------------------------------------------------------
+checking for leaks:
+TRACE:ERROR:GC:DEFINITE LEAK of block=1 [addr=0x17fff0]
+TRACE:	logical block id=1, [addr=0x17fff0] nbytes=12
+TRACE:	Block allocated at: tests-2.0/part2-test5-gc.c:test:20
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 1 errors, 0 maybe_errors
+----------------------------------------------------------
+TRACE:GC: SUCCESS: found 1 leaks!
+---------------------------------------------------------
+compacting:
+TRACE:GC:FREEing block id=1 [addr=0x17fff0]
+TRACE:	GC:Checked 1 blocks, freed 1, 12 bytes
+TRACE:compacted = [nbytes=12]
+should find 0 bytes on second gc
+---------------------------------------------------------
+compacting:
+TRACE:	GC:Checked 0 blocks, freed 0, 0 bytes
+TRACE:should find no leak
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 0 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

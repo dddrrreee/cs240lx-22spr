@@ -1,0 +1,29 @@
+TRACE:allocating 824 bytes
+TRACE:ckalloc:allocated 824 bytes, (total=1136), ptr=0x1000b8
+TRACE:allocating 718 bytes
+TRACE:ckalloc:allocated 718 bytes, (total=1032), ptr=0x100528
+TRACE:allocating 691 bytes
+TRACE:ckalloc:allocated 691 bytes, (total=1008), ptr=0x100930
+TRACE:allocating 684 bytes
+TRACE:ckalloc:allocated 684 bytes, (total=1000), ptr=0x100d20
+TRACE:allocating 171 bytes
+TRACE:ckalloc:allocated 171 bytes, (total=488), ptr=0x101108
+TRACE:allocating 554 bytes
+TRACE:ckalloc:allocated 554 bytes, (total=872), ptr=0x1012f0
+TRACE:freeing 0x1000b8
+TRACE:freeing 0x100528
+TRACE:freeing 0x100930
+TRACE:freeing 0x100d20
+TRACE:freeing 0x101108
+TRACE:freeing 0x1012f0
+TRACE:going to check heap: 5536 bytes allocated, 1043040 bytes left
+TRACE:SUCCESS: checked 6 blocks, detected no errors
+TRACE:SUCCESS heap checked out
+TRACE:corrupting 0x101108 at offset 173 (0x1011b5)
+TRACE:going to check heap: 5536 bytes allocated, 1043040 bytes left
+TRACE:ERROR:block 0x101108 corrupted at offset 173
+TRACE:	nbytes=171
+TRACE:	Block allocated at: part1-test6.c:notmain:20
+TRACE:	Block freed at: part1-test6.c:notmain:24
+TRACE:checked 6 blocks, detected 1 errors
+TRACE:SUCCESS found error

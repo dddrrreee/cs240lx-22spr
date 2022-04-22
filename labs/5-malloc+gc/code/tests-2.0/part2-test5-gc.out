@@ -1,0 +1,19 @@
+TRACE:have a live pointer <h>: should not leak
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+TRACE:GC: SUCCESS: no leaks!
+TRACE:should leak
+TRACE:ERROR:GC:DEFINITE LEAK of block=1 
+TRACE:	logical block id=1,  nbytes=12
+TRACE:	Block allocated at: tests-2.0/part2-test5-gc.c:test:20
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 1 errors, 0 maybe_errors
+TRACE:GC: SUCCESS: found 1 leaks!
+TRACE:GC:FREEing block id=1 
+TRACE:	GC:Checked 1 blocks, freed 1, 12 bytes
+TRACE:compacted = 
+TRACE:	GC:Checked 0 blocks, freed 0, 0 bytes
+TRACE:should find no leak
+TRACE:	GC:Checked 0 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+TRACE:GC: SUCCESS: no leaks!
