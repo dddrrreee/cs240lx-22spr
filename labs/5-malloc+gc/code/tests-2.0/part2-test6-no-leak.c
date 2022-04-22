@@ -20,7 +20,7 @@ void notmain(void) {
     // start heap allocating after the first mb.   give it 1mb to use.
     char *p = test1();
     // print something so compiler is forced to save p.
-    trace("test1 returned %p\n", p);
+    trace("test1 returned [%p]\n", p);
 
     // this will not warm if you point to the center.
     if(ck_find_leaks(0))

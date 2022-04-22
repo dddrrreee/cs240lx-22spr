@@ -1,14 +1,14 @@
 find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
 opened tty port </dev/ttyUSB0>.
 pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part2-test6-no-leak.bin> about to boot
-HASH: simple_boot: sending 11352 bytes, crc32=5ef77351
+HASH: simple_boot: sending 11352 bytes, crc32=22234638
 waiting for a start
 putting code
 bootloader: Done.
 listening on ttyusb=</dev/ttyUSB0>
 GC test6
 TRACE:alloc returned block id=1 [0x17fff8]
-TRACE:test1 returned 0x17fff9
+TRACE:test1 returned [0x17fff9]
 ---------------------------------------------------------
 checking for leaks:
 TRACE:	GC:Checked 1 blocks.
