@@ -1,0 +1,4 @@
+TRACE:ERROR:block 1  corrupted at offset 4
+TRACE:	logical block id=1,  nbytes=4
+TRACE:	Block allocated at: tests-2.0/part1-test2-bug.c:notmain:7
+PANIC:ckalloc.c:ckfree:98:corrupted block 1 
