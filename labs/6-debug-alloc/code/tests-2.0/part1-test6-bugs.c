@@ -26,7 +26,7 @@ void notmain(void) {
     char *x = p[i];
     unsigned off = sz[i] + rpi_rand32() % 32;
     x[off] = 1;
-    trace("corrupting %p at offset %d (%p)\n", x, off, &x[off]);
+    trace("corrupting [%p] at offset %d ([%p])\n", x, off, &x[off]);
 
     if(!ck_heap_errors())
         panic("missed error!\n");
