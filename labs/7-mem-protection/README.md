@@ -53,6 +53,11 @@ At this point you'll have a process structure that will:
 ---------------------------------------------------------------------
 #### Catch reads and writes of illegal memory.
 
+Add these to your `libpi/Makefile`:
+
+    STAFF_OBJS += staff-objs/interrupts-asm.o 
+    STAFF_OBJS += staff-objs/interrupts-vec-asm.o
+
 For this step, we'll set up a simple virtual address space that includes
 code, data, stack, heap, and GPIO memory using 1MB pages (in arm parlance
 "segments") and leaves everything else unmapped.  Any read or write to
