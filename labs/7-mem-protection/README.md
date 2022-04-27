@@ -3,20 +3,21 @@
 I'm not sure how far this aspiration will survive, but I'm hoping
 whenever someone hits an interesting bug in class, the next lab we can
 build a tool or method that would have prevented it.  This lab is from
-two interesting bugs that hit Zach and one that hit Igor.  These were
+two interesting bugs that hit Evan and one that hit Igor.  These were
 very tricky to figure out, examples of more general bugs that can hit
 the rest of us, and with the right infrastructure, easy to find.
 
 The first we'll handle is that 
 
 What we need:
-    1. Memory protection.  This will make virtual memory very simple 
-       (20-30 lines) by exploiting a common (universal?) feature of 
-       TLB hardware --- pinning TLB entries.  The ARM has 8 pinnable
-       TLB entries (each up to 4MB in size).  Since we have small processes
-       we can do virtual memory (and thus memory protection) without the
-       need for understdanding or having page tables by simply pinning
-       the mappings we need.
+    1. Memory protection to catch Evan's bug.  This will make virtual
+       memory very simple
+       exploiting a common (universal?) feature of TLB hardware ---
+       pinning TLB entries.  The ARM has 8 pinnable TLB entries (each
+       up to 4MB in size).  Since we have small processes we can do
+       virtual memory (and thus memory protection) without the need
+       for understdanding or having page tables by simply pinning the
+       mappings we need.
 
        I haven't seen anyone using this trick in this way, so we'll be
        ahead of the curve.  
@@ -28,13 +29,13 @@ What we need:
        having 10-100s of thousands of processes by eliminating the need
        for a page table by simply pinning entries on context switch.
 
-    2. Linker script hacks: currently our processes are squished together
+    2. [next time] Linker script hacks: currently our processes are squished together
        in one single page: we want to seperate the code and read-only data
        from writeable data on different pages.  You'll do so by modifying
        the class linker script.  You'll then modify the "loader" code in
        `libpi/staff-src/cstart.c` to lay things out as needed.
 
-     3. Change the code so that you can copy the 
+    3. Watchpoints to catch Igor's bug.
 
 All of these are examples of general things that are useful to know.
 In particular one of the big things we never covered is how to do
@@ -49,7 +50,6 @@ At this point you'll have a process structure that will:
    3. Make reads of null pointer's fail.
 
 
-
 ---------------------------------------------------------------------
 #### Catch reads and writes of illegal memory.
 
@@ -58,17 +58,32 @@ code, data, stack, heap, and GPIO memory using 1MB pages (in arm parlance
 "segments") and leaves everything else unmapped.  Any read or write to
 unmmaped will cause a fault.
 
-
 This is a good first step and is simple enough we should probably always
 have it.  Because of how the current linker script lays out code and
 data we won't be to detect writes to the code segment --- the next step
 handles this.
 
-we map the portions of the address space we allow reads
-and writes to
+What to do today:
+  - Read the pages: 3-149--- 3-152 and 3-80 --- 3-82.
+  - Implement `pin_mmu_on` to pin all the memory needed and turn the MMU on.
+    (you can adapt your 140E code).
+
+
+If you want, you can ignore our starter code and write all that from scratch.
+If you want to use our stuff, there's a few helpers you implement.
+
+
+Where to look:
+  - `pinnned-vm.c`: all your code goes here.  The main routine is `pin_mmu_sec`
+    which pins a section and `tlb_contains_va` which looks up the virtual address.
+  - `tests/0-test3.c`: the one test.
+
+Given code:
+  - `pinned-vm-asm.h`: this has prototypes for the assembly.
+  - `procmap.h`: a simple map of the address space: we'll map this.
 
 ---------------------------------------------------------------------
-#### Prevent null pointers.
+#### [for next time] Prevent null pointers.
 
 If you look at the linker script and any `.list` file you'll see that
 we link the code starting at `0x8000`.   Since null (`0`) is within
@@ -79,7 +94,7 @@ Our first hack is to use 4K pages for this first few mappings.
 This lets us leave the 0 page unmapped and catch faults.
 
 ---------------------------------------------------------------------
-#### Rewrite the linker script to put code and data on different pages.
+#### [for next time] Rewrite the linker script to put code and data on different pages.
 
 Using small pages requires the least amount of changes but  uses 
 lot of extra entries (we only have 8).
@@ -98,12 +113,14 @@ we can prevent modification of code.  However, this will require modifying
 ---------------------------------------------------------------------
 #### Rewrite the linker script to only need 1MB segments
 
-As a final change you will go and
+---------------------------------------------------------------------
+#### Extension:  rewrite 140e `fake-os` to use tiny processes
+
+You should be able to have 4k processes and have 100,000s or processes.
+This should be a world record.
 
 ---------------------------------------------------------------------
 #### Postscript
-
-Put this first.
 
 At this point you should have a much more grounded understanding of:
   1. How exactly processes get started;
