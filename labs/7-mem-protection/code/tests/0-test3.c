@@ -7,7 +7,7 @@ void notmain(void) {
 
     // turn on the pinned MMU: identity map.
     procmap_t p = procmap_default_mk(kern_dom);
-    pin_mmu_on(&p);
+    staff_pin_mmu_on(&p);
 
     // if we got here MMU must be working b/c we have accessed GPIO/UART
     output("hello: mmu must be on\n");

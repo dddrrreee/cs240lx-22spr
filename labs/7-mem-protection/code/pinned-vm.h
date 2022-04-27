@@ -221,9 +221,11 @@ void mmu_on_first_time(uint32_t asid, void *empty_pt);
 
 // turn pinned MMU system on.
 void pin_mmu_on(procmap_t *p);
+void staff_pin_mmu_on(procmap_t *p);
 
 // check that <va> is pinned in the tlb.
 void pin_check_exists(uint32_t va);
+void staff_pin_check_exists(uint32_t va);
 
 
 #endif
