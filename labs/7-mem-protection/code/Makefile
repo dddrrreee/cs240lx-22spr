@@ -3,11 +3,11 @@
 TEST_SRC = tests/0-test3.c
 
 # make a local copy of cstart so you can modify it.
-SUPPORT_OBJS = staff-mmu-except.o cstart.o 
+SUPPORT_OBJS = cstart.o 
 
 # you will swap in yours
 # pinned-vm.o
-STAFF_OBJS = staff-mmu-asm.o staff-mmu.o   staff-pinned-vm.o
+STAFF_OBJS = staff-mmu-asm.o staff-mmu.o   staff-pinned-vm.o staff-mmu-except.o 
 
 # staff-pinned-vm.o
 
