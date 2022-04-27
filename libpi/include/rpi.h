@@ -119,6 +119,7 @@ void reboot_handler(void);
  * simple memory allocation: no free, just have to reboot().
  */
 
+
 // returns 0-filled memory.
 void *kmalloc(unsigned nbytes) ;
 void *kmalloc_aligned(unsigned nbytes, unsigned alignment);
@@ -135,6 +136,10 @@ void kmalloc_init(void);
 // return pointer to the first free byte.  used for
 // bounds checking.
 void *kmalloc_heap_ptr(void);
+// pointer to initial start of heap
+void *kmalloc_heap_start(void);
+// pointer to end of heap
+void *kmalloc_heap_end(void);
 
 // currently no-ops.
 void kfree(void *p);

@@ -1,6 +1,11 @@
 #ifndef __ASM_HELPERS_H__
 #define __ASM_HELPERS_H__
 
+// override this if you don't want it to be static, or inline, etc
+#ifndef ASM_RET_TYPE
+#   define ASM_RET_TYPE static inline 
+#endif
+
 // static inline void prefetch_flush_set(uint32_t r);
 static inline void prefetch_flush(void) {
     unsigned r = 0;
@@ -14,7 +19,7 @@ static inline void prefetch_flush(void) {
 // define a general co-processor inline assembly routine to set the value.
 // from manual: must prefetch-flush after each set.
 #define cp_asm_set(fn_name, coproc, opcode_1, Crn, Crm, opcode_2)       \
-    static inline void fn_name ## _set(uint32_t v) {                    \
+    ASM_RET_TYPE void fn_name ## _set(uint32_t v) {                    \
         asm volatile ("mcr " MK_STR(coproc) ", "                        \
                              MK_STR(opcode_1) ", "                      \
                              "%0, "                                     \
@@ -24,9 +29,9 @@ static inline void prefetch_flush(void) {
         prefetch_flush();                                               \
     }
 
-// no prefetch flush.
+// no prefetch flush: should refactor to just call raw.
 #define cp_asm_set_raw(fn_name, coproc, opcode_1, Crn, Crm, opcode_2)   \
-    static inline void fn_name ## _set_raw(uint32_t v) {                    \
+    ASM_RET_TYPE void fn_name ## _set_raw(uint32_t v) {                    \
         asm volatile ("mcr " MK_STR(coproc) ", "                        \
                              MK_STR(opcode_1) ", "                      \
                              "%0, "                                     \
@@ -36,7 +41,7 @@ static inline void prefetch_flush(void) {
     }
 
 #define cp_asm_get(fn_name, coproc, opcode_1, Crn, Crm, opcode_2)       \
-    static inline uint32_t fn_name ## _get(void) {                      \
+    ASM_RET_TYPE uint32_t fn_name ## _get(void) {                      \
         uint32_t ret=0;                                                   \
         asm volatile ("mrc " MK_STR(coproc) ", "                        \
                              MK_STR(opcode_1) ", "                      \
