@@ -1,4 +1,4 @@
-SUBDIRS=  
+SUBDIRS=  float-test
 
 .PHONY: all check clean
 all check clean: $(SUBDIRS)

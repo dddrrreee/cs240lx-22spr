@@ -29,6 +29,18 @@ You're going to do two things:
      of change, etc.)
 
 ---------------------------------------------------------------------------
+### Floating point: there is now a floating point target.
+
+The `float-test` directory has a simple test for floating point.  Note: we
+compile libpi in two ways: both with and without floating point support.
+
+Currently for your staff objects you'll have to do a gross hack to
+select whether it's the floating point version or not: if you look in
+`manifest.mk` you can see how we get the object in `staff-objs/fp`
+(if `USE_FLOAT` is defined) or from the original `staff-objs/` (if not).
+There's likely a better way but this was expedient before lab.
+
+---------------------------------------------------------------------------
 ### Part0: hook up your potentiometer and ADC.
 
 First off to make sure your basic hardware is working, use the breadboard
