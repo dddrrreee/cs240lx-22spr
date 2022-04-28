@@ -46,6 +46,7 @@ There's likely a better way but this was expedient before lab.
 ---------------------------------------------------------------------------
 ### Part0: hook up your potentiometer and ADC.
 
+
 First off to make sure your basic hardware is working, use the breadboard
 to hook up the potentiometer given in class (the little knob) to the
 power and ground from the pi and a middle leg controlling an LED.
@@ -75,6 +76,10 @@ You should be able to run the `staff-binary/ads1115.bin` and get output.
 ---------------------------------------------------------------------------
 ### Part 1: write the ADC driver (using the `staff-i2c.o` i2c)
 
+NOTE: 
+   - If you run `make` in the `code` directory, it will compile a binary
+     using the staff `.o` files.  You should be able to run this binary.
+
 We want a known signal to check your ADC implementation.  Using the
 potentiometer makes this relatively easy.  It also re-enforces that
 after awhile, datasheets look very similar and they often aren't that bad.
@@ -90,7 +95,6 @@ For this part:
   2. Figure out how to set the configuration register to have 860 samples per
      second and a +/- 4v range.
   3. Make sure your readings make sense.
-
 
 The I2C model has similarities to our use of `GET` (`i2c_read`) and `PUT`
 (`i2c_write`) --- each call takes an 8-bit `address` (i2c calls these
@@ -133,7 +137,6 @@ This shouldn't take that long.  And having an ADC is super useful ---
 there's a huge number of cheap analogue sensors and devices you can
 now use.
 
-
 If you need help debugging, here's a useful routine that will 
 pretty print your configuration register:
 
@@ -150,8 +153,6 @@ pretty print your configuration register:
             printk("\tCOMP_LAT[2]=%b\n", bit_get(c,2));
             printk("\tCOMP_Q[0:1]=%b\n", bits_get(c,0,1));
         }
-
-
 
 ---------------------------------------------------------------------------
 ### Part 2: use your adc to decode readings from the mic
