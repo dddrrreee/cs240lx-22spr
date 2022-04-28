@@ -12,7 +12,7 @@ to read these directly.  Instead we have to use an
 [ADC](https://en.wikipedia.org/wiki/Analog-to-digital_converter) to
 convert the voltage to a number.
 
-You're going to do two things:
+You're going to do three things:
   1. Write a quick driver for the `ads1115` analog-to-digital converter.
      This will give us a way to get a known signal and see that you 
      are correct.
@@ -20,13 +20,16 @@ You're going to do two things:
   2. Use it to get the reading from a potentiometer.  At the lowest setting
      it should be around 1, at the highest around 16k.
 
-  3. Extension: add a microphone or temperature input readings.  
+  3. Add a microphone and see that you get reasonable readings.
 
-     A good final project is making a pretty equalizer using the ws2812b
+  4. Extension: make a pretty equalizer using the ws2812b
      by using the adc to read from a microphone, doing an FFT on the
      data and display the results in a nice way (e.g., seperating the
      bass, mid and treble; changing color based on magnitude and rate
      of change, etc.)
+
+  5. Extension: write your own i2c driver.   The easiest approach would
+     be to bit-bang it.  More fancy is to use the broadcom hardware.
 
 ---------------------------------------------------------------------------
 ### Floating point: there is now a floating point target.
@@ -70,7 +73,7 @@ Next hook up your ADC to the breadboard as well, with:
 You should be able to run the `staff-binary/ads1115.bin` and get output.
 
 ---------------------------------------------------------------------------
-### Part 1: write the ADC driver (using i2c)
+### Part 1: write the ADC driver (using the `staff-i2c.o` i2c)
 
 We want a known signal to check your ADC implementation.  Using the
 potentiometer makes this relatively easy.  It also re-enforces that
@@ -150,13 +153,11 @@ pretty print your configuration register:
 
 
 
-
 ---------------------------------------------------------------------------
-### Part 2: use your adc to decode readings from a mic or temperature sensor 
+### Part 2: use your adc to decode readings from the mic
 
-We have both microphones (`docs/max4466-ebay.pdf`) and temperature sensors
-in class.  You should get one, download the datasheet, and get make sure
-you get some sensible data.
+We gave out microphones (`docs/max4466-ebay.pdf`) in class.  You should
+download the datasheet, and get make sure you get some sensible data.
 
 ---------------------------------------------------------------------------
 ### Exension: use the alert pin to detect when a reading is available.
@@ -169,9 +170,9 @@ that the rate you observe makes sense.
 ### Exension: hook your light strip up to the microphone output.
 
 It's pretty easy to use the ADC to hook it up to your light strip and
-display the results.
-
-I'll have a floating-point version of libpi checked in pretty soon.
+display the results.  The easiest way is to just go by the level of the
+mic.  You can also use the floating point support in libpi to do a simple
+FFT and display that.
 
 ---------------------------------------------------------------------------
 ### Exension: implement your own i2c driver.
