@@ -17,6 +17,7 @@ LPP = $(CS240LX_2022_LIBPI_PATH)
 LPI = $(LPP)/libpi.a
 
 MEMMAP ?= $(LPP)/memmap
+START ?= $(LPP)/staff-start.o
 
 # include path: user can override
 INC ?= -I$(LPP)/include -I$(LPP)/ -I$(LPP)/src -I. -I$(LPP)/staff-private -I$(LPP)/staff-dev
@@ -29,18 +30,15 @@ OPT_LEVEL ?= -Og
 CFLAGS += $(OPT_LEVEL) -Wall -nostdlib -nostartfiles -ffreestanding -mcpu=arm1176jzf-s -mtune=arm1176jzf-s  -std=gnu99 $(INC) -ggdb -Wno-pointer-sign  $(CFLAGS_EXTRA) -Werror  -Wno-unused-function -Wno-unused-variable
 
 # for assembly file compilation.
-ASFLAGS = --warn --fatal-warnings  -mcpu=arm1176jzf-s -march=armv6zk $(INC)
+ASFLAGS = -Wa,--warn -Wa,--fatal-warnings  -mcpu=arm1176jzf-s -march=armv6zk $(INC)
 
 # for .S compilation so we can use the preprocessor.
 CPP_ASFLAGS =  -nostdlib -nostartfiles -ffreestanding   -Wa,--warn -Wa,--fatal-warnings -Wa,-mcpu=arm1176jzf-s -Wa,-march=armv6zk   $(INC)
 
-ifndef USE_FP
-    START ?= $(LPP)/staff-start.o
-else
+ifdef USE_FP
     LIBM = $(LPP)/libm/libm-pi.a
     CFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp -I$(LPP)/libm/include -I$(LPP)/libm
     CPP_ASFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp
     LPI := $(LPP)/libpi-fp.a
-    START := $(LPP)/staff-start-fp.o
 endif
 

@@ -4,29 +4,6 @@
 
 STAFF_OBJS_DIR = staff-objs
 
-ifeq ($(USE_FP),1)
-    BUILD_DIR := ./fp-objs
-    LIB := libpi-fp.a
-    LIBM := libm
-    START := ./staff-start-fp.o
-else
-    BUILD_DIR := ./objs
-    LIB := libpi.a
-    START := ./staff-start.o
-endif
-
-# set this to the path of your ttyusb device if it can't find it
-# automatically
-TTYUSB = 
-
-# the string to extract for checking
-GREP_STR := 'HASH:\|ERROR:\|PANIC:\|PASS:\|TEST:'
-
-# set if you want the code to automatically run after building.
-RUN = 1
-# set if you want the code to automatically check after building.
-#CHECK = 0
-
 ifdef CS240LX_STAFF
 ifndef CS240LX_ACT_AS_STUDENT
 STAFF_OBJS += $(STAFF_OBJS_DIR)/kmalloc.o
@@ -40,15 +17,39 @@ STAFF_OBJS += $(STAFF_OBJS_DIR)/i2c.o
 STAFF_OBJS += $(STAFF_OBJS_DIR)/interrupts-vec-init.o
 
 # rewrite STAFF_OBJS to use the fp subdir
-STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
 SRC += $(wildcard ./staff-dev/*.[Sc])
 
 endif
 endif
 
+# automatically
+TTYUSB = 
+
+# the string to extract for checking
+GREP_STR := 'HASH:\|ERROR:\|PANIC:\|PASS:\|TEST:'
+
+# set if you want the code to automatically run after building.
+RUN = 1
+# set if you want the code to automatically check after building.
+#CHECK = 0
+
+
 DEPS += ./src
 
 
+include $(CS240LX_2022_PATH)/libpi/defs.mk
+
+ifeq ($(USE_FP),1)
+    BUILD_DIR := ./fp-objs
+    LIB := libpi-fp.a
+    LIBM := libm
+    START := $(LPP)/staff-start-fp.o
+    STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
+else
+    BUILD_DIR := ./objs
+    LIB := libpi.a
+    START := $(LPP)/staff-start.o
+endif
 
 include $(CS240LX_2022_PATH)/libpi/mk/Makefile.lib.template
 
@@ -57,11 +58,11 @@ test:
 
 all:: $(START)
 
-staff-start.o: ./objs/staff-start.o
-	cp ./objs/staff-start.o staff-start.o
+$(LPP)/staff-start.o: $(LPP)/objs/staff-start.o
+	cp $(LPP)/objs/staff-start.o staff-start.o
 
-staff-start-fp.o: ./fp-objs/staff-start.o
-	cp ./fp-objs/staff-start.o staff-start-fp.o
+$(LPP)/staff-start-fp.o: $(LPP)/fp-objs/staff-start.o
+	cp $(LPP)/fp-objs/staff-start.o staff-start-fp.o
 
 clean::
 	rm -f staff-start.o
