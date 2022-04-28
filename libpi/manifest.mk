@@ -2,21 +2,18 @@
 #LIB := libpi.a
 #START := ./staff-start.o
 
+STAFF_OBJS_DIR = staff-objs
+
 ifeq ($(USE_FP),1)
     BUILD_DIR := ./fp-objs
     LIB := libpi-fp.a
     LIBM := libm
     START := ./staff-start-fp.o
-    STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
-    FP = fp/
 else
     BUILD_DIR := ./objs
     LIB := libpi.a
     START := ./staff-start.o
-    FP =
 endif
-
-
 
 # set this to the path of your ttyusb device if it can't find it
 # automatically
@@ -32,21 +29,25 @@ RUN = 1
 
 ifdef CS240LX_STAFF
 ifndef CS240LX_ACT_AS_STUDENT
-STAFF_OBJS += staff-objs/$(FP)kmalloc.o
-STAFF_OBJS += staff-objs/$(FP)sw-uart.o
-STAFF_OBJS += staff-objs/$(FP)interrupts-asm.o      
-STAFF_OBJS += staff-objs/$(FP)interrupts-vec-asm.o 
-STAFF_OBJS += staff-objs/$(FP)rpi-thread.o 
-STAFF_OBJS += staff-objs/$(FP)rpi-thread-asm.o 
-STAFF_OBJS += staff-objs/$(FP)sw-spi.o
-STAFF_OBJS += staff-objs/$(FP)i2c.o
-STAFF_OBJS += staff-objs/$(FP)interrupts-vec-init.o
+STAFF_OBJS += $(STAFF_OBJS_DIR)/kmalloc.o
+STAFF_OBJS += $(STAFF_OBJS_DIR)/sw-uart.o
+STAFF_OBJS += $(STAFF_OBJS_DIR)/interrupts-asm.o      
+STAFF_OBJS += $(STAFF_OBJS_DIR)/interrupts-vec-asm.o 
+STAFF_OBJS += $(STAFF_OBJS_DIR)/rpi-thread.o 
+STAFF_OBJS += $(STAFF_OBJS_DIR)/rpi-thread-asm.o 
+STAFF_OBJS += $(STAFF_OBJS_DIR)/sw-spi.o
+STAFF_OBJS += $(STAFF_OBJS_DIR)/i2c.o
+STAFF_OBJS += $(STAFF_OBJS_DIR)/interrupts-vec-init.o
+
+# rewrite STAFF_OBJS to use the fp subdir
+STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
 SRC += $(wildcard ./staff-dev/*.[Sc])
 
 endif
 endif
 
 DEPS += ./src
+
 
 
 include $(CS240LX_2022_PATH)/libpi/mk/Makefile.lib.template

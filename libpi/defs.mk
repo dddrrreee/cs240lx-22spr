@@ -16,7 +16,6 @@ CS240LX_2022_LIBPI_PATH = $(CS240LX_2022_PATH)/libpi
 LPP = $(CS240LX_2022_LIBPI_PATH)
 LPI = $(LPP)/libpi.a
 
-START ?= $(LPP)/staff-start.o
 MEMMAP ?= $(LPP)/memmap
 
 # include path: user can override
@@ -35,10 +34,13 @@ ASFLAGS = --warn --fatal-warnings  -mcpu=arm1176jzf-s -march=armv6zk $(INC)
 # for .S compilation so we can use the preprocessor.
 CPP_ASFLAGS =  -nostdlib -nostartfiles -ffreestanding   -Wa,--warn -Wa,--fatal-warnings -Wa,-mcpu=arm1176jzf-s -Wa,-march=armv6zk   $(INC)
 
-ifdef USE_FP
+ifndef USE_FP
+    START ?= $(LPP)/staff-start.o
+else
     LIBM = $(LPP)/libm/libm-pi.a
     CFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp -I$(LPP)/libm/include -I$(LPP)/libm
     CPP_ASFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp
     LPI := $(LPP)/libpi-fp.a
+    START := $(LPP)/staff-start-fp.o
 endif
 
