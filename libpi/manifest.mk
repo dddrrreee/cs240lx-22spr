@@ -8,10 +8,12 @@ ifeq ($(USE_FP),1)
     LIBM := libm
     START := ./staff-start-fp.o
     STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
+    FP = fp/
 else
     BUILD_DIR := ./objs
     LIB := libpi.a
     START := ./staff-start.o
+    FP =
 endif
 
 
@@ -30,14 +32,15 @@ RUN = 1
 
 ifdef CS240LX_STAFF
 ifndef CS240LX_ACT_AS_STUDENT
-STAFF_OBJS += staff-objs/kmalloc.o
-STAFF_OBJS += staff-objs/sw-uart.o
-STAFF_OBJS += staff-objs/interrupts-asm.o      
-STAFF_OBJS += staff-objs/interrupts-vec-asm.o 
-STAFF_OBJS += staff-objs/rpi-thread.o 
-STAFF_OBJS += staff-objs/rpi-thread-asm.o 
-STAFF_OBJS += staff-objs/sw-spi.o
-STAFF_OBJS += staff-objs/interrupts-vec-init.o
+STAFF_OBJS += staff-objs/$(FP)kmalloc.o
+STAFF_OBJS += staff-objs/$(FP)sw-uart.o
+STAFF_OBJS += staff-objs/$(FP)interrupts-asm.o      
+STAFF_OBJS += staff-objs/$(FP)interrupts-vec-asm.o 
+STAFF_OBJS += staff-objs/$(FP)rpi-thread.o 
+STAFF_OBJS += staff-objs/$(FP)rpi-thread-asm.o 
+STAFF_OBJS += staff-objs/$(FP)sw-spi.o
+STAFF_OBJS += staff-objs/$(FP)i2c.o
+STAFF_OBJS += staff-objs/$(FP)interrupts-vec-init.o
 SRC += $(wildcard ./staff-dev/*.[Sc])
 
 endif
