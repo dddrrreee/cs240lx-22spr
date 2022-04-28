@@ -74,7 +74,7 @@ LIBS += $(LPI)
 
 # add the memmap file, libpi and the makefile as dependencies
 # libpi serves as a sentinal covering everything in libpi
-DEPS += $(MEMMAP) ./Makefile $(LPI) $(LPP)/mk/Makefile.template
+DEPS += $(MEMMAP) ./Makefile $(LPI) $(LPP)/mk/Makefile.template 
 
 ALL_OBJS := $(SUPPORT_OBJS) $(STAFF_OBJS) 
 
