@@ -35,7 +35,7 @@ ASFLAGS = -Wa,--warn -Wa,--fatal-warnings  -mcpu=arm1176jzf-s -march=armv6zk $(I
 # for .S compilation so we can use the preprocessor.
 CPP_ASFLAGS =  -nostdlib -nostartfiles -ffreestanding   -Wa,--warn -Wa,--fatal-warnings -Wa,-mcpu=arm1176jzf-s -Wa,-march=armv6zk   $(INC)
 
-ifdef USE_FP
+ifeq ($(USE_FP),1)
     LIBM = $(LPP)/libm/libm-pi.a
     CFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp -I$(LPP)/libm/include -I$(LPP)/libm
     CPP_ASFLAGS += -DRPI_FP_ENABLED  -mhard-float -mfpu=vfp
