@@ -16,7 +16,7 @@ USE_FP=1
 DEPS := $(wildcard ./*.h) ./Makefile $(LPI)
 
 
-include $(CS49N_2021_PATH)/libpi/defs.mk
+include $(CS240LX_2022_PATH)/libpi/defs.mk
 
 # include $(CS240LX_2021_PATH)/libpi/includes.mk
 
