@@ -80,36 +80,18 @@ Then merge in the starter code and make sure there is no difference.
         % make check
 
 
-#### Add these to the `ckalloc.h` header
+You'll have to:
+   1. Modify the `CFLAGS` variable in your `Makefile` to tell gcc not
+      to reorder functions:
 
-We'll extend the `ckalloc.h` interface with the following:
+        CFLAGS += -fno-toplevel-reorder 
 
-        // initialize interrupt checking.
-        void ck_mem_init(void);
-
-        // turn int-mem checking on.
-        void ck_mem_on(void);
-        // turn int-mem checking off.
-        void ck_mem_off(void);
-
-        // limit checking to the pc addresses in [start,end)
-        void ck_mem_set_range(void *start, void *end);
-
-        // returns 1 if <pc> is in a range that should be checked,
-        // 0 otherwise.
-        int (ck_mem_checked_pc)(uint32_t pc);
-
-        // hack so you don't have to keep casting everywhere.
-        #define ck_mem_checked_pc(_x) (ck_mem_checked_pc)((uint32_t)_x)
-
-        // dump out stats about checking.  if <clear_stats_p>=1, then 
-        // reset them.
-        unsigned ck_mem_stats(int clear_stats_p);
+   2.  Also, add in the file: `ck-memcheck.c`
 
 
 #### Make sure `timer-int` works and change to use vector base
 
-The code is in `timer-int`.
+The code is in `timer-int`: it's just cs140e's code copied over.
 
 ----------------------------------------------------------------------
 ## Part 1: interrupt based checking.
@@ -127,7 +109,7 @@ In this part, integrate the timer code with your checking code.
 
      And considering all code between them as not-checkable. 
      Note that we use a special `gcc` option so it does not
-    reorder the routines!
+     reorder the routines!
 
   2. If the interrupt pc is within these bounds, skip checking and increment a `skipped` counter.
   3. If not, run the checking and increment a `checking` counter.
