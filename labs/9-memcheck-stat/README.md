@@ -218,6 +218,71 @@ Folow up:
      was broken.
 
 ----------------------------------------------------------------------
-### Part 3: record-replay
+## Part 3: using `gcc`  to check every load and store: "address sanitizer"
 
-So making checks sticky
+From *Zach Yedidia*: If you pass `-fsanitize=kernel-address` GCC will
+instrument loads and stores with calls to the following functions
+depending on the type of access:
+
+* `void __asan_load1_noabort(unsigned long addr)`
+* `void __asan_load2_noabort(unsigned long addr)`
+* `void __asan_load4_noabort(unsigned long addr)`
+* `void __asan_load8_noabort(unsigned long addr)`
+* `void __asan_loadN_noabort(unsigned long addr, size_t sz)`
+
+* `void __asan_store1_noabort(unsigned long addr)`
+* `void __asan_store2_noabort(unsigned long addr)`
+* `void __asan_store4_noabort(unsigned long addr)`
+* `void __asan_store8_noabort(unsigned long addr)`
+* `void __asan_storeN_noabort(unsigned long addr, size_t sz)`
+
+I recommend defining a single function `asan_access(unsigned long addr, size_t sz, bool write)` and calling that from each `__asan*` function.
+
+You also have to define the following functions as stubs (I'm not sure what they are for):
+
+* `void __asan_handle_no_return()`
+* `void __asan_before_dynamic_init(const char* module_name)`
+* `void __asan_after_dynamic_init()`
+
+I've defined them as empty functions.
+
+# Tests
+
+Some simple tests:
+
+```c
+static volatile int g;
+
+void use_after_free() {
+    printk("should panic in heap\n");
+
+    int* p = (int*) ckalloc(sizeof(int));
+    *p = 42;
+    ckfree(p);
+    g = *p; // should panic
+}
+
+void illegal_access() {
+    printk("should panic in heap\n");
+
+    int* p = (int*) ckalloc(sizeof(int) * 4);
+    memset(p, 0, 4);
+    g = p[4]; // should panic
+    ckfree(p);
+}
+
+void legal_access() {
+    printk("should not panic\n");
+
+    int* p = (int*) ckalloc(sizeof(int) * 4);
+    memset(p, 0, 4);
+    g = p[3]; // should not panic
+    ckfree(p);
+}
+
+void invalid_code() {
+    printk("should panic on code segment\n");
+
+    memset(invalid_code, 0, 8); // should panic
+}
+```
