@@ -1,7 +1,6 @@
 // starter code for trivial heap checking using interrupts.
 #include "rpi.h"
 #include "rpi-internal.h"
-#include "ckalloc-internal.h"
 #include "timer-interrupt.h"
 
 
