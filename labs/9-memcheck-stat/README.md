@@ -220,9 +220,11 @@ Folow up:
 ----------------------------------------------------------------------
 ## Part 3: using `gcc`  to check every load and store: "address sanitizer"
 
-From *Zach Yedidia*: If you pass `-fsanitize=kernel-address` GCC will
-instrument loads and stores with calls to the following functions
-depending on the type of access:
+This part of the lab bought to you by *Zach Yedidia*!
+
+If you pass `-fsanitize=kernel-address` GCC will instrument loads and
+stores with calls to the following functions depending on the type
+of access:
 
 * `void __asan_load1_noabort(unsigned long addr)`
 * `void __asan_load2_noabort(unsigned long addr)`
