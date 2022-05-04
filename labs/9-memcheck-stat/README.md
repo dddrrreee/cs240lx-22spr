@@ -1,107 +1,241 @@
-## Statistical valgrind
+## Doing checks using interrupts (and binary rewriting)
 
-***Make sure you do the [PRELAB](PRELAB.md)!***
+Today we're going to build a simple interrupt-based checker for finding
+heap corruption.  We'll extend it next time so it gives you closer to
+Purify-functionality, but today we build toy examples of most of the
+pieces we'll need and then build out key pieces.
 
-Over the next few labs we will build a simple memory checking tool that
-can check if an executing program performs a read or write to invalid
-memory.  Typically such tools (Valgrind, Purify) are incredibly complex
-and large (100K lines of code or more).  Most of their complexity comes
-from the fact you cannot reliably statically figure out what is code and
-what is data in a program.  As a result, they have to do dynamic binary
-instrumentation, which requires the ability to parse and (much harder)
-correctly specify the semantics of all binary instructions.
+Today:
+  1. Look over the interrupt code (`timer-int`) --- it's from last cs140e, so 
+     should be familiar to most of you.  Note that some of the code it uses
+     is in `libpi/staff-src` and `libpi/include` --- check there if you can't
+     find it.  And, if you're not already, start using tags!
+ 
+  2. You'll adapt this code to do simple heap corruption checking by calling into
+     your heap checker (and leak checker if that is working) in the interrupt
+     handler.  We'll maintain a range of code addresses we check (default: the 
+     entire program) and a range of code addresses we do not check (initially:
+     the entire `ckalloc.c` file) --- if you get interrupted in the former,
+     run your heap checker and see if you can detect errors.
 
-In constrast we will use a new trick to build one that is simple, and
-a few hundred lines.
+  3. As you notice, interrupt checking lets you transparently check an
+     arbitrary predicate with *guaranteed* regularity without any
+     code modifications.  This hack can serve you well in real life.
+     However, a downside is that we will rarely get lucky and interrupt
+     exactly when the invariant breaks (we can also miss if it breaks
+     briefly).  We'll do a conceptually simple hack: for each load or
+     store we discover (the two operations that can violate invariants)
+     we replace them with a branch instruction that jumps to custom
+     checking routine for that specific instruction address.  Because the
+     jump is the same size as the load or store, the program binary does
+     not change size ("dilate") and so we do not have to patch program
+     addresses (infeasible if you can't reliably classify code and data).
+     Because the trampoline is customized to that specific instruction,
+     we can hard-code any knowledge it needs, including the return address
+     it needs to jump back to.
 
-Our tool works as follows:
-  1. We discover code not by dynamically tracing the program, but instead
-     by using timer interrupts to statistically sample the program binary.
-     By definition: any address we interrupt contains an instruction
-     (since it was being executed).
+     This means that when we interrupt a load or store once, the check
+     will be performed for all future executions.  I.e., it is sticky,
+     or persistent.
 
-  2. We decode the interrupted instruction to see if it is a load or 
-     a store.  For each load or store we discover we  replace it with
-     a branch instruction that jumps to 
-     custom checking routine for that specific instruction address.
-     Because the jump is the same size as the load or store, the program
-     binary does not change size ("dialate") and so we do not have to
-     patch program addresses (infeasible if you can't reliably classify
-     code and data).  Because the trampoline is customized to that
-     specific instruction, we can hardcode any knowledge it needs,
-     including the return address it needs to jump back to.
+  4. While step (3) gives us much more control over the program, there
+     are large blind spots until we instrument everything --- we will
+     miss large chunks of code that only run for a short while or do
+     not repeat.  We will build a trivial "restore-and-replay" setup to
+     your code that will allow you restart your program over and over,
+     until you have covered all of its code.  You can then check it on
+     a thorough, final run.
 
-  3. In each trampoline call, we check the state of each memory location
-     using the common method of "shadow memory" --- all bytes the program
-     can access have a corresponding shadow location that tracks their
-     state (allocated, freed, invalid).  Shadow memory is allocated at
-     a specific, known offset from the proram's memory so that it is
-     fast and simple to look up the state of a memory location given
-     just the address.  (A few bounds checks and then an addition.)
+     Checkpoint-and-restore is a powerful technique that has many
+     applications but is also (IMO) wildly underutilized because it
+     is extremely challenging to build on today's complex systems.
+     This is another case of: simple pi system = simple implementation.
 
-   4. The end result: you should be able to take unaltered binaries,
-      and without MMU support, detect a variety of memory errors 
-      automatically.
+----------------------------------------------------------------------
+## Part 0: setup your code
 
-There is a lot going on in these set of labs, so we do a very stripped down,
-minimum viable product.  It's not general, it's not rebust, but it will
-have `hello world` level examples of the key pieces so that you have
-something to think about, which will help when we build
-these out later.
 
-The tool has four pieces:
-   1. Make a simple redzone memory allocator. This will
-      catch some number of memory corruptions, and will help prevent us
-      from missing if a pointer jumps from one object to another.
-   2. Make a simple shadow memory implementation that tracks what
-      chunks of memory are allocated, freed, invalid, or read only.
-      This will allow us to take any address in the program and figure out
-      if it is legal.
-   3. Use timer interrupts to make a sampling routine that examines the interrupted
-      instruction and, if it is a load or sore, uses the shadow memory in (2)
-      to determine if the access is legal.
-   4. To make sampling more thorough: when you discover a memory location
-      in step (3) instead of checking and returning, we instead
-      rewrite the instruction to call a trampoline that will check it.
-      This means that when we interrupt a load or store once, the check
-      will be performed for all future executions.  I.e., it is sticky,
-      or persistent.
+#### Make sure ckalloc works and migrate
 
-Today we focus on the first part, making a redzone allocator.  As a
-warmup for shadow memory you will also build a simple garbage collector
-using a cute hack from Hans Boehm.
+You should pull your code from `6-debug-alloc`.
 
-Checkoff:
-  1. Showing you find the errors in the checked in programs.
-  2. Adding a new buggy program to Peter's contrib repository so that 
-     we can extend things.
+First: make sure things still work: make sure all your
+tests are enabled!
 
-### Part 0: some new functionality.
+        % cd 6-debug-alloc/code
+        % make check
 
-I put a new version of libpi in the top of our repository --- it was
-getting a bit weird to modify the cs140e code.   You can put any code
-you want to use in `libpi/src` and modify `put-your-src-here.mk`.
-    - The example in `examples/hello` should run if you compile it.
+Second: copy the code over to today's lab:
 
-I also set it up so you can use floating point.  
-    - The example in `examples/float` should run if you compile it.
+        % cd ../9-memcheck-stat
+        % cp ../6-debug-alloc/code .
+        # make sure tests still work!
+        % make check
 
-Its a hack where we compile `libpi` in two different ways (with float
-and without).   The linker should give you an error if you link against
-the wrong one.
 
-### Part 1: redzone allocation.
+Then merge in the starter code and make sure there is no difference.
 
-If you look in the `code` directory, there is a simple bit of starter
-code.  The instructions are in `ckalloc.c` and `ckalloc.h`.  You will
-write your allocator and, because we all use the same initial heap and
-same conceptual approach you should get the same tracing output that we
-can cross-check.
+        % cd 9-memcheck-stat/code
+        % cp -r ../starter-code/* .
+        % make check
 
-Start with my test programs (there is only one there now, I need to check
-in others) and then please write at least one of your own to test that
-the allocator finds memory is should.
 
-### Part 2: garbage collection.
+#### Add these to the `ckalloc.h` header
 
-***NOTE: we moved this to next lab***
+We'll extend the `ckalloc.h` interface with the following:
+
+        // initialize interrupt checking.
+        void ck_mem_init(void);
+
+        // turn int-mem checking on.
+        void ck_mem_on(void);
+        // turn int-mem checking off.
+        void ck_mem_off(void);
+
+        // limit checking to the pc addresses in [start,end)
+        void ck_mem_set_range(void *start, void *end);
+
+        // returns 1 if <pc> is in a range that should be checked,
+        // 0 otherwise.
+        int (ck_mem_checked_pc)(uint32_t pc);
+
+        // hack so you don't have to keep casting everywhere.
+        #define ck_mem_checked_pc(_x) (ck_mem_checked_pc)((uint32_t)_x)
+
+        // dump out stats about checking.  if <clear_stats_p>=1, then 
+        // reset them.
+        unsigned ck_mem_stats(int clear_stats_p);
+
+
+#### Make sure `timer-int` works and change to use vector base
+
+The code is in `timer-int`.
+
+----------------------------------------------------------------------
+## Part 1: interrupt based checking.
+
+In this part, integrate the timer code with your checking code.
+  1. You should check if the interrupted PC was within your memory 
+     checking code.  You can figure out the code range by putting
+     a sentinel routine at the start of `ckalloc.c`:
+
+            void ckalloc_start(void) {}
+
+     and a sentinel routine at the end:
+
+            void ckalloc_end(void) {}
+
+     And considering all code between them as not-checkable. 
+     Note that we use a special `gcc` option so it does not
+    reorder the routines!
+
+  2. If the interrupt pc is within these bounds, skip checking and increment a `skipped` counter.
+  3. If not, run the checking and increment a `checking` counter.
+
+Implement the routines in `ck-memcheck.c` (described at the end of `ckalloc.h`).
+Key routines:
+  1. `ck_mem_init`: do any initialization.
+  2. `ck_mem_on`: start checking.
+  3. `ck_mem_off`: turn off checking.
+
+Clients should be able to turn on checking and turn it off repeatedly.
+They should also `panic` if `stat_check_init` was not called.
+
+You'll have to copy in and modify the timer code.  Play around with the test to see
+how quickly you can catch the error.  Also perhaps add other tests and other errors.
+
+Notes:
+    1. You probably should make a way to easily shrink down the clock period in the timer
+       interrupt.
+    2. As you make interrupts more frequent, your code can appear to "lock up" b/c it
+       is either running too slowly or b/c you are doing something you should not in 
+       the interrupt handler.
+    3. If your interrupt handler uses data that is shared with non-interrupt code
+       make sure it is `volatile` or you just do `put32` and `get32`.
+
+
+Extension:
+  1. Make it so you can transparently run all your old tests and have them pass.  A nice 
+     thing about our checker is that it should not alter the behavior of existing programs
+     other than making them slower.  So it's easy to do lots and lots of regressions.
+     (Perhaps the easiest way to do this is modifying `cstart`; even slicker is to modify
+      the `.bin`.)
+
+----------------------------------------------------------------------
+## Part 2: binary rewriting
+
+The tradeoff with interrupt checking:
+   1. The more frequently we run interrupts, the more accurate our checking, but the
+      larger the overhead.   If you check often enough, this overhead can prevent
+      your program from making any visible progress.
+   2. The less frequently we run, the faster we go, the but more likely it is for us
+      to miss errors.
+
+Our partial hack for this will be to make our checks "sticky" in an
+instruction once, we will rewrite it to call our checking code directly.
+This way we do many more thorough checks than the interrupt handler can
+hope to.
+
+
+
+When we interrupt address `x`: 
+  1. Check that we haven't already rewritten `x`.  
+  2. If so, skip.
+  3. Otherwise mark it (so we don't rewrite again) and generate a checking 
+     trampoline (below).
+
+The easiest way to understand the trampoline is to keep keep in mind the three
+things it has to do:
+  1. We need to call a checking routine.  
+  2. Run the original instruction
+  3. Jump back to 4 bytes past the rewritten instruction.
+
+Thus, we need to generate the following using your
+dynamic code generation knowledge from lab 2:
+  1. Before we can call anything, save the caller-saved registers (
+     since they are all live (just like interrupt handling).  Do this by 
+     `push`ing  everything but `pc`.
+  2. Call your monitoring routine using a `bl` instruction.  Make sure to move any 
+     values you need to the right argument registers (`r0` through `r3`).
+  3. Pop all registers.
+  4. Insert the instruction at address `x` at this point so it gets executed.
+  5. Insert a custom jump (`b` instruction`) back to address `x+4`.
+
+
+We'll need one trampoline and one flag for each monitored instruction.
+The easiest approach is to just preallocate these up front in an array
+and then just index using the `pc` (make sure to subtract the beginning
+of the range and divide by 4!).
+
+The big issue --- we can't do this simple approach for all instructions
+(e.g., it will break relative branches).  For speed we will only want
+to do for loads and stores in any case since these are the operations
+that actually cause an invariant to break.    Skipping ALU operations
+is a significant speedup.
+
+Because mistakes in dynamically generated code can be insanely hard to track down,
+for today's lab we will take a ludicrously brain-dead, stupid approach:
+  1. Look in your `part3-test.list`
+  2. Pull out instruction encoding for the load and store instructions in 
+     `test_check`.   
+  3. Write your binary rewriter --- for today only! --- to 
+     look for *only* those values and rewrite them.
+  4. After you do a rewrite, dump out the values of the instructions in your
+     trampoline and check with everyone else.
+
+This approach will make it easy for use to cross-check and make sure we all have
+the same method for encoding branches and branch-and-links.
+
+Folow up:
+  1. The obvious huge extension is to rewrite the instruction decoding so you can
+     check arbitrary loads and stores.  The main tricky thing is making sure
+     you don't rewrite those that involve the `pc` register (or so so carefully).
+  2. A good way to thoroughly check your code is to use it to rewrite (but not check)
+     all your previous pi programs and make sure their output does not change.  This
+     is a ruthless check --- after you pass it, you'd be surprised if your rewriting code
+     was broken.
+
+----------------------------------------------------------------------
+### Part 3: record-replay
+
+So making checks sticky
