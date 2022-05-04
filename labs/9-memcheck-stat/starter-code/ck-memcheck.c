@@ -2,6 +2,7 @@
 #include "rpi.h"
 #include "rpi-internal.h"
 #include "timer-interrupt.h"
+#include "ckalloc.h"
 
 
 // you'll need to pull your code from lab 2 here so you
