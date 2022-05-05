@@ -1,7 +1,7 @@
 # run either Makefile.pi or Makefile.unix
 SUBDIRS= Makefile.pi
 # last writer wins
-SUBDIRS= Makefile.unix
+# SUBDIRS= Makefile.unix
 
 .PHONY: all check clean
 all check clean: $(SUBDIRS)

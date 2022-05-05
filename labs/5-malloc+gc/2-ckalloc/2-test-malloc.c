@@ -10,7 +10,7 @@ static void *test_alloc_free(unsigned n) {
     uint8_t **ptrs = kr_malloc(n * sizeof *ptrs);
 
     for(int i = 0; i < n; i++) {
-        uint8_t *p = ptrs[i] = kr_malloc(1);
+        uint8_t *p = ptrs[i] = ck_malloc(1);
 
         // malloc does not guarantee
         // assert(*p == 0);

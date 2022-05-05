@@ -1,8 +1,8 @@
 # list out the driver program source 
-TEST_SRC = scope.c
+TEST_SRC = scope.c cycle.S
 
 # pick one of your attachment points (first or last) consistently.
-BOOTLOADER = my-install -first
+BOOTLOADER = my-install /dev/cu.SLAB_USBtoUART4
 
 # your source, shared by driver code.
 #   if you want to use our staff-hc-sr04.o,

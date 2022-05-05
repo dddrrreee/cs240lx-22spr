@@ -5,6 +5,7 @@
 #define __CKALLOC_H__
 
 #include "src-loc.h"
+#include "kr-malloc.h"
 
 typedef enum {  ALLOCED = 11, FREED } state_t;
 
@@ -43,7 +44,7 @@ unsigned
 ck_ptr_in_block(hdr_t *h, void *ptr);
 
 // is pointer <p> on the allocated list?
-hdr_t *ck_ptr_is_alloced(void *ptr);
+hdr_t* ck_ptr_is_alloced(void *ptr);
 
 #define ckalloc(_n) (ckalloc)(_n, SRC_LOC_MK())
 #define ckfree(_ptr) (ckfree)(_ptr, SRC_LOC_MK())

@@ -32,7 +32,7 @@ $(OBJS): $(DEPS)
 
 # rules to generate .elf->.list->.bin
 %.elf: $(MEMMAP) $(OBJS) $(DEPS) 
-	$(LD) $(START) $(OBJS) -T ./memmap -o $*.elf  $(LPI)
+	$(LD) $(START) $(OBJS) -T ./memmap.header -o $*.elf  $(LPI)
 %.list: %.elf
 	$(OD) -D   $*.elf > $*.list
 %.bin: %.list

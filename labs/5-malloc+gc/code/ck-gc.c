@@ -79,7 +79,18 @@ static void mark(uint32_t *p, uint32_t *e) {
     assert(aligned(p,4));
     assert(aligned(e,4));
 
-    unimplemented();
+	const unsigned num_words = e - p;
+	for (unsigned i = 0; i < num_words; i++) {
+		hdr_t *curr_word = is_ptr(p[i]);
+		if (curr_word && !curr_word->mark) {
+			// mark since curr_word is ptr
+			curr_word->mark = 1;
+			// recurse on mem block it points to
+			uint32_t *block_start = (uint32_t*)((char*)curr_word + sizeof(hdr_t));
+			uint32_t *block_end = (uint32_t*)((char*)block_start+ curr_word->nbytes_alloc);
+			mark(block_start, block_end);
+		} 
+	}
 }
 
 
@@ -122,23 +133,24 @@ static void mark_all(void) {
     // get all the registers.
     uint32_t regs[16];
     dump_regs(regs);
+
+
     // kill caller-saved registers
     regs[0] = 0;
     regs[1] = 0;
     regs[2] = 0;
     regs[3] = 0;
 
-    unimplemented();
     mark(regs, &regs[14]);
 
     assert(regs[0] == (uint32_t)regs[0]);
-    mark(regs, &regs[14]);
+    // mark(regs, &regs[14]);
 
 
     // mark the stack: we are assuming only a single
     // stack.  note: stack grows down.
     uint32_t *stack_top = (void*)STACK_ADDR;
-    unimplemented();
+    // unimplemented();
 
     // these symbols are defined in our memmap
     extern uint32_t __bss_start__, __bss_end__;

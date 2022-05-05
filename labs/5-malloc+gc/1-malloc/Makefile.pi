@@ -1,5 +1,5 @@
 # list out the driver program source 
-TEST_SRC = 0-test-malloc.c  2-test-malloc.c 1-test-malloc.c
+TEST_SRC = 0-test-malloc.c  2-test-malloc.c 1-test-malloc.c 3-test-malloc-free.c
 SRC = kr-malloc.c pi-sbrk.c
 
 # your source, shared by driver code.
