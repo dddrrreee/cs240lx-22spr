@@ -1,7 +1,5 @@
 ## Using an accelerometer
 
-Make sure you do the prelab!
-
 Today we're going to communicate with an accelerometer (the  MPU6500)
 using I2C.   These devices are useful for controlling stuff based
 on motion.
