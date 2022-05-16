@@ -15,10 +15,9 @@
 
 static void * heap_start;
 static void * heap_end;
-
+static int init_p;
 void *sbrk(long increment) {
-    static int init_p;
-
+	trace("in sbrk\n");
     assert(increment > 0);
     if(init_p) 
         panic("not handling\n");
@@ -85,9 +84,15 @@ static void mark(uint32_t *p, uint32_t *e) {
 		if (curr_word && !curr_word->mark) {
 			// mark since curr_word is ptr
 			curr_word->mark = 1;
+			if (ck_ptr_in_block(curr_word, (void*)p[i])) {
+				// p[i] points to block
+				curr_word->refs_middle++;
+			} else if ((void*)p[i] == (void*)curr_word) {
+				curr_word->refs_start++;
+			}
 			// recurse on mem block it points to
 			uint32_t *block_start = (uint32_t*)((char*)curr_word + sizeof(hdr_t));
-			uint32_t *block_end = (uint32_t*)((char*)block_start+ curr_word->nbytes_alloc);
+			uint32_t *block_end = (uint32_t*)((char*)block_start + curr_word->nbytes_alloc);
 			mark(block_start, block_end);
 		} 
 	}
@@ -102,7 +107,25 @@ static unsigned sweep_leak(int warn_no_start_ref_p) {
 	output("---------------------------------------------------------\n");
 	output("checking for leaks:\n");
 
-    unimplemented();
+	// unimplemented();
+	hdr_t *curr = ck_first_hdr();
+	while (curr) {
+		nblocks++;
+		if (curr->state == ALLOCED && curr->mark == 0 && curr->leaked == 0) {
+			//block is alloc'd, was not marked, and has not been detected as a leak yet
+			if (!curr->refs_start && curr->refs_middle) {
+				// refs to mid of block, not start, likely a leak
+				maybe_errors++;
+			} else if (!curr->refs_start && !curr->refs_middle) {
+				//certainly garbage since no refs to them
+				errors++;
+				curr->leaked = 1;
+			}
+			
+			trace("leak found for block: %x\n", curr);
+		}
+		curr = ck_next_hdr(curr);
+	}
 
 
 	trace("\tGC:Checked %d blocks.\n", nblocks);
@@ -134,14 +157,13 @@ static void mark_all(void) {
     uint32_t regs[16];
     dump_regs(regs);
 
-
     // kill caller-saved registers
     regs[0] = 0;
     regs[1] = 0;
     regs[2] = 0;
     regs[3] = 0;
 
-    mark(regs, &regs[14]);
+    mark(regs, &regs[16]);
 
     assert(regs[0] == (uint32_t)regs[0]);
     // mark(regs, &regs[14]);
@@ -150,7 +172,7 @@ static void mark_all(void) {
     // mark the stack: we are assuming only a single
     // stack.  note: stack grows down.
     uint32_t *stack_top = (void*)STACK_ADDR;
-    // unimplemented();
+	mark((uint32_t*)regs[13], stack_top);
 
     // these symbols are defined in our memmap
     extern uint32_t __bss_start__, __bss_end__;
@@ -163,7 +185,9 @@ static void mark_all(void) {
 // return number of bytes allocated?  freed?  leaked?
 // how do we check people?
 unsigned ck_find_leaks(int warn_no_start_ref_p) {
+	trace("Marking...");
     mark_all();
+	printk("Done!\n");
     return sweep_leak(warn_no_start_ref_p);
 }
 
@@ -201,7 +225,18 @@ static unsigned sweep_free(void) {
 	output("---------------------------------------------------------\n");
 	output("compacting:\n");
 
-    unimplemented();
+	hdr_t *curr = ck_first_hdr();
+	while (curr) {
+		nblocks++;
+		if (curr->state == ALLOCED && curr->mark != 1 && curr->leaked == 0) {
+			// allocated block was not marked, and not detected as leak before
+			curr->state = FREED;
+			nfreed++;
+			nbytes_freed += curr->nbytes_alloc;
+			trace("leak found for block: %x. Freeing.\n", curr);
+		}
+		curr = ck_next_hdr(curr);
+	}
 
 	trace("\tGC:Checked %d blocks, freed %d, %d bytes\n", nblocks, nfreed, nbytes_freed);
 

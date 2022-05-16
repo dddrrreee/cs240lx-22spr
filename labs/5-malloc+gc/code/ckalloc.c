@@ -5,8 +5,7 @@
 #include "ckalloc.h"
 
 // keep a list of allocated blocks.
-static hdr_t *alloc_list;
-static hdr_t *last_node = NULL;
+
 
 static void list_remove(hdr_t *l, hdr_t *h) {
     assert(l);
@@ -52,7 +51,7 @@ hdr_t *ck_first_hdr(void) {
 hdr_t *ck_next_hdr(hdr_t *p) {
     if(p)
         return p->next;
-    return 0;
+    return NULL;
 }
 
 
@@ -63,6 +62,21 @@ void *ck_hdr_start(hdr_t *h) {
 // one past the last byte of allocated memory.
 void *ck_hdr_end(hdr_t *h) {
     return (char *)ck_hdr_start(h) + ck_nbytes(h);
+}
+
+hdr_t *kr_first_hdr(void) {
+	hdr_t *start = ck_first_hdr();
+	return (hdr_t *)((char *)start + sizeof(hdr_t));
+}
+
+hdr_t *kr_next_hdr(hdr_t *ptr) {
+	if (ptr) {
+		hdr_t *next = ptr->next;
+		next = (hdr_t*)((char*)next + sizeof(hdr_t));
+		return next;
+	} else {
+		return NULL;
+	}
 }
 
 // is ptr in <h>?
@@ -113,7 +127,7 @@ void *(ckalloc)(uint32_t nbytes, src_loc_t l) {
 	h->mark  = 0;
 
     
-    loc_debug(l, "allocating %p\n", h);
+    loc_debug(l, "allocating %p\n", (void*)h + sizeof(hdr_t));
 
 	list_append(alloc_list, h);
 	return ((void*)h + sizeof(hdr_t));

@@ -21,6 +21,7 @@ static Header *freep = NULL;
 
 #define NALLOC 1024
 
+
 static Header *kr_morecore(unsigned inc) {
 	char *cp;
 	Header *up;

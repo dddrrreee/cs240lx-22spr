@@ -7,6 +7,8 @@
 #include "src-loc.h"
 #include "kr-malloc.h"
 
+
+
 typedef enum {  ALLOCED = 11, FREED } state_t;
 
 // pull the remainder into the second redzone.
@@ -22,7 +24,11 @@ typedef struct ck_hdr {
     uint32_t refs_middle;   // number of pointers to the middle of the block.
 
     uint16_t mark;          // 0 initialize.
+	uint16_t leaked;
 } hdr_t;
+
+static hdr_t *alloc_list;
+static hdr_t *last_node = NULL;
 
 // returns pointer to the first header block.
 hdr_t *ck_first_hdr(void);
