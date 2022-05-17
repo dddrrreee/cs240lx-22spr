@@ -28,38 +28,34 @@ The following open-source tools are needed for UPduino FPGA development:
 
 Installing all these tools is a bit of a pain.
 
-**Coming soon**: some prebuilt binaries for the tools.
+### Pre-built tools
 
-Scripts for building everything from source are included in the
-`install-scripts` directory. 
+For Ubuntu:
 
-<!-- ### Virtual machine (optional) -->
-<!--  -->
-<!-- If you want, you can install these tools in a virtual machine but you will -->
-<!-- probably at least need the IceStorm tools to program the FPGA from outside the -->
-<!-- VM (to avoid needing USB passthrough). You can use a shared folder to share the -->
-<!-- bitstream file between the VM and the host. -->
-<!--  -->
-<!-- A Vagrantfile is provided if you want to experiment with a VM and have -->
-<!-- Vagrant+VirtualBox installed. Unfortunately I haven't been able to get USB -->
-<!-- passthrough to work with this setup. Run `vagrant up` and then `vagrant ssh`. -->
-<!-- The `sync` directory should be shared with the lab directory on the host. -->
+Download the verilator and ice40-dev deb files from the Github releases tab.
 
-## Yosys
+```
+sudo apt install ./verilator-4.204-amd64.deb
+sudo apt install ./ice40-dev-amd64.deb
+```
 
-Mac:
+If you are not on Ubuntu we have prebuilt binaries for NextPNR and ice40 tools in `ice40-tools-linux.tar.gz`, but you may need to install additional dependencies (`libftdi` and `libboost`).
+
+For Mac:
 
 ```
 brew install yosys
+brew install verilator
 ```
 
-Ubuntu:
+Build the ice40 tools and NextPNR from source, or use prebuilt binaries (coming soon).
 
-```
-sudo apt install yosys
-```
+### Building from source
 
-Build from source:
+Scripts for building everything from source are included in the
+`install-scripts` directory. The commands are replicated here as well.
+
+#### Yosys
 
 ```
 git clone https://github.com/YosysHQ/yosys.git yosys
@@ -68,7 +64,7 @@ make
 sudo make install
 ```
 
-## NextPNR (ice40)
+#### NextPNR (ice40)
 
 ```
 git clone https://github.com/YosysHQ/nextpnr nextpnr-ice40
@@ -78,7 +74,7 @@ make
 sudo make install
 ```
 
-## Icestorm
+#### Icestorm
 
 ```
 git clone https://github.com/YosysHQ/icestorm.git icestorm
@@ -87,15 +83,7 @@ make
 sudo make install
 ```
 
-## Verilator
-
-Mac:
-
-```
-brew install verilator
-```
-
-Build from source:
+#### Verilator
 
 ```
 git clone https://github.com/verilator/verilator
@@ -107,7 +95,7 @@ make
 sudo make install
 ```
 
-## GTKWave (optional)
+### GTKWave (optional)
 
 ```
 sudo apt install gtkwave
