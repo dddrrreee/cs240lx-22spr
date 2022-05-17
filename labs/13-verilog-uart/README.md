@@ -81,8 +81,6 @@ The additional code in `flag_buf.sv` is meant to store the most recently
 received byte. Without this buffer the transmitter might start transmitting
 garbage while the receiver is receiving a byte still in flight.
 
-Images from: https://www.nandland.com/goboard/uart-go-board-project-part1.html
-
 # Extensions
 
 * Another protocol: implement the protocol for one of the devices we have used
@@ -92,3 +90,10 @@ Images from: https://www.nandland.com/goboard/uart-go-board-project-part1.html
   something interesting with that.
 * Simulator: use Verilator to make a simulator that checks that the UART
   implementation is correct without needing the FPGA.
+* Currently only one byte is saved in the `flag_buf` before data starts getting
+  lost. Implement a FIFO that has a configurable depth so that more data can be
+  buffered.
+
+---
+
+Images from: https://www.nandland.com/goboard/uart-go-board-project-part1.html
