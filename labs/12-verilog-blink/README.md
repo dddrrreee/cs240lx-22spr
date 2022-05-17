@@ -71,3 +71,14 @@ making the UART module.
 * Implement a shifter.
 
 If you finish early you can also move on to the UART lab.
+
+# Extra info
+
+Check out the `fpga/upduino` directory in the repo root to see how your module
+is being wrapped. The `upduino.pcf` file (pin constraint file) defines how the
+top-level variables (`clk`, `led_red`, etc...) get assigned to pins on the
+board. This file was distributed by the manufacturer. In `top.v` your module is
+wrapped by a top-level module that instantiates custom UPduino cells for
+generating a clock and for driving the RGB LED. Note: many FPGAs define the
+clock directly in the constraint file so something like `SB_HFOSC` is not
+necessary. Also check out `rules.mk` to see how the toolchain is invoked.
