@@ -9,6 +9,7 @@ module blink_top
         output logic tx
     );
 
+    // the led should toggle once per second
     localparam M = `CLK_MHZ * 1_000_000;
 
     logic [$clog2(M)-1:0] count;
