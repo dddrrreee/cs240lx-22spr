@@ -75,6 +75,12 @@ sudo make install
 
 #### NextPNR (ice40)
 
+Dependencies for mac:
+
+```
+brew install libftdi boost eigen cmake
+```
+
 NOTE: you need icestorm to build nextpnr.
 
 ```
