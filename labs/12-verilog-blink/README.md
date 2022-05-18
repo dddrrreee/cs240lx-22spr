@@ -42,7 +42,7 @@ bitwise operators and module instantiation).
 
 ## Part 3
 
-Go to [`code/3-counter`](code/3-blink) and implement a counter and use it to
+Go to [`code/3-blink`](code/3-blink) and implement a counter and use it to
 blink your LED.
 
 Goal: write a counter that counts up to a constant and then resets. Then
