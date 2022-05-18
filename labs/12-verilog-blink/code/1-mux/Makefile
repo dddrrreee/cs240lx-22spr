@@ -1,6 +1,7 @@
 ROOT=$(CS240LX_2022_PATH)/fpga
 
 SRC=mux.sv
+SIM_SRC=mux.sv
 SIM=sim.cc
 SIM_TOP=mux
 

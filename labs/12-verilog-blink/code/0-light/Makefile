@@ -3,6 +3,7 @@ BOARD ?= upduino
 BOARDROOT=$(ROOT)/$(BOARD)
 
 SRC=led_top.sv
+SIM_SRC=led_top.sv
 TOP=led_top
 SIM=sim.cc
 SIM_TOP=led_top

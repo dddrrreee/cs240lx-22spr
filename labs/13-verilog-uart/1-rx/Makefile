@@ -5,7 +5,8 @@ BOARDROOT=$(ROOT)/$(BOARD)
 SRC=$(wildcard *.sv)
 TOP=uart_top
 SIM=sim.cc
-SIM_TOP=uart_top
+SIM_SRC=uart_rx.sv
+SIM_TOP=uart_rx
 
 include $(BOARDROOT)/rules.mk
 include $(ROOT)/verilator.mk

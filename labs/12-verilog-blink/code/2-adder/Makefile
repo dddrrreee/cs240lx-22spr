@@ -3,6 +3,7 @@ BOARD ?= upduino
 BOARDROOT=$(ROOT)/$(BOARD)
 
 SRC=adder.sv
+SIM_SRC=adder.sv
 TOP=adder
 SIM=sim.cc
 SIM_TOP=adder
