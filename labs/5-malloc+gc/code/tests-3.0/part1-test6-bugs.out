@@ -1,0 +1,12 @@
+TRACE:in sbrk
+TRACE:found allocated 0x101c48 in 0x101ba0
+TRACE:found allocated 0x101848 in 0x1017a0
+TRACE:found allocated 0x101460 in 0x1013b8
+TRACE:found allocated 0x101080 in 0x100fd8
+TRACE:found allocated 0x100ea0 in 0x100df8
+TRACE:found allocated 0x100b40 in 0x100a98
+TRACE:checking heap for errors...
+TRACE:SUCCESS heap checked out
+TRACE:corrupting )
+TRACE:checking heap for errors...
+TRACE:redzones incrmenting errosTRACE:SUCCESS found error

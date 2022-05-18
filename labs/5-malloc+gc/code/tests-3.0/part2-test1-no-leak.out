@@ -1,0 +1,8 @@
+TRACE:in sbrk
+TRACE:alloc returned block id=1 
+TRACE:found allocated 0x101f78 in 0x101ed0
+TRACE:Marking...TRACE:found 0x101f7c in 0x101ed0
+TRACE:outside: curr = 0x101ed0, start refs = 0, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+TRACE:SUCCESS: no leaks!

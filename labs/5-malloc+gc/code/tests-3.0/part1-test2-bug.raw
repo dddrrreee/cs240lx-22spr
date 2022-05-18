@@ -1,0 +1,20 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part1-test2-bug.bin> about to boot
+HASH: simple_boot: sending 10624 bytes, crc32=e75068bd
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+test2: memory overflow at offset 4
+TRACE:in sbrk
+tests-3.0/part1-test2-bug.c:notmain:7:allocating block = 1 [addr = 0x101f78]
+tests-3.0/part1-test2-bug.c:notmain:10:freeing block = 1 [addr = 0x101f78]
+TRACE:found allocated 0x101f78 in 0x101ed0
+PANIC:ckalloc.c:ckfree:159:Error: redzone corruption detected on free of block = 1 [addr = 0x101ed0].
+
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

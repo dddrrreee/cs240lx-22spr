@@ -1,0 +1,38 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part1-test6-bugs.bin> about to boot
+HASH: simple_boot: sending 11040 bytes, crc32=3c57e3d2
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+test4: use after free
+TRACE:in sbrk
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 1 [addr = 0x101c48]
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 2 [addr = 0x101848]
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 3 [addr = 0x101460]
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 4 [addr = 0x101080]
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 5 [addr = 0x100ea0]
+tests-3.0/part1-test6-bugs.c:notmain:14:allocating block = 6 [addr = 0x100b40]
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 1 [addr = 0x101c48]
+TRACE:found allocated 0x101c48 in 0x101ba0
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 2 [addr = 0x101848]
+TRACE:found allocated 0x101848 in 0x1017a0
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 3 [addr = 0x101460]
+TRACE:found allocated 0x101460 in 0x1013b8
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 4 [addr = 0x101080]
+TRACE:found allocated 0x101080 in 0x100fd8
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 5 [addr = 0x100ea0]
+TRACE:found allocated 0x100ea0 in 0x100df8
+tests-3.0/part1-test6-bugs.c:notmain:18:freeing block = 6 [addr = 0x100b40]
+TRACE:found allocated 0x100b40 in 0x100a98
+TRACE:checking heap for errors...
+TRACE:SUCCESS heap checked out
+TRACE:corrupting [0x100ea0] at offset 173 ([0x100f4d])
+TRACE:checking heap for errors...
+TRACE:redzones incrmenting errosTRACE:SUCCESS found error
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

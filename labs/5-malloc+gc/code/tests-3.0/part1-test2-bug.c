@@ -4,14 +4,11 @@
 
 void notmain(void) {
     printk("test2: memory overflow at offset 4\n");
-
-    // start heap allocating after the first mb.   give it 1mb to use.
-    // kmalloc_init_set_start(0x100000);
-    unsigned n = 1024*1024;
-    kmalloc(n);
-
     char *p = ckalloc(4);
     memset(p, 0, 4);
     p[4] = 1;   // past end of block
     ckfree(p);  // should catch this.
+
+    panic("should not get here: should detect an error in ckfree\n");
+    
 }

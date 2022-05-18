@@ -1,0 +1,36 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part2-test6-no-leak.bin> about to boot
+HASH: simple_boot: sending 10872 bytes, crc32=34ce156d
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+GC test6
+TRACE:in sbrk
+tests-3.0/part2-test6-no-leak.c:test1:12:allocating block = 1 [addr = 0x101f78]
+TRACE:alloc returned block id=1 [0x101f78]
+TRACE:test1 returned [0x101f79]
+TRACE:Marking...TRACE:found 0x101f79 in 0x101ed0
+Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:outside: curr = 0x101ed0, start refs = 0, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:Marking...TRACE:found 0x101f79 in 0x101ed0
+Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:midd: curr = 0x101ed0, start refs = 0, mid refs = 0
+TRACE:outside: curr = 0x101ed0, start refs = 0, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 0 errors, 1 maybe_errors
+----------------------------------------------------------
+TRACE:SUCCESS: detected a maybe leak!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

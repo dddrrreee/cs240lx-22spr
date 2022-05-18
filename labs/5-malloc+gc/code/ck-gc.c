@@ -19,9 +19,7 @@ static int init_p;
 void *sbrk(long increment) {
 	trace("in sbrk\n");
     assert(increment > 0);
-    if(init_p) 
-        panic("not handling\n");
-    else {
+    if(!init_p) {
         unsigned onemb = 0x100000;
         heap_start = (void*)onemb;
         heap_end = (char*)heap_start + onemb;
@@ -58,7 +56,7 @@ static hdr_t *is_ptr(uint32_t addr) {
     
     if(!in_heap(p))
         return 0;
-    return ck_ptr_is_alloced(p);
+    return ck_ptr_to_hdr(p);
 }
 
 // mark phase:
@@ -82,14 +80,21 @@ static void mark(uint32_t *p, uint32_t *e) {
 	for (unsigned i = 0; i < num_words; i++) {
 		hdr_t *curr_word = is_ptr(p[i]);
 		if (curr_word && !curr_word->mark) {
-			// mark since curr_word is ptr
+			// mark since curr_word may be ptr
 			curr_word->mark = 1;
-			if (ck_ptr_in_block(curr_word, (void*)p[i])) {
-				// p[i] points to block
-				curr_word->refs_middle++;
-			} else if ((void*)p[i] == (void*)curr_word) {
+
+			//ptr is in valid block, does it point to head of user block, or  their user data
+			if ((void*)curr_word + sizeof(hdr_t) == (void*)p[i]) {
+				//p[i] is pointing to start of user block
 				curr_word->refs_start++;
+			} else if ((void*)curr_word + sizeof(hdr_t) + sizeof(Header) < (void*)p[i] && (void*)p[i] <= (void*)curr_word + sizeof(hdr_t) + sizeof(Header)  + curr_word->nbytes_alloc) {
+				// p[i] points to middle of data in user block
+				curr_word->refs_middle++;
 			}
+			// } else if ((void*)p[i] >= (void*)curr_word && (void*)p[i] <= (void*)curr_word + sizeof(hdr_t)) {
+			// 	trace("found ptr to header of block.\n");
+			// 	curr_word->refs_start++;
+			// }
 			// recurse on mem block it points to
 			uint32_t *block_start = (uint32_t*)((char*)curr_word + sizeof(hdr_t));
 			uint32_t *block_end = (uint32_t*)((char*)block_start + curr_word->nbytes_alloc);
@@ -111,19 +116,30 @@ static unsigned sweep_leak(int warn_no_start_ref_p) {
 	hdr_t *curr = ck_first_hdr();
 	while (curr) {
 		nblocks++;
-		if (curr->state == ALLOCED && curr->mark == 0 && curr->leaked == 0) {
+		unsigned alloced = curr->state == ALLOCED;
+		int no_start = (!(curr->refs_start) && warn_no_start_ref_p);
+		if (alloced && curr->mark == 0 ) {
+			trace("first: curr = %x, start refs = %d, mid refs = %d\n", curr, curr->refs_start, curr->refs_middle);
 			//block is alloc'd, was not marked, and has not been detected as a leak yet
-			if (!curr->refs_start && curr->refs_middle) {
+				// curr was alloc'd but not discovered by mark, a textbook leak
+			curr->leaked = 1;
+			errors++;
+		} else if (no_start && alloced) {
+			trace("midd: curr = %x, start refs = %d, mid refs = %d\n", curr, curr->refs_start, curr->refs_middle);
 				// refs to mid of block, not start, likely a leak
-				maybe_errors++;
-			} else if (!curr->refs_start && !curr->refs_middle) {
-				//certainly garbage since no refs to them
-				errors++;
-				curr->leaked = 1;
-			}
-			
-			trace("leak found for block: %x\n", curr);
+			maybe_errors++;
+			// } else if (!curr->refs_start && !curr->refs_middle) {
+			// 	//certainly garbage since no refs to them
+			// 	errors++;
+			// 	curr->leaked = 1;
+			// }
+		} else if (!warn_no_start_ref_p && curr->refs_middle && !alloced)  {
+			//either dont care about no start  ref and there is a middle ref
+			// or wedo care about start ref, but we do have a start and middle;
+			trace(" last: curr = %x, start refs = %d, mid refs = %d\n", curr, curr->refs_start, curr->refs_middle);
+			maybe_errors++;
 		}
+		trace("outside: curr = %x, start refs = %d, mid refs = %d\n", curr, curr->refs_start, curr->refs_middle);
 		curr = ck_next_hdr(curr);
 	}
 
@@ -187,7 +203,7 @@ static void mark_all(void) {
 unsigned ck_find_leaks(int warn_no_start_ref_p) {
 	trace("Marking...");
     mark_all();
-	printk("Done!\n");
+	output("Done!\n");
     return sweep_leak(warn_no_start_ref_p);
 }
 
@@ -228,12 +244,12 @@ static unsigned sweep_free(void) {
 	hdr_t *curr = ck_first_hdr();
 	while (curr) {
 		nblocks++;
-		if (curr->state == ALLOCED && curr->mark != 1 && curr->leaked == 0) {
+		if (curr->state == ALLOCED && curr->mark != 1) {
 			// allocated block was not marked, and not detected as leak before
 			curr->state = FREED;
 			nfreed++;
 			nbytes_freed += curr->nbytes_alloc;
-			trace("leak found for block: %x. Freeing.\n", curr);
+			trace("leak found for block: %d [addr = %d]. Freeing.\n", curr->block_id, curr);
 		}
 		curr = ck_next_hdr(curr);
 	}

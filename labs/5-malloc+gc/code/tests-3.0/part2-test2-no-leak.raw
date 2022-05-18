@@ -1,0 +1,32 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part2-test2-no-leak.bin> about to boot
+HASH: simple_boot: sending 10964 bytes, crc32=67a68ed6
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+GC test2: checking that local (stack or reg) pointers are detected.
+global_p=0xaf04 datastart=0xaad8, dataend=0xaf08
+TRACE:in sbrk
+tests-3.0/part2-test2-no-leak.c:test:34:allocating block = 1 [addr = 0x101f78]
+tests-3.0/part2-test2-no-leak.c:test:37:allocating block = 2 [addr = 0x101e40]
+p=0x101e40
+TRACE:Marking...TRACE:found 0x101e40 in 0x101d98
+TRACE:found 0x101e40 in 0x101d98
+TRACE:found 0x101f78 in 0x101ed0
+Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:outside: curr = 0x101ed0, start refs = 1, mid refs = 0
+TRACE:outside: curr = 0x101d98, start refs = 1, mid refs = 0
+TRACE:	GC:Checked 2 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+TRACE:last alloc = block_id=2, [0x101e40]
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up
