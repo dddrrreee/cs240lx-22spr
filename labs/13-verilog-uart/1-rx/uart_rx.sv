@@ -7,6 +7,8 @@ module uart_rx
         output logic [7:0] dout    // output data
     );
 
+    /* verilator public_module */
+
     typedef enum {idle, start, data, stop} state_t;
     state_t state_reg = idle;
     state_t state_next;
