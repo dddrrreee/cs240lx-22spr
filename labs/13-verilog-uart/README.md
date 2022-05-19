@@ -56,6 +56,14 @@ the received data to the RGB LED.
 
 # Testing
 
+There is a simulator with a built-in test for both the receiver and
+transmitter. Run `make sim` to build it and then `./sim` to run. The test will
+print the result and some information if it failed. You can also enable the
+`DEBUG` variable in `sim.cc` to get additional information from the test. The
+test will also generate a `trace.vcd` file when it runs. You can open this file
+using GTKwave and view all the signals during the run and how they changed over
+time.
+
 Run `make synth` and then `make prog` to program the FPGA. After running `make
 prog` you may need to disconnect the UPduino and plug it back in to the port
 for the tty to be detected. If you are on Linux, you can try running `make
@@ -63,7 +71,7 @@ uart` to do this automatically without needing to physically disconnect the
 device.
 
 Then run `screen [tty-port] 19200`. Running `make screen` will automatically
-try to open `/dev/ttyUSB0`.
+try to open `/dev/ttyUSB0` (feel free to edit the makefile).
 
 Once the connection is open, pressing r/g/b on your keyboard should turn on the
 red/green/blue led on the FPGA.
@@ -88,8 +96,6 @@ garbage while the receiver is receiving a byte still in flight.
   machine).
 * Multiple UARTs: the FPGA can fit a bunch of UARTs -- maybe you can do
   something interesting with that.
-* Simulator: use Verilator to make a simulator that checks that the UART
-  implementation is correct without needing the FPGA.
 * Currently only one byte is saved in the `flag_buf` before data starts getting
   lost. Implement a FIFO that has a configurable depth so that more data can be
   buffered.
