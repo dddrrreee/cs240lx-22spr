@@ -9,6 +9,8 @@ module uart_tx
         output logic tx            // serial data
     );
 
+    /* verilator public_module */
+
     typedef enum {idle, start, data, stop} state_t;
     state_t state_reg = idle;
     state_t state_next;
