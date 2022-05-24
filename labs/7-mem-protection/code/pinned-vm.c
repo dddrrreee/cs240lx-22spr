@@ -10,6 +10,12 @@
 #include "mmu.h"
 #include "procmap.h"
 
+// cp_asm(lockdown_index, p15, 5, c15, c4, 2); //get/set for lockdown index reg
+// cp_asm(lockdown_attr, p15, 5, c15, c7, 2); //get/set for lockdown attr reg
+// cp_asm(lockdown_index, p15, 5, c15, c5, 2); //get/set for lockdown VA reg
+// cp_asm(lockdown_index, p15, 5, c15, c6, 2); //get/set for lockdown PA reg
+
+
 // generate the _get and _set methods.
 // (see asm-helpers.h for the cp_asm macro 
 // definition)
@@ -47,7 +53,33 @@ void pin_mmu_sec(unsigned idx,
     uint32_t x, va_ent, pa_ent, attr;
 
     // put your code here.
-    unimplemented();
+	// assign which lockdown index we will use for future register accesses
+	lockdown_index_set(idx);
+
+	// asid can only occupy bottom 8 bits
+	demand(e.asid < 256, "ASID must be less than 256\n");
+	//setup va ent and write to lockdown_va_reg
+	va_ent = 0;
+	va_ent |= (0xff & e.asid);
+	va_ent |= ((e.G & 0b1) << 9);
+	va_ent |= (va & 0xfffff) << 12;
+	lockdown_va_set(va_ent);
+
+	//set mem attr with lockdown_attr_set
+	demand(e.dom < 16, "Domain must be less than 16.\n");
+	attr = 0;
+	attr |= (e.mem_attr & 0xf);
+	attr |= (e.dom & 0xf) << 7;
+	lockdown_attr_set(attr);
+
+	//set pa ent and write to lockdown_pa_reg
+	demand(e.pagesize < 4, "Invalid pagesize value\n");
+	demand(mem_perm_islegal(e.AP_perm), "Illegal perms for memory ent.");
+	pa_ent = 0;
+	pa_ent |= (e.AP_perm & 0b111) << 1;
+	pa_ent |= (e.pagesize & 0b11) << 6;
+	pa_ent |= (pa & 0xfffff) << 12;
+	lockdown_pa_set(pa_ent);
 
     if((x = lockdown_va_get()) != va_ent)
         panic("lockdown va: expected %x, have %x\n", va_ent,x);
@@ -124,7 +156,8 @@ void pin_mmu_on(procmap_t *p) {
     // pinned entries.
 
     // right now we just have a single domain?
-    staff_domain_access_ctrl_set(DOM_client << kern_dom*2);
+    // domain_access_ctrl_set(DOM_client << kern_dom*2);
+	staff_domain_access_ctrl_set(DOM_client << kern_dom*2);
 
     // install the default vectors.
     extern uint32_t default_vec_ints[];

@@ -27,7 +27,9 @@ STAFF_OBJS  :=  ./staff-objs/gpio.o     \
                 ./staff-objs/uart.o     \
                 ./staff-objs/gpio-pud.o     \
                 ./staff-objs/gpio-int.o  \
-				./staff-objs/kmalloc.o 
+				./staff-objs/kmalloc.o 	\
+				./staff-objs/interrupts-asm.o \
+				./staff-objs/interrupts-vec-asm.o
 
 # automatically add all staff src from:  libc, 
 # staff-src and ./staff-start.S

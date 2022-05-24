@@ -1,2 +1,14 @@
 *.d
 *.bak
+*.asc
+*.bin
+*.json
+*_out.config
+*.bit
+*.dfu
+obj_dir
+.verilator
+*.vcd
+.DS_Store
+*.dSYM
+sim

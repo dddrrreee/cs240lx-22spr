@@ -1,12 +1,11 @@
-#TEST_SRC := $(wildcard ./tests-2.0/part1-test[0-9]*.c)
+TEST_SRC := $(wildcard ./tests/*.c)
 
-TEST_SRC = tests/0-test3.c
 
 # make a local copy of cstart so you can modify it.
-SUPPORT_OBJS = cstart.o  pinned-vm.o
+SUPPORT_OBJS = cstart.o  pinned-vm.o mmu.o mmu-asm.o
 
 # you will swap in yours
-STAFF_OBJS = staff-mmu-asm.o staff-mmu.o   staff-pinned-vm.o staff-mmu-except.o 
+STAFF_OBJS = staff-mmu-asm.o  staff-mmu.o staff-pinned-vm.o staff-mmu-except.o 
 
 # staff-pinned-vm.o
 

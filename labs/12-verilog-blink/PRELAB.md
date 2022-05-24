@@ -64,21 +64,29 @@ make
 sudo make install
 ```
 
-#### NextPNR (ice40)
-
-```
-git clone https://github.com/YosysHQ/nextpnr nextpnr-ice40
-cd nextpnr-ice40
-cmake -DARCH=ice40 -DCMAKE_INSTALL_PREFIX=/usr/local .
-make
-sudo make install
-```
-
 #### Icestorm
 
 ```
 git clone https://github.com/YosysHQ/icestorm.git icestorm
 cd icestorm
+make
+sudo make install
+```
+
+#### NextPNR (ice40)
+
+Dependencies for mac:
+
+```
+brew install libftdi boost eigen cmake
+```
+
+NOTE: you need icestorm to build nextpnr.
+
+```
+git clone https://github.com/YosysHQ/nextpnr nextpnr-ice40
+cd nextpnr-ice40
+cmake -DARCH=ice40 -DCMAKE_INSTALL_PREFIX=/usr/local .
 make
 sudo make install
 ```
