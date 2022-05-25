@@ -14,8 +14,9 @@
 #include "rpi.h"
 #include "ads1115.h"
 
+
 void notmain(void) {
-    unsigned dev_addr = ads1115_config();
+    uint8_t dev_addr = ads1115_config();
 
     // 5. just loop and get readings.
     //  - vary your potentiometer
@@ -25,7 +26,7 @@ void notmain(void) {
     // 
     // make sure: given we set gain to +/- 4v.
     // does the result make sense?
-	for(int i = 0; i < 10; i++) {
+	for(int i = 0; i < 100; i++) {
         short v = ads1115_read16(dev_addr, conversion_reg);
         printk("out=%d\n", v);
 		delay_ms(1000);

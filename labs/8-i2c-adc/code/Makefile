@@ -4,8 +4,8 @@ TEST_SRC = driver.c
 # your source, shared by driver code.
 #   if you want to use our staff-hc-sr04.o,
 #   comment SRC out and uncomment STAFF_OBJS
-# SRC := i2c.c  ads11115.c
-STAFF_OBJS := staff-ads1115.o staff-i2c.o
+SRC :=  ads1115.c i2c.c
+# STAFF_OBJS := staff-i2c.o
 
 # define this if you need to give the device for your pi
 TTYUSB = 
@@ -14,5 +14,6 @@ TTYUSB =
 RUN = 1
 
 DEPS = ./Makefile
-SUPPORT_OBJS := $(SRC:.c=.o)
+SUPPORT_OBJS := ads1115.o i2c.o
+USE_FP=1
 include $(CS240LX_2022_PATH)/libpi/mk/Makefile.template
