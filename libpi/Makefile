@@ -14,7 +14,7 @@
 #   SRC := $(wildcard ./src/*.[Sc])
 #
 # currently not defined to hold anything
-SRC :=
+SRC := $(wildcard ./src/*.[Sc])
 
 # if you want to use our gpio.o or other .o (e.g., if yours
 # is acting weird):

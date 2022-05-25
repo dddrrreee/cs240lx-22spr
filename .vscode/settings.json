@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"ckalloc.h": "c"
+		"ckalloc.h": "c",
+		"rpi-interrupts.h": "c"
 	}
 }

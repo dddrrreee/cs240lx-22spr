@@ -206,9 +206,10 @@ pin_mk_global(uint32_t dom, mem_perm_t perm, mem_attr_t attr) {
 //  - idx >= 8.
 //  - va already mapped.
 void pin_mmu_sec(unsigned idx,
-                uint32_t va,
-                uint32_t pa,
+                unsigned va,
+                unsigned pa,
                 pin_t attr);
+// void staff_pin_mmu_sec(unsigned idx, uint32_t va, uint32_t pa, pin_t attr);
 
 // do a manual translation in tlb and see if exists (1)
 // returns the result in <result>

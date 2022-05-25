@@ -9,11 +9,17 @@
 #include "pinned-vm-asm.h"
 #include "mmu.h"
 #include "procmap.h"
+#include "rpi-interrupts.h"
 
-// cp_asm(lockdown_index, p15, 5, c15, c4, 2); //get/set for lockdown index reg
-// cp_asm(lockdown_attr, p15, 5, c15, c7, 2); //get/set for lockdown attr reg
-// cp_asm(lockdown_index, p15, 5, c15, c5, 2); //get/set for lockdown VA reg
-// cp_asm(lockdown_index, p15, 5, c15, c6, 2); //get/set for lockdown PA reg
+cp_mk(lockdown_index, p15, 5, c15, c4, 2); //get/set for lockdown index reg
+cp_mk(lockdown_attr, p15, 5, c15, c7, 2); //get/set for lockdown attr reg
+cp_mk(lockdown_va, p15, 5, c15, c5, 2); //get/set for lockdown VA reg
+cp_mk(lockdown_pa, p15, 5, c15, c6, 2); //get/set for lockdown PA reg
+
+
+cp_mk(xlate_kern_rd, p15, 0, cr7, cr8, 0); //xlate_kern_rd get/set
+cp_mk(xlate_kern_wr, p15, 0, cr7, cr8, 1); //xlate_kern_wr get/set
+cp_mk(xlate_pa, p15, 0, cr7, cr4, 0); //xlate_kern_wr get/set
 
 
 // generate the _get and _set methods.
@@ -28,15 +34,25 @@ int tlb_contains_va(uint32_t *result, uint32_t va) {
     // 3-79
     assert(bits_get(va, 0,2) == 0);
 
-    unimplemented();
+	//perform va->pa translation. If successful, PA will be loaded into
+	// PA register, otherwise source of abort exception will be loaded
+	// into PA register
+	xlate_kern_rd_set(va);
+
+	uint32_t pa = xlate_pa_get();
+	*result = pa & 0xFFFFFC00;
+
+	// if bottom bit is 0, translateion succeeded. See arm1176 pg 3-80 to 3-82
+	return (0b1 & pa) ? 0 : 1;
+
 }
 
 // map <va>-><pa> at TLB index <idx> with attributes <e>
 void pin_mmu_sec(unsigned idx,  
-                uint32_t va, 
-                uint32_t pa,
+                unsigned  va, 
+                unsigned pa,
                 pin_t e) {
-
+					
     demand(idx < 8, lockdown index too large);
     // lower 20 bits should be 0.
     demand(bits_get(va, 0, 19) == 0, only handling 1MB sections);
@@ -52,34 +68,17 @@ void pin_mmu_sec(unsigned idx,
     // these will hold the values you assign for the tlb entries.
     uint32_t x, va_ent, pa_ent, attr;
 
+	attr = (e.AP_perm >> 8 & 0xff) << 1 | e.dom << 7;
+	pa_ent = pa | (e.pagesize << 6 ) | (e.AP_perm & 0xff) << 1 | 1;
+	va_ent = va | (e.G << 9) | e.asid;
+
     // put your code here.
 	// assign which lockdown index we will use for future register accesses
 	lockdown_index_set(idx);
-
-	// asid can only occupy bottom 8 bits
-	demand(e.asid < 256, "ASID must be less than 256\n");
-	//setup va ent and write to lockdown_va_reg
-	va_ent = 0;
-	va_ent |= (0xff & e.asid);
-	va_ent |= ((e.G & 0b1) << 9);
-	va_ent |= (va & 0xfffff) << 12;
 	lockdown_va_set(va_ent);
-
-	//set mem attr with lockdown_attr_set
-	demand(e.dom < 16, "Domain must be less than 16.\n");
-	attr = 0;
-	attr |= (e.mem_attr & 0xf);
-	attr |= (e.dom & 0xf) << 7;
 	lockdown_attr_set(attr);
-
-	//set pa ent and write to lockdown_pa_reg
-	demand(e.pagesize < 4, "Invalid pagesize value\n");
-	demand(mem_perm_islegal(e.AP_perm), "Illegal perms for memory ent.");
-	pa_ent = 0;
-	pa_ent |= (e.AP_perm & 0b111) << 1;
-	pa_ent |= (e.pagesize & 0b11) << 6;
-	pa_ent |= (pa & 0xfffff) << 12;
 	lockdown_pa_set(pa_ent);
+
 
     if((x = lockdown_va_get()) != va_ent)
         panic("lockdown va: expected %x, have %x\n", va_ent,x);
@@ -145,7 +144,7 @@ void pin_mmu_on(procmap_t *p) {
     assert(!mmu_is_enabled());
 
     // we have to clear the MMU before setting any entries.
-    staff_mmu_init();
+    mmu_init();
     pin_procmap(p);
 
     // 0 filled page table to get fault on any lookup.
@@ -157,14 +156,14 @@ void pin_mmu_on(procmap_t *p) {
 
     // right now we just have a single domain?
     // domain_access_ctrl_set(DOM_client << kern_dom*2);
-	staff_domain_access_ctrl_set(DOM_client << kern_dom*2);
+	domain_access_ctrl_set(DOM_client << kern_dom*2);
 
     // install the default vectors.
     extern uint32_t default_vec_ints[];
     vector_base_set(default_vec_ints);
 
     pin_debug("about to turn on mmu\n");
-    staff_mmu_on_first_time(1, null_pt);
+    mmu_on_first_time(1, null_pt);
     assert(mmu_is_enabled());
     pin_debug("enabled!\n");
 

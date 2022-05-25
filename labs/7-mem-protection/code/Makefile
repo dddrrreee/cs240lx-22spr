@@ -19,4 +19,14 @@ RUN = 1
 MEMMAP = ./memmap
 
 DEPS = ./Makefile
+# rules to generate .elf->.list->.bin
+
+# %.bin: %.list
+# 	$(OCP) $*.elf -O binary $*.bin
+
 include $(CS240LX_2022_PATH)/libpi/mk/Makefile.template
+
+%.elf: %.o $(MEMMAP) $(LINK_OBJS) $(DEPS) 
+	$(LD) $(START) $*.o $(LINK_OBJS) -T $(LPP)/memmap -o $*.elf  $(LPI)
+%.list: %.elf
+	$(OD) -D   $*.elf > $*.list

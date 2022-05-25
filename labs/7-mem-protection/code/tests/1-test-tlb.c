@@ -9,7 +9,7 @@ void notmain(void) {
 
     // turn on the pinned MMU: identity map.
     procmap_t p = procmap_default_mk(kern_dom);
-    staff_pin_mmu_on(&p);
+    pin_mmu_on(&p);
 
     // if we got here MMU must be working b/c we have accessed GPIO/UART
     output("hello: mmu must be on\n");
@@ -17,8 +17,9 @@ void notmain(void) {
     uint32_t result = 0;
 
     for(int i = 0; i < p.n; i++) {
-        demand(tlb_contains_va(&result, p.map[i].addr + 0xFAA0), "did not contain valid VA");
-        demand(result == p.map[i].addr + 0xFAA0, "VA address didn't match!");
+        demand(tlb_contains_va(&result, p.map[i].addr), "did not contain valid VA");
+        demand(result == p.map[i].addr, "VA address didn't match!");
+		
     }
 
     demand(!tlb_contains_va(&result, 0xDEADFAA0), "contained invalid VA");
