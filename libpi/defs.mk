@@ -20,7 +20,7 @@ MEMMAP ?= $(LPP)/memmap
 START ?= $(LPP)/staff-start.o
 
 # include path: user can override
-INC ?= -I$(LPP)/include -I$(LPP)/ -I$(LPP)/src -I. -I$(LPP)/staff-private -I$(LPP)/staff-dev
+INC += -I$(LPP)/include -I$(LPP)/ -I$(LPP)/src -I. -I$(LPP)/staff-private -I$(LPP)/staff-dev
 
 
 # optimization level: user can override
