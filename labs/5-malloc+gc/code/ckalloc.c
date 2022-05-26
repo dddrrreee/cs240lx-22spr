@@ -4,9 +4,6 @@
 #include "test-interface.h"
 #include "ckalloc.h"
 
-
-
-
 static void list_remove(hdr_t *l, hdr_t *h) {
     assert(l);
     hdr_t *prev = l;

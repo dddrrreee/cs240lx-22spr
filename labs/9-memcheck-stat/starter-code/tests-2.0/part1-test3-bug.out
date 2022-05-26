@@ -1,0 +1,7 @@
+TRACE:going to check heap
+TRACE:ERROR:block 1  corrupted at offset 0
+TRACE:	logical block id=1,  nbytes=4
+TRACE:	Block allocated at: tests-2.0/part1-test3-bug.c:notmain:9
+TRACE:	Wrote block after free!
+TRACE:checked 1 blocks, detected 1 errors
+TRACE:SUCCESS: detected corruption in 1 

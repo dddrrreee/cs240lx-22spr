@@ -1,0 +1,19 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part1-test2-bug.bin> about to boot
+HASH: simple_boot: sending 12816 bytes, crc32=c03ead73
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+test2: memory overflow at offset 4
+TRACE:ERROR:block 1 [0x17fef8] corrupted at offset 4
+TRACE:	logical block id=1, [addr=0x17fef8] nbytes=4
+TRACE:	Block allocated at: tests-2.0/part1-test2-bug.c:notmain:7
+PANIC:ckalloc.c:ckfree:98:corrupted block 1 [addr=0x17fef8]
+
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

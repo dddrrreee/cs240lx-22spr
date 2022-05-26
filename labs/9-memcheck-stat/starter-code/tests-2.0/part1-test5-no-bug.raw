@@ -1,0 +1,17 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part1-test5-no-bug.bin> about to boot
+HASH: simple_boot: sending 13008 bytes, crc32=922ad7
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+test4: larger alloc, no error
+TRACE:going to check heap
+TRACE:SUCCESS: checked 2 blocks, detected no errors
+TRACE:SUCCESS heap checked out
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

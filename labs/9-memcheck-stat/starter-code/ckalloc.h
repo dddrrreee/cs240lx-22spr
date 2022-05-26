@@ -9,6 +9,8 @@
 typedef enum {  ALLOCED = 11, FREED } state_t;
 enum { REDZONE_NBYTES = 128, REDZONE_VAL = 0xfe };
 
+
+
 // pull the remainder into the second redzone.
 typedef struct ck_hdr {
     struct ck_hdr *next;
@@ -26,9 +28,16 @@ typedef struct ck_hdr {
     uint32_t refs_middle;   // number of pointers to the middle of the block.
 
     uint16_t mark;          // 0 initialize.
+	uint16_t leaked;
     
     uint8_t rz1[REDZONE_NBYTES];
 } hdr_t;
+
+
+static unsigned next_block_id = 1;
+
+static hdr_t *alloc_list;
+static hdr_t *last_node = NULL;
 
 // requires that p points to the start of the allocated region.
 static unsigned ck_blk_id(void *p) {
@@ -50,6 +59,9 @@ static inline unsigned ck_nbytes(hdr_t *h) {
 void *ck_hdr_start(hdr_t *h);
 // get the end of allocated data for <h>
 void *ck_hdr_end(hdr_t *h);
+
+
+hdr_t* ck_ptr_to_hdr(void* ptr);
 
 // pointer to first redzone.
 static inline uint8_t *ck_get_rz1(hdr_t *h) {
@@ -175,6 +187,7 @@ static inline void ck_verbose_set(int v) {
 
 // initialize interrupt checking.
 void ck_mem_init(void);
+void ck_mem_interrupt(uint32_t pc);
 
 // turn int-mem checking on.
 void ck_mem_on(void);
