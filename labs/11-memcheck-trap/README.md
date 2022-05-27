@@ -1,82 +1,92 @@
-## Memcheck implementation
-
+## Simple memory tracing and memory checking.
+ 
 Today is a fetch-quest coding lab.  You're going to combine the pieces
-from several lab into a working trap-based mem-checking system.   It's surprisingly
-easy, as long as you don't make foolish mistakes (as I did).
+from several lab into a working trap-based mem-checking system.   It's
+surprisingly easy, as long as you don't make foolish mistakes (as I did).
+
+High bit:
+  1. We give you simple a complete, working but simple trap-based
+     memory tracing system (`memtrace.c`) that calls a client supplied
+     routine on every load or store.  The client can check properties
+     or even modify what occurs.  It works by using domain permissions
+     to trap every load/store to a desired region of memory and then
+     single stepping to execute it.
+
+  2. We also give you a simple memory checker (`checker-purify.c`)
+     that uses (1) to check if each load or store is to valid, allocated
+     memory.
+
+  3. The lab is a "choose your own adventure" where you take this working
+     system and make it interesting: faster (e.g., using shadow memory),
+     replace our code with yours, write new checkers, etc.
+
+What to do:
+
+  1. Make sure the code works: 
+
+            % cd code
+            % make check
+
+    should should pass all tests (this can take awhile).
+
+  2. Look over the checker (`checker-purify.c`) and the tracing code
+     (`memtrace.c`).    These are pretty short and have comments so
+     hopefully not too bad.  They call various helper routines, but most
+     of these you have already built (e.g., the pinned VM from lab 7,
+     the debugging hardware from lab 9 in 140e).
+
+  3. Likely good starting point: Add shadow memory to the purify code
+     (make a copy first!) and measure how much it speeds things up.
+
+Should be relatively clean lab but has enough material you could work on it
+all summer if it's interesting (or in cs340lx).
+
+-----------------------------------------------------------------------------
+#### Background: the big idea.
+
+If you can see every load or store you can check many things: race
+conditions, memory corruption, use of tainted values, etc.
 
 
-#### Part 0: house-keeping
+Unfortunately, the traditional way tools such as valgrind and pin trace
+these is very complicated.  They use dynamic translations (for code 
+discovery) and then some form of instruction emulation to determine
+an instruction's effects.  It's hard to do the first in few lines of
+code and as you recall from lab `9-memcheck-stat`  figuring out ARM
+memory operations is a significant pain.
 
-Last lab, we asked you to copy old files into your new project --- this was good in that
-it wouldn't mess with working code, but it's obviously bad in that we have duplicate 
-stuff everywhere.  What we should be doing in general is:
-  1. Develop pieces in isolation.
-  2. Test until we're happy.
-  3. Commit the code to `libpi`.
+We'll use domain trapping to trace all memory operations to a 
+contiguous region of memory and then single stepping to have the
+CPU do the operation for us:
 
-We'll clean up a bit first.
+   1. To trace a region: give it a unique domain and then remove
+      permissions for that domain.  Everything will run as before, until
+      there is a load or store to the range, upon which we get a fault.
 
-I put the following in libpi:
- - `bit-support.h` into `libpi/libc`.
- - `cpsr-util.h` into `libpi/include`.
+      Recall: ARM has 16 domains Each page is tagged with a domain.
+      You can switch domain permissions with a single CP15 register write
+      (fast).
 
-Delete these from:
-  1. your `part1-single-step` and make sure it compiles.  
-  2. your `part2-vm-trap` and make sure it compiles.
+   2. We then call a client handler on the trapped address; the client
+      code can then do whatever checking or modification it wnats.
 
-#### Part 1: running a routine at user-level: `memcheck_fn`
+   3. After the code returns: we need to emulate the trapped instruction.
+      We can't just jump back or we'd trap again.  On a simple
+      architecture (e.g., riscv) we could just emulate the instruction.
+      However, we have ARM.  Fortunately we have single stepping: set
+      a mismatch breakpoint, disable trapping, jump back,  run that one
+      instruction, get a prefetch abort fault, and then reenable trapping
+      and resume until the next load or store.
 
-If you look in `memcheck.h` there's a new function:
+      This is what we do.
+    
+      The main weird issue we have to handle is that single stepping only
+      works for user mode.  Thus, we have to switch modes from the kernel
+      (`SUPER` mode) to user mode.   We can do this for memory because
+      they are not privileged instructions.  But we do have to migrate
+      shadow registers to user from super and back.
 
-    int memcheck_fn(int (*fn)(void));
-
-This will run `fn` in a checked environment that flags if you read or
-write unallocated or freed memory in the heap.  For part 1 we are just
-going to run it at user level with the heap protected --- as soon as you
-get a single fault, disable checking and continue.
-
-The first time it is called (but only the first time!) it should do
-any initialization:
-
-   1. Call `memcheck_init` 
-   2. Call `single_step_init`.  
-   3. Map the heap at  `(uint32_t)pt + OneMB`
-       (I think other places should work fine; this just makes it easy for
-       us to compare values.)
-   4. Map the shadow memory at one MB after the heap (other places work fine too).
-
-Note: the way we are doing this --- by sticking stuff at random constants
----- is really lame and done only for expediency.  The one minor thing
-that makes it better is that the MMU code will warn if we conflict and
-the MMU itself will throw a fault if we reference memory we did not map.
-Longer term we need something less embarassing.
-
-The rest of the routine should:
-   1. Turn on mem-checking
-   2. call `fn` using your `user_mode_run_fn` routine.
-   3. Turn off mem-checking.
-   4. Return.
-
-
-If you look at the tests for part1 you can see they build up slowly: 
-   - `part1-test0.c`: this just runs a routine without any checking.
-      Make sure this works before you start adding stuff.  Run it first without
-      any of the initialization above, then add the init and make sure it still
-      works.
-
-   - `part1-test1.c`: this makes sure you are running at user level and
-      that you can call a system call.  Just make up a fake one that
-      returns 10.
-
-   - `part1-test2.c`: this makes sure you are running at user level and
-      that you can take a single domain trap.    For this part you'll have
-      to protect the heap and, in the trap handler, change the permissions
-      for the tracked domain.  Sadly, it has no internal checking so
-      you'll have to look at the output to make sure it makes sense.
-
-#### Part 2: trapping each load and store.
-
-This is the fun part, where we can use the trick we keep discussing
+#### Reiterate: trapping each load and store.
 
 Basic idea:
   1. Remove permissions from the heap memory.
@@ -96,27 +106,17 @@ How to handle a domain section trap:
      `memcheck_trap_enable` and disable the mismatch breakpoint.  Now, when you 
      jump back, the code will continue as before.
 
-For tests:
-  - `part2-test0.c`: checks that you can handle multiple traps.  You'll have to 
-      look at the output.
-  - `part2-test0.c`: checks that you can handle calling your `memcheck_fn` multiple
-      times.  You'll have to look at the output.
-  - `part2-test2.c`: simple test that shouldn't give any issues --- call `kmalloc`
-    and make sure things work.  This checks that you called 
-    `kmalloc_init_set_start(heap_start)` to set where the heap started.
 
-There should be more tests, so if you write some that would be great.
-
-#### Part 3: simple shadow
+-------------------------------------------------------------------------------
+#### Option: add simple shadow to `check-purify.c`
 
 Here you'll do a simple shadow memory.  We'll just allocate a single 4-byte word
 to keep things easy.  There are three parts to this:
   1. For each byte of heap memory, we'll have a byte of shadow memory holding
-     its state.  You might want to use the partial-definitions in `memcheck-internal.h`
-     but you can use you own.  I put the shadow memory right after the heap and its
-     the same size (one MB).  Create and map this during your own time initialization.
-  2. Implement `memcheck_alloc`, which is a system call that will
-     allocate memory, turn checking off so the shadow memory can be
+     its state.  I put the shadow memory in the second half of the heap
+     Create and map this during your own time initialization.
+
+  2. In `purify_alloc`, turn checking off so the shadow memory can be
      written, mark its shadow memory as `ALLOCATED`, and then turn
      checking back off.
 
@@ -125,15 +125,38 @@ to keep things easy.  There are three parts to this:
      everything else.  It needs to be a system call since eventually we
      will be protecting the shadow memory with its own domain id. 
 
-  3. Implement `memcheck_free`, which checks that the memory is indeed
-     allocated and marks the state as `FREED`.  This is a system call
-     for the same reasons as `memcheck_alloc`.
+  3. In `purify_free` mark the state as `FREED`. 
 
-***SIMPLIFICATION***: for the moment, just assert that we do a single
-four-byte allocation.   We can fold in your checking allocator later ---
-we just want to test the shadow memory in the simplest way possible.
+  4. Measure how much things get sped up.  (For the slow test it should
+     be reasonable).
 
-Tests:
-  - `part3-test0.c`: checks that you can allocate and write to memory without errors.
-  - `part3-test1.c`: checks that if you allocate, free and then write to memory
-     that you catch it.
+  5. The `tests/*-purify-*c` test memory checking.
+
+-------------------------------------------------------------------------------
+#### Option: replace a bunch of our `.o` files.
+
+We use a bunch of code from old labs.  You should already have versions,
+so can start dropping in yours instead of ours.  
+
+  - One issue: the `pinned-vm.h` lab had wrong enums.  You should use the 
+    headers from libpi.
+
+
+-------------------------------------------------------------------------------
+#### Option: write the `switch_to` routines
+
+To resume execution we need a `switch_to` implementation that can jump
+either to user or to kernel space.  
+  - user mode: you can use the `^` operator to modify the user shadow.
+  - privileged: you have to switch to the mode and write to the registers
+    manually.
+
+-------------------------------------------------------------------------------
+#### Option: write new checkers.
+
+Hopefully it's pretty easy to write new checkers.  Some simple ones:
+  - check if a routine returns a pointer to its stack (so subsequent reads
+    or writes will be beyond the end of the stack pointer);
+  - or if it blows out its thread stack (similar);
+  - or if it uses uninitialized stack memory (you can random fill on
+    each procedure call).
