@@ -1,0 +1,3 @@
+TRACE:test that memtrace_init sets things up and doesn't crash
+TRACE:about to reference stack memory: should not fault
+TRACE:success!!

@@ -1,0 +1,22 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/4-purify-bug.bin> about to boot
+HASH: simple_boot: sending 28980 bytes, crc32=1298a233
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:should detect use after free
+TRACE:corrupting [0x182c20] at offset 173 [0x182ccd]
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0x8130: address 0x182ccd
+TRACE:[pc=0x8130]: store to address 0x182ccd
+TRACE:ERROR: illegal store to to FREED block at [pc=0x8130]: [addr=0x182ccd] is 3 bytes after legal mem (block size=171)
+TRACE:	logical block id=5, [addr=0x182c20] nbytes=171
+TRACE:	Block allocated at: tests/4-purify-bug.c:notmain:17
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

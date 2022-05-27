@@ -1,0 +1,4 @@
+TRACE:test that can run at user level with vm
+TRACE:about to run a routine at user level
+TRACE:at user level: going to read and write some stuff
+TRACE:successfully read/wrote memory

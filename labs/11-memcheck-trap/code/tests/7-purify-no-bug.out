@@ -1,0 +1,25 @@
+TRACE:should have no error: running w verbose off
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: store to address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:: load from address 0x183ef8
+TRACE:SUCCESS: no bug

@@ -1,0 +1,6 @@
+TRACE:should detect use after free
+TRACE:corrupting 
+TRACE:: store to address 0x182ccd
+TRACE:ERROR: illegal store to to FREED block at  is 3 bytes after legal mem (block size=171)
+TRACE:	logical block id=5,  nbytes=171
+TRACE:	Block allocated at: tests/4-purify-bug.c:notmain:17

@@ -1,0 +1,10 @@
+TRACE:test that memtrace_init sets things up and doesn't crash
+TRACE:about allocate: should not fault
+TRACE:going to write: should succeed
+TRACE:disabled heap access: should trap
+TRACE:have a data abort at pc=0x802c, expected: 0x802c
+TRACE:going to turn off tracing and resume!
+TRACE:about to write: should get a trap
+TRACE:have a data abort at pc=0x8024, expected: 0x8024
+TRACE:going to turn off tracing and resume!
+TRACE:success!!
