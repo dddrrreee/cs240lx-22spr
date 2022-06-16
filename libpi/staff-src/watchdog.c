@@ -1,13 +1,15 @@
 #include "rpi.h"
 #include "watchdog.h"
 
-static const int PM_RSTC = 0x2010001c;
-static const int PM_RSTS = 0x20100020;
-static const int PM_WDOG = 0x20100024;
-static const int PM_PASSWORD = 0x5a000000;
-static const int PM_RSTC_WRCFG_FULL_RESET = 0x00000020;
-static const int PM_RSTC_RESET = 0x00000102;
-static const int PM_RSTS_RASPBERRYPI_HALT = 0x555;
+enum {
+    PM_RSTC = 0x2010001c,
+    PM_RSTS = 0x20100020,
+    PM_WDOG = 0x20100024,
+    PM_PASSWORD = 0x5a000000,
+    PM_RSTC_WRCFG_FULL_RESET = 0x00000020,
+    PM_RSTC_RESET = 0x00000102,
+    PM_RSTS_RASPBERRYPI_HALT = 0x555 
+};
 
 static unsigned heartbeat = 0;
 
