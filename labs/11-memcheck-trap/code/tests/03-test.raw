@@ -1,0 +1,26 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/03-test.bin> about to boot
+HASH: simple_boot: sending 21960 bytes, crc32=49e5e03
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:test that memtrace_init sets things up and doesn't crash
+memtrace_dom = 2
+TRACE:about allocate: should not fault
+TRACE:going to write: should succeed
+TRACE:disabled heap access: should trap
+TRACE:have a data abort at pc=0x802c, expected: 0x802c
+TRACE:going to turn off tracing and resume!
+TRACE:about to write: should get a trap
+TRACE:have a data abort at pc=0x8024, expected: 0x8024
+TRACE:going to turn off tracing and resume!
+TRACE:success!!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

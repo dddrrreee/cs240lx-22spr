@@ -1,0 +1,34 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/5-purify-no-bug.bin> about to boot
+HASH: simple_boot: sending 28688 bytes, crc32=822d1cbf
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:should have no error
+TRACE:allocated [addr=0x183ef8]: about to store
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbef4: address 0x183ef8
+TRACE:[pc=0xbef4]: store to address 0x183ef8
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbef4 [regs[15]=0xbef4]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbef8!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbef4: address 0x183ef9
+TRACE:[pc=0xbef4]: store to address 0x183ef9
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbef4 [regs[15]=0xbef4]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbef8!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbef4: address 0x183efa
+TRACE:[pc=0xbef4]: store to address 0x183efa
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbef4 [regs[15]=0xbef4]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbef8!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbef4: address 0x183efb
+TRACE:[pc=0xbef4]: store to address 0x183efb
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbef4 [regs[15]=0xbef4]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbef8!
+TRACE:SUCCESS: no bug
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

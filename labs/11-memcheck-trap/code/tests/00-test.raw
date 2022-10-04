@@ -1,0 +1,19 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/00-test.bin> about to boot
+HASH: simple_boot: sending 21500 bytes, crc32=6e54e545
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+test to sanity check pinned vm works
+TRACE:if you see this, mmu is working
+TRACE:about to read a couple things
+TRACE:success!!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

@@ -1,0 +1,38 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/2-purify-bug.bin> about to boot
+HASH: simple_boot: sending 28776 bytes, crc32=8591a5fd
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:should detect memory underflow at offset -1
+TRACE:allocated [0x183ef8]: about to store
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbf14: address 0x183ef8
+TRACE:[pc=0xbf14]: store to address 0x183ef8
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbf14 [regs[15]=0xbf14]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbf18!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbf14: address 0x183ef9
+TRACE:[pc=0xbf14]: store to address 0x183ef9
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbf14 [regs[15]=0xbf14]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbf18!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbf14: address 0x183efa
+TRACE:[pc=0xbf14]: store to address 0x183efa
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbf14 [regs[15]=0xbf14]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbf18!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0xbf14: address 0x183efb
+TRACE:[pc=0xbf14]: store to address 0x183efb
+memtrace.c:data_abort_memtrace:114:set a mismatch on pc=0xbf14 [regs[15]=0xbf14]
+memtrace.c:prefetch_abort_memtrace:71:mismatch about to resume back to: 0xbf18!
+memtrace.c:data_abort_memtrace:100:got a domain section fault at pc=0x8098: address 0x183ef7
+TRACE:[pc=0x8098]: store to address 0x183ef7
+TRACE:ERROR: illegal store to to allocated block at [pc=0x8098]: [addr=0x183ef7] is -1 bytes before legal mem (block size=4)
+TRACE:	logical block id=1, [addr=0x183ef8] nbytes=4
+TRACE:	Block allocated at: tests/2-purify-bug.c:notmain:9
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

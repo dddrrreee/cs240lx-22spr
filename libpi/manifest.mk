@@ -16,6 +16,12 @@ STAFF_OBJS += $(STAFF_OBJS_DIR)/sw-spi.o
 STAFF_OBJS += $(STAFF_OBJS_DIR)/i2c.o
 STAFF_OBJS += $(STAFF_OBJS_DIR)/interrupts-vec-init.o
 
+# for the mem-trap
+#STAFF_OBJS += $(STAFF_OBJS_DIR)/staff-mmu.o  
+#STAFF_OBJS += $(STAFF_OBJS_DIR)/staff-pinned-vm.o
+#STAFF_OBJS += $(STAFF_OBJS_DIR)/staff-mmu-except.o
+#STAFF_OBJS += $(STAFF_OBJS_DIR)/staff-mmu-asm.o
+
 # rewrite STAFF_OBJS to use the fp subdir
 SRC += $(wildcard ./staff-dev/*.[Sc])
 

@@ -1,0 +1,34 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/04-test.bin> about to boot
+HASH: simple_boot: sending 22132 bytes, crc32=db77e605
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:test that memory trapping (no single step) doesn't crash
+memtrace_dom = 2
+TRACE:-----------------------------------------------------
+TRACE:checking that handler returning 0 works
+TRACE:about allocate: should not fault
+TRACE:going to write: should succeed
+TRACE:disabled heap access: should trap on 0x104000
+got a domain section fault at pc=0x802c: address 0x104000
+TRACE:have a data abort at pc=0x802c, expected: 0x802c
+TRACE:going to turn off tracing and resume!
+TRACE:nfaults=1
+TRACE:about to write: should get a trap on 0x104000
+got a domain section fault at pc=0x8024: address 0x104000
+TRACE:have a data abort at pc=0x8024, expected: 0x8024
+TRACE:going to turn off tracing and resume!
+TRACE:nfaults=2
+TRACE:-------------SUCCESS with handler return 0 -------------------------
+
+TRACE:success!!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

@@ -1,0 +1,7 @@
+TRACE:should have no error
+TRACE:allocated : about to store
+TRACE:: store to address 0x183ef8
+TRACE:: store to address 0x183ef9
+TRACE:: store to address 0x183efa
+TRACE:: store to address 0x183efb
+TRACE:SUCCESS: no bug

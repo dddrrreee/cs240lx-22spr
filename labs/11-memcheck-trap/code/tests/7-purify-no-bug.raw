@@ -1,0 +1,41 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests/7-purify-no-bug.bin> about to boot
+HASH: simple_boot: sending 28904 bytes, crc32=a4f85673
+waiting for a start
+putting code
+pi sent print: <<Flynn Dreilinger Lab 4>: success: Received the program!
+>
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+TRACE:should have no error: running w verbose off
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x8074]: load from address 0x183ef8
+TRACE:[pc=0x807c]: store to address 0x183ef8
+TRACE:[pc=0x808c]: load from address 0x183ef8
+*x = 45
+TRACE:[pc=0x802c]: load from address 0x183ef8
+TRACE:[pc=0x80b0]: load from address 0x183ef8
+TRACE:SUCCESS: no bug
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

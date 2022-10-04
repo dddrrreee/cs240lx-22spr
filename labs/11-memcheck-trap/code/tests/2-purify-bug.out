@@ -1,0 +1,10 @@
+TRACE:should detect memory underflow at offset -1
+TRACE:allocated : about to store
+TRACE:: store to address 0x183ef8
+TRACE:: store to address 0x183ef9
+TRACE:: store to address 0x183efa
+TRACE:: store to address 0x183efb
+TRACE:: store to address 0x183ef7
+TRACE:ERROR: illegal store to to allocated block at  is -1 bytes before legal mem (block size=4)
+TRACE:	logical block id=1,  nbytes=4
+TRACE:	Block allocated at: tests/2-purify-bug.c:notmain:9
