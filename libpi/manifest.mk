@@ -48,7 +48,7 @@ include $(CS240LX_2022_PATH)/libpi/defs.mk
 ifeq ($(USE_FP),1)
     BUILD_DIR := ./fp-objs
     LIB := libpi-fp.a
-    LIBM := libm
+    #LIBM := libm
     START := $(LPP)/staff-start-fp.o
     STAFF_OBJS := $(foreach o, $(STAFF_OBJS), $(dir $o)/fp/$(notdir $o))
 else

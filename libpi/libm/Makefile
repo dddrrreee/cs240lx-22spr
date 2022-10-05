@@ -5,7 +5,8 @@ TARGET= libm-pi.a
 # directory.   it's usually just a matter of adding the .o here (possibly pulling
 # in additional .o dependencies).   we do it conservatively to attempt to minimize
 # bad interactions with libpi.
-LIB_OBJS = s_cos.o k_cos.o k_sin.o e_rem_pio2.o k_rem_pio2.o s_scalbn.o s_floor.o s_copysign.o s_fabs.o s_sin.o s_atan.o e_atan2.o s_round.o
+LIB_OBJS = s_cos.o k_cos.o k_sin.o e_rem_pio2.o k_rem_pio2.o s_scalbn.o s_floor.o s_copysign.o s_fabs.o s_sin.o s_atan.o e_atan2.o s_round.o e_sqrt.o
+
 
 # k_rem_pio2.o
 SRC = $(LIB_OBJS:.o=.c)
