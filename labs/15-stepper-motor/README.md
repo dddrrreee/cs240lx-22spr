@@ -93,6 +93,25 @@ Note that losing steps error doesn't come from going too slow but too
 fast, so given a constant speed error that just makes you go more slowly
 is ok.
 
+
+-----------------------------------------------------------------------
+### Option: build a stepper UART
+
+Use the motor to transmit using a very low baud rate.  Use the adc+mic
+from lab 8 to read this.   You'll want to figure out the midpoint for the
+level reading --- above this is a 1, below is a 0.  The easiest way to
+build seems to be using threads where you yield from one to the other
+in the delay.  You may want to oversample (e.g., read 4x per period)
+in case there is a burst of ambient noise.
+
+-----------------------------------------------------------------------
+### Option: learn notes.
+
+Use the stepper to make a note at a given frequency.  Pick this up with
+the adc+mic and do an fft to get the frequency.   Similar to the stepper
+UART except we need to be accurate about the frequency. Hopefully Parthiv
+can show us how to do this accurately!
+
 -----------------------------------------------------------------------
 ### Option: use interrupts to do part 1.
 
