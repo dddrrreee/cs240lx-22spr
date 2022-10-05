@@ -23,3 +23,5 @@ double atan(double x);
 double atan2(double y, double x);
 /* s_round.c */
 double round(double x);
+
+double sqrt(double x);
