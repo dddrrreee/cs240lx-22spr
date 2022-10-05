@@ -38,5 +38,6 @@ SRC :=  $(SRC)                              \
         staff-start.S
 
 DEPS += ./Makefile ./manifest.mk
+LIBS += $(LIBM)
 
 include ./manifest.mk

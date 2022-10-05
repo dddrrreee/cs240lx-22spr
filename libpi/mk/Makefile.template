@@ -82,21 +82,31 @@ ALL_OBJS := $(SUPPORT_OBJS) $(STAFF_OBJS)
 all:: libs $(TEST_PROGS) $(TEST_RUN) $(CHECK_RUN) 
 
 # double colon is so user can add transparently.
-libs::
-ifneq ($(LIB),libpi.a)
-ifneq ($(LIB),libpi-fp.a)
-	@make -s -C $(LPP)
-	@make -s -C $(LPP)
-endif
-endif
+$(LPP)/libpi-fp.a:
+	@make  -C $(LPP) USE_FP=1
+$(LPP)/libpi.a:
+	@make  -C $(LPP)
 
-ifneq ($(LIB),libpi.a)
-ifneq ($(LIB),libpi-fp.a)
-$(LPI):
-	@make -s  -C $(LPP)
-	@make -s -C $(LPP)
-endif
-endif
+$(LPP)/libm/libm-pi.a:
+	@make  -C $(LPP)/libm
+
+#libs::
+#ifneq ($(LIB),libpi.a)
+#ifneq ($(LIB),libpi-fp.a)
+#	# echo "we are here with LIB=$(LIB)"
+#	@make  -C $(LPP)
+#	@make  -C $(LPP) USE_FP=$(USE_FP)
+#endif
+#endif
+
+#ifneq ($(LIB),libpi.a)
+#ifneq ($(LIB),libpi-fp.a)
+#$(LPI):
+#	# echo "we are here with LIB=$(LIB) and lpi=$(LPI)"
+#	@make  -C $(LPP)
+#	@make  -C $(LPP) USE_FP=$(USE_FP)
+#endif
+#endif
 
 $(SUPPORT_OBJS): $(DEPS)
 
