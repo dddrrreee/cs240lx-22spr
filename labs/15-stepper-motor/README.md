@@ -36,7 +36,7 @@ After wiring everything up, you should be able to run the given test
 program from Alex which plays the USA anthem (sardonically appropriate
 given the current idiots pushing for nuclear war):
 
-    % test-programs/stepper_test.bin 
+    % staff-binary/stepper_test.bin 
 
 If this doesn't work, check with someone else!  There's a lot of miswiring
 that can happen.   We also have cheap knock-off A4988 IC's, so it's not
