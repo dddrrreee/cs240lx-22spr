@@ -36,7 +36,7 @@ After wiring everything up, you should be able to run the given test
 program from Alex which plays the USA anthem (sardonically appropriate
 given the current idiots pushing for nuclear war):
 
-    % test-programs/stepper_test.bin 
+    % staff-binary/stepper_test.bin 
 
 If this doesn't work, check with someone else!  There's a lot of miswiring
 that can happen.   We also have cheap knock-off A4988 IC's, so it's not
@@ -95,14 +95,42 @@ is ok.
 
 
 -----------------------------------------------------------------------
-### Option: build a stepper UART
+### Part 2: build a stepper UART
 
 Use the motor to transmit using a very low baud rate.  Use the adc+mic
-from lab 8 to read this.   You'll want to figure out the midpoint for the
-level reading --- above this is a 1, below is a 0.  The easiest way to
-build seems to be using threads where you yield from one to the other
-in the delay.  You may want to oversample (e.g., read 4x per period)
+from lab 8 to read the stepper noise.  You'll want to figure out the
+midpoint for the level reading --- above this is a 1, below is a 0.
+
+The easiest way to build seems to be using threads where you yield
+from one to the other in the delay.  You may want to oversample (e.g.,
+read multiple per period) and perhaps discard values that are "too high"
 in case there is a burst of ambient noise.
+
+There is some basic code in `code-sw-uart`.  Two main programs:
+
+ - `interleave-example.c`: an example of how to interleave two routines
+   using your threads package.   Since we have cooperative threads and
+   one CPU we interleave by doing a yield whenever we are doing a 
+   busy wait (as you immediately expect: its easy to forget a yield!
+   So it's useful to write a checker).   We rely on the package being
+   round robin to schedule everything appropriately.
+
+   Alternatively we could interleave using interrupts.  Or, with less
+   state explosion: by interleaving calls to run-to-completion routines
+   rather than doing a thread yield.  (We may explore this later.)
+
+ - `measure-motor.c`: we use similar logic to use the ADC to measure
+   the motor while we are driving the stepper.  You'll need to rewrite
+   your `a4988.h` header to call the `delay_us_yield` routine (in
+   `delay-yield.h`) so that this works.
+
+   I got around 13k for motor off and around 15k for motor on.  This
+   isn't a huge difference but should be enough to transmit bits.
+
+You can run these by changing the `Makefile` target.
+
+Given these examples you should hopefully (I haven't finished mine!)
+software uart that transmits bits using the motor.   
 
 -----------------------------------------------------------------------
 ### Option: learn notes.
