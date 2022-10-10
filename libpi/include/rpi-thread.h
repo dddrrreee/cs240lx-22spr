@@ -131,5 +131,7 @@ static inline unsigned rpi_tid(void) {
     return t->tid;
 }
 
+int rpi_thread_on(void);
+
 
 #endif
