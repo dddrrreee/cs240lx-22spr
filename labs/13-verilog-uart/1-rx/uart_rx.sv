@@ -9,9 +9,15 @@ module uart_rx
 
     /* verilator public_module */
 
-    typedef enum {idle, start, data, stop} state_t;
-    state_t state_reg = idle;
-    state_t state_next;
+    parameter idle = 2'b00;
+    parameter start = 2'b01;
+    parameter data = 2'b10;
+    parameter stop = 2'b11;
 
+    // typedef enum {idle, start, data, stop} state_t;
+    reg[1:0] state_reg = idle;
+    reg[1:0] state_next;
+
+    assign dout = 1;
     // TODO
 endmodule

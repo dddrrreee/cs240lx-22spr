@@ -41,6 +41,7 @@ void ads1115_reset(void) {
 //  send it:
 //    3. call i2c_write with <dev_addr> and the array.
 void ads1115_write16(uint8_t dev_addr, uint8_t reg, uint16_t v) {
+    uint8_t data[3];
     unimplemented();
 }
 
@@ -49,6 +50,7 @@ void ads1115_write16(uint8_t dev_addr, uint8_t reg, uint16_t v) {
 // 2. read the two bytes that come back (a 2-byte i2c_read)
 // 3. reconstruct the 16-bit value.
 uint16_t ads1115_read16(uint8_t dev_addr, uint8_t reg) {
+    uint8_t data[2];
     unimplemented();
 }
 

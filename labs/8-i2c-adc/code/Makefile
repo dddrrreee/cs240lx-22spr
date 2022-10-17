@@ -4,7 +4,7 @@ TEST_SRC = driver.c
 # your source, shared by driver code.
 #   if you want to use our staff-hc-sr04.o,
 #   comment SRC out and uncomment STAFF_OBJS
-# SRC := i2c.c  ads11115.c
+# SRC := ads11115.c
 STAFF_OBJS := staff-ads1115.o staff-i2c.o
 
 # define this if you need to give the device for your pi

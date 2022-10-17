@@ -47,8 +47,10 @@ static inline unsigned ck_nbytes(hdr_t *h) {
     return h->nbytes_alloc;
 }
 // get the start of allocated data for <h>
+// [confusing routine name, sorry]
 void *ck_hdr_start(hdr_t *h);
-// get the end of allocated data for <h>
+// get one past the end of allocated data for <h>
+// [confusing routine name, sorry]
 void *ck_hdr_end(hdr_t *h);
 
 // pointer to first redzone.
@@ -200,5 +202,33 @@ unsigned ck_mem_stats(int clear_stats_p);
 void ckalloc_start(void);
 // put at end of ckalloc.c file
 void ckalloc_end(void);
+
+/*************************************************************************
+ * lab 11 purify lab
+ */
+// given an adddresss returns a block if it's somewhere
+// within [header, redzone 1 redzone 2 etc].
+hdr_t *ck_get_containing_blk(void *addr);
+
+// computes the offset <addr> is from allocated mem in <h>: 
+//  - negative implies before the block starts, 
+//  - positive implies after block ends.  
+//  - 0 means no overflow.
+static inline int ck_illegal_offset(hdr_t *h, void *addr) {
+    char *s = ck_hdr_start(h); // start of allocated memory
+    char *e = ck_hdr_end(h); // end of allocated memory
+    char *p = addr;
+
+    // before the block: return negative
+    if(p < s)
+        return p - s;
+
+    // past the end: return positive
+    if(p >= e)
+        return p - e + 1;
+
+    // <addr> is not illegal.
+    return 0;
+}
 
 #endif

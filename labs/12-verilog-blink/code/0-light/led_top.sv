@@ -11,4 +11,7 @@ module led_top
         output logic tx
     );
     // TODO
+    assign led_r = 1;
+    //assign led_g = 1;
+    // assign led_b = clk & 1;
 endmodule
