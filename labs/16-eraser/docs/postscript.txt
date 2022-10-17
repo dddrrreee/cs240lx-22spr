@@ -1,0 +1,429 @@
+******************************************************************
+*
+* Eraser Notes
+*
+*
+----------------------------------------------------------------------
+   How hard are these bugs to find and eliminate? Potential problems:
+     a) Timing dependences may make the bug difficult to reproduce.
+        What is worse, the instrumentation people insert to help
+        them find bugs may change the timing in such a way that the
+        bug never shows up.
+     b) The bug is usually caused by the unexpected interaction of
+        two loosely related pieces of code that are often in
+        different modules. So the person debugging must understand the
+        module interactions and cannot reason about the
+        system one module at a time.
+     c) The manifestation of the bug may occur long after the execution
+        of the code containing the bug.
+     d) The code that fails may be very far away from the code
+        containing the bug.
+----------------------------------------------------------------------
+what is the definition of a race condition?
+	- what's a source of false positives/false negatives in theirs?
+	- what's a better definition?
+
+   NOTE: if I acquire all locks before every load or store, and release
+   them after, will get no error, but protect against no races.
+
+their mental model:
+	every memory location has the set of locks used
+
+	what is the granularity of shared state?
+		- word can have a lock (don't protect bytes or bits:
+		  can produce false positives)
+
+	        - each word has a lockset index associated with it.
+
+   what does atom have to do?
+	- instrument lock/unlock
+		- add/remove lock from current lockset.
+		- has to know if read/write lock.
+		- has to know which parameter is the lock
+
+	- allocation: initialize shadow memory (need to do data
+	      segment at startup)
+
+	- insert a call to eraser on every load and store.
+   --------------------------------------------------------------------
+   calls malloc: what happens:
+	allocates shadow memory as big as the allocation.
+	puts it in the virgin state
+	sets the thread id to the current thread (calls thread package)
+
+   atom puts in a call to this routine on every load store that is not
+   off the stack pointer:
+   
+   void compute_transition(lockset *ls, void *addr, int op) {
+	# alpha has an 8K direct mapped cache --- what is a really bad
+	# value for offset?
+	i = ((unsigned)addr >> 2) + offset;
+
+	# virgin has no previous accesses.
+ 	if s[i].state == virgin
+		s[i].state = exclusive
+		s[i].ls = thread_id.
+	# only rd/wr from cur thread
+ 	else if s[i].state == exclusive
+		if(s[i].ls == thread_id)
+			# do nothing
+		else 
+			if(write)
+				s[i].state = shared-modified;
+			else 
+				s[i].state = shared;
+			s[i].ls = cur_ls;
+ 	else if s[i].state == shared
+		s[i].ls = s[i].ls intersect cur_ls;
+		if(read)
+			# no error if goes to empty.
+		else 
+			s[i].state = shared-modified;
+
+ 	else if s[i].state == shared-modified
+		if(read)
+			s[i].ls = s[i].ls intersect all_locks_held;
+		else
+			s[i].ls = s[i].ls intersect all_write_locks_held;
+
+       if(s[i].state == shared-modified && s[i].ls = {})
+		error "BOGUS";
+    }
+
+    modifications:
+	1. if removed lock not there, complain.
+	2. if added lock already there, complain
+	3. if we are going to go to empty, emit warning, but leave in
+	   old lock tate.
+	
+   what things do they gloss over?
+	+ atom already blew it up by 2x code size i believe.
+	+ granularity of protection 4bytes --- if you could protect 1
+	  byte, then 4x more.
+
+   add in annotation support?
+	- eraserignoreon/off:
+		do not report --- this means they should not refine
+	    	as well, otherwise it's not that useful.
+	- eraserreuse
+		reinitialize
+	- eraserreadlock/unlock/writelock/writeunlock: have to say 
+	  what parameter is the lock (pass in address).
+
+------------------------------------------------------------------------
+13) What does the experimental evaluation say about application
+    characteristics and the utility of the tool?
+    a) Altavista basically had no serious synchronization errors.
+       There were false positives, but a small number of annotations
+       removed them all.
+    b) One bug fix in the Vesta cache server. The problem is related
+       to the interaction of a standard synchronization idiom for
+       machines with a sequentially consistent memory model and the
+       weak memory consistency model in the Alpha. My guess is that
+       when the code was written, it was not intended to run on machines
+       with weak memory consistency models, then was ported to the Alpha
+       without a reexamination. A common source of errors - see the Ariane
+       rocket failure.
+    c) Petal - no serious synchronization errors.
+    d) Student programs - 10% of apparently working student programs
+       had synchronization errors.
+
+
+		lines		locks 		locksets   annots	errs
+ altavista
+   mhttpd:    5000lines		100		250		10	0
+   Ni2	      20000		900		3600		9	0
+
+ vesta (cvs)   30K C++		26		70		10	1
+  petal		25K C							2
+							[statistics: minor]
+
+   ugrads								10%
+ 
+
+
+   These programs are surprisingly free of synchronization errors. The
+   data suggest that Eraser might not be useful in making production
+   programs more reliable. Eraser might therefore be more appropriate
+   as a tool that would make it easier and faster to find synchronization
+   errors during program development. It would be interesting to see
+   a bug fix log for these server programs to see if they had significant
+   problems with synchronization errors during program development.
+
+   An alternate perspective is that developing thread-based programs
+   may not be that difficult for very good programmers like the ones who
+   developed these servers, or that the servers themselves do not use
+   synchronization in a very complicated way, so it is straightforward to get
+   it right.
+
+		[false: memory reuse, private locks, benign races]
+
+Different from the text:
+
+*On page 398, it says that "A write access from a new thread changes the
+state from Exclusive or Shared to the Shared-Modified state..." But figure 4
+says that a write by any thread in the Shared state takes it to the
+Shared-Modified state. This is a contradiction. Which is right?
+
+(Oops, a bug in the description. The figure is right. Looking at the later
+description of the implementation, any write will take it to
+shared-modified. Once it is shared it is running the lockset algorithm
+without giving warnings, which means that the per-variable shadow area
+contains the lockset pointer, so it can no longer be keeping track of the
+thread number of the original writer. We can also reason from what it should
+do. If anyone is writing into a variable that at least one other thread has
+been reading from, we have a possibility of a race, so we had better we
+raising alerts if the locking protocol is violated. [a legalistic reading of
+the text can claim that it is technically accurate; it is true that a write
+access from a new thread in the Shared state does take it to the
+Shared-Modified state; they just didn't bother to mention that a write
+access from the old thread in the Shared state also takes the variable to
+the Shared-Modified state. Under that interpretation the sin is that the
+authors forgot to mention one important case.])
+
+* have them list all the false positives and false negatives that eraser
+  gets. 
+
+-----------------------------------------------------------------------
+why sem not a race?  forces sequential execution:
+
+	x++;
+	v(sem);
+			p(sem);
+			x++
+			...
+
+
+is the lockset a per-thread data structure?  does it need to be?
+
+-----------------------------------------------------------------------
+start with:
+   How hard are these bugs to find and eliminate? Potential problems:
+     a) Timing dependences may make the bug difficult to reproduce.
+        What is worse, the instrumentation people insert to help
+        them find bugs may change the timing in such a way that the
+        bug never shows up.
+
+		[used to hate runing on a faster machine.  different
+		speeds; also different mem consistency models.]
+
+		insert a printf, it disappears.
+
+     b) The bug is usually caused by the unexpected interaction of
+        two loosely related pieces of code that are often in
+        different modules. So the person debugging must understand the
+        module interactions and cannot reason about the
+        system one module at a time.
+		[violate modularity: have to look at all critical
+		 sections
+			lock(l);
+			x++;
+			unlock(l);
+			...
+		   x is behaving strangely: can i just look here?
+		   no i have to expand the ellipses.
+		]
+
+     c) The manifestation of the bug may occur long after the execution
+        of the code containing the bug.
+     d) The code that fails may be very far away from the code
+        containing the bug.
+
+
+   What was the scope of the tool?
+     a) Threads that synchronize using only mutual exclusion locks
+        (no condition variables).
+     b) Bugs that can be detected based on dynamic execution. So
+        if there is a bug in a part of the program that is not
+        executed, bug will not show up in that run.
+     c) Shared variables are either heap or global variables accessed
+        by multiple threads.
+     d) If the programmer puts in synchronization, the granularity
+        is assumed to be correct.
+
+
+4) Basic assumption: the programmer has mentally associated each
+   piece of data with a lock, and a correct program will hold that
+   lock during every access to that piece of data.
+
+
+5) What is the basic problem the Lockset algorithm addresses?
+     Determining the association of locks and data.
+
+   How does it solve this problem?
+     It dynamically constructs the set of locks that can be associated
+     with each accessed memory location.  This is computed as the
+     intersection over all accesses to that memory location of the locks
+     that the program holds when it performs the access.
+
+   How does a synchronization error show up?
+     If a lock set ever becomes empty, a synchronization error is
+     reported. Note that the error itself does NOT have to occur in the
+     program execution - just the possibility of an error.
+
+
+-------------------------------------------------------------------
+13) What does the experimental evaluation say about application
+    characteristics and the utility of the tool?
+    a) Altavista basically had no serious synchronization errors.
+       There were false positives, but a small number of annotations
+       removed them all.
+    b) One bug fix in the Vesta cache server. The problem is related
+       to the interaction of a standard synchronization idiom for
+       machines with a sequentially consistent memory model and the
+       weak memory consistency model in the Alpha. My guess is that
+       when the code was written, it was not intended to run on machines
+       with weak memory consistency models, then was ported to the Alpha
+       without a reexamination. A common source of errors - see the Ariane
+       rocket failure.
+    c) Petal - no serious synchronization errors.
+    d) Student programs - 10% of apparently working student programs
+       had synchronization errors.
+
+15) It is interesting to compare Eraser to another tool with similar
+    characteristics, Purify. Purify is designed to catch memory
+    errors (dangling references, memory leaks) in C programs.
+    It has a lot of similarities to Eraser:
+      a) Uses binary rewriting.
+      b) Uses a dynamic approach to catching errors, which means it
+         misses errors that are not exposed in the instrumented execution.
+      c) Designed to catch a very nasty class of bugs that cause
+         programs to fail in mysterious ways.
+      d) A safe programming language like ML would eliminate the
+         errors that Purify was designed to catch. Analogy with
+         monitors: ML and other safe languages did not catch on,
+         probably in part because the safety was too constraining. It
+         prevented programmers from doing useful things like writing
+         generating a write to a specific memory address or writing
+         a general memory allocator. Interesting development: emergence
+         of Java, which is a safe language.
+    Purify was a commercially successful product, which illustrates
+    the importance of memory bugs in C programs.
+
+16) Eraser illustrates several recurring areas of tension in
+    programming tools:
+    a) Static versus dynamic error checking
+    b) Checking an unsafe language (with potential false negatives)
+       as opposed to using a language whose model of computation
+       eliminates the potential for errors to occur.
+    c) Doing analysis/instrumentation at the assembly level (this is
+       getting increasingly popular) as opposed to the source language level.
+
+
+----------------------------------------------------------------------
+KEY: 
+
+*Why the elaborate state diagram of figure 4 (page 398). Why not just use
+the first version of the lockset algorithm described on page 396?
+
+(Because not every variable is both shared and modified, and it is only
+shared-modified variables that can be the source of races. So the state
+diagram shows a way discovering which variables are actually
+shared-modified.)
+
+*On page 398, it says that "A write access from a new thread changes the
+state from Exclusive or Shared to the Shared-Modified state..." But figure 4
+says that a write by any thread in the Shared state takes it to the
+Shared-Modified state. This is a contradiction. Which is right?
+
+(Oops, a bug in the description. The figure is right. Looking at the later
+description of the implementation, any write will take it to
+shared-modified. Once it is shared it is running the lockset algorithm
+without giving warnings, which means that the per-variable shadow area
+contains the lockset pointer, so it can no longer be keeping track of the
+thread number of the original writer. We can also reason from what it should
+do. If anyone is writing into a variable that at least one other thread has
+been reading from, we have a possibility of a race, so we had better we
+raising alerts if the locking protocol is violated. [a legalistic reading of
+the text can claim that it is technically accurate; it is true that a write
+access from a new thread in the Shared state does take it to the
+Shared-Modified state; they just didn't bother to mention that a write
+access from the old thread in the Shared state also takes the variable to
+the Shared-Modified state. Under that interpretation the sin is that the
+authors forgot to mention one important case.])
+
+*Show me an example in which we get a race if only one thread ever writes
+to the shared variable.
+
+(
+
+    thread 1                thread 2
+                              x = 10 (initialization)
+
+    acquire(xlock);
+    if x > 5                  x = 2
+       y = x*3;
+    else
+       y = 0;
+    release(xlock);
+
+)
+
+[don't get this]
+
+*In section 3.4, it says that Eraser would have trouble with semaphores
+because they are not "owned". This takes us back to the earlier question:
+Does Eraser really depend on ownership?
+
+(The state diagram of figure 4 has arcs labeled "first thread" and "new
+thread", so it certainly needs to know who is setting a lock. But presumably
+Erasericould find that out by looking in some currentÐthread system
+variable. And it is certainly true that a locking protocol in which one
+thread acquires a lock and another thread releases it is going to be hard to
+debug. But it doesn't seem that Eraser would give different answers if the
+discipline of only the owner can release a lock is abandoned.)
+
+----------------------------------------------------------------------
+10) How accurate is Eraser?
+   a) False negatives:
+      1) Dynamic initialization races that don't show up in the execution.
+      2) Errors in unexecuted pieces of code.
+      3) Dynamic lock addressing that may be correct in some runs
+         but incorrect in others.
+   b) False Positives:
+      1) Phased computations that don't use synchronization for data
+         that is read-only in a given phase.
+      2) Data that goes through an application-specific memory allocator
+         and uses a different lock second time around.
+      3) Hierarchical locking strategies. Example:
+         Holding a lock on a tree node gives the program the right
+           to modify any node in the subtree. Some programs may lock
+           the tree at different granularities.
+      4) Alternative lock primitives that are not instrumented by Eraser.
+      5) Sometimes the data race is benign:
+         a) Computation requires only approximate, not exact information.
+            So incrementing variables without synchronization is OK in
+            some circumstances as long as errors don't show up too often.
+         b) Single reads and writes to words of memory are atomic. If the
+            program only requires that level of atomicity, there is no
+            need for locking.
+      Annotation mechanism to turn off false positives.
+   c) Not designed to handle:
+      1) Optimistic synchronization primitives.
+      2) Condition variables.
+
+11) The utility of Eraser depends on
+   a) Frequency of false positives - too frequent makes the tool
+      cumbersome to use.
+   b) Number of bugs that Eraser catches in practice, which depends
+      on the number of bugs that programmers introduce into multithreaded
+      applications and on how many of them Eraser catches.
+   c) Perceived severity of bugs that Eraser catches.
+   d) The number of applications that meet the Eraser model of
+      synchronization.
+  All of these issues depend on application characteristics. So the
+  experimental evaluation is absolutely crucial to understanding
+  whether the tool is useful or not.
+-------------------------------------------------------------------------
+*On page 392 the authors say "Only the owner of a lock is allowed to
+release it." Is this true of the lock implemented in chapter 3 (page 3-62)?
+
+(The implementation of chapter 3 certainly doesn't enforce any such
+restriction, though it would be easy to add it. Some locking systems enforce
+those semantics, others don't.)
+
+*Does Eraser actually depend on this rule?
+
+(It does need to know which thread is setting a lock, in order to run more
+advanced versions of the lock-set algorithm. But we haven't gotten that far
+yet, so let's bookmark that question.)
