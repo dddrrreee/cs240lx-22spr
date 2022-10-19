@@ -2,6 +2,11 @@
 
 For today's lab, we will be working with audio; specifically, an [Adafruit I2S microphone](https://www.adafruit.com/product/3421) and the I2S hardware peripheral in the Raspberry Pi.
 
+## Basic terminology
+
+- I2S: Inter-IC Sound, a serial bus standard for communication between digital audio devices.
+- PCM: The format in which audio samples are transmitted on an I2S bus. The docs seem to use PCM and I2S interchangeably. Think of a PCM sample as the "packet" of the I2S "network".
+
 ## I2S General Background
 
 I2S is a pretty simple protocol that enables transmitting audio samples with at an arbitrary bit width and sample rate. You can read more about it here:
@@ -44,7 +49,7 @@ What you need to know about these frequency indices:
 - We can only detect frequencies up to 1/2 of the sampling rate. See [Nyquist-Shannon Sampling Theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem).
 - Half of the FFT outputs are "useless" (and could be optimized out). For real time domain signals (which we deal with), the amplitude of each negative frequency is exactly -1 * the amplitude of the corresponding positive frequency. This is not necessarily the case for complex time domain signals, but we only have real samples from the microphone :)
 
-## BCM2835 Docs
+## Docs
 
 It's important that we use the hardware I2S peripheral because it allows us to free up CPU time. A very common ("CD-quality") audio format is 16 bits @ 44.1 kHz sampling rate, which corresponds to roughly 705.6 thousand GPIO reads per second. It's a lot nicer if we can let the hardware do this for us, then read data from a FIFO when we need it. 
 
@@ -57,3 +62,5 @@ I would recommend at least skimming these docs. They aren't quite sufficient to 
 [BCM2835 Peripherals Errata](https://elinux.org/BCM2835_datasheet_errata)
 - p107-108 table 6-35: explanation of PCM/I2S clock
 - p105 table: explanation of clock divider
+
+[I2S Mic Datasheet](docs/i2S%2BDatasheet.PDF)
