@@ -87,7 +87,7 @@ Next we'll want to be able to read a sample. This isn't too difficult as the I2S
     - This will just dump i2s samples over UART. It's a good way to see that your code is working, as you should see samples that are hopefully changing over time. It's not timing accurate or anything since the UART writes are very slow.
 - `2-i2s-dump.c` 
     - This will record 5 seconds of audio to a buffer, then dump them out to the UART at the end. 
-    - Recommended usage: `make 2>&1 | grep DUMP | tr -d DUMP > py/dump.txt` (one of you Unix pros can tell me a better way to do this). This puts all of the output from `pi-install`, filters it to only have the lines starting with `DUMP`, then trims off `DUMP` and puts all those lines into the file `dump.txt` in the `py` directory.
+    - Recommended usage: `make 2>&1 | grep DUMP | tr -d DUMP > ../py/dump.txt` (one of you Unix pros can tell me a better way to do this). This puts all of the output from `pi-install`, filters it to only have the lines starting with `DUMP`, then trims off `DUMP` and puts all those lines into the file `dump.txt` in the `py` directory.
     - Then, we can `cd py` and then `python3 text_to_wav.py` (you will need numpy and scipy). This is a quick script that reads the samples from `dump.txt` and generates a wav file `dump.wav`. You will hopefully hear something!
     - This is super slow because it's writing 44100 * 5 = 220500 lines to the file. This could definitely be improved if we were able to read the samples from the pi as actual values rather than ASCII.
 - `3-i2s-audiovis.c`

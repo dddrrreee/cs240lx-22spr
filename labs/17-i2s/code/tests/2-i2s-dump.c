@@ -1,7 +1,7 @@
 /*
  * record i2s samples to a buffer then print them out
  * so you can generate a wav file
- * usage: make 2>&1 | grep DUMP | tr -d DUMP > py/dump.txt
+ * usage: make 2>&1 | grep DUMP | tr -d DUMP > ../py/dump.txt
  */
 #include "rpi.h"
 #include "i2s.h"
