@@ -2,6 +2,8 @@
 
 The r/pi has a hardware I2S peripheral. The docs for this are a bit of a mess, but it may be useful for you to be able to use audio transmit/receive in your projects. The key section of the BCM manual is chapter 8. I got single-channel receive working and I think that having multi-channel receive should not be too much extra work. Transmitting should also be pretty doable as you just do an equivalent setup for the TX and then write to the FIFO register instead of reading from it. I think you can have both TX and RX going at the same time. 
 
+If you have questions at any point please ask me! This is my first time making a lab so let me know if there's anything unclear that can be updated for the future.
+
 ## Prelab
 The prelab contains some background info on the protocol and some basic useful signal processing stuff. Take a look at [PRELAB.md](PRELAB.md).
 
@@ -75,8 +77,13 @@ Here is the process that worked for me:
 
 ### Reading a sample
 
-Next we'll want to be able to read a sample. This isn't too difficult as the I2S FIFO is just a memory-mapped IO at `0x20203004` aka `i2s_regs->fifo`. 
+Next we'll want to be able to read a sample. 
 
+```
+int32_t i2s_read_sample(void);
+```
+
+This isn't too difficult as the I2S FIFO is just a memory-mapped IO at `0x20203004` aka `i2s_regs->fifo`. 
 1. dev_barrier. I haven't tested without this but you may be switching from another peripheral, and you want a dev_barrier before the first read.
 2. Wait for the `RXD` bit in the `CS` register to go high. If it's high there is at least 1 sample available in the FIFO. Of course this is sort of a waste as you're just burning CPU cycles.
 3. Read the sample from the `FIFO` register.
