@@ -2,6 +2,7 @@
 #define __LIBUNIX_H__
 // engler: put all the prototypes you define in this header file.
 #include <assert.h>
+#include <stdlib.h>
 
 // staff-provided prototypes and routines.
 #include "staff-libunix.h"
