@@ -1,5 +1,5 @@
 #include "rpi.h"
-#include "bit-support.h"
+#include "libc/bit-support.h"
 
 #define I2S_REGS_BASE 0x20203000
 
