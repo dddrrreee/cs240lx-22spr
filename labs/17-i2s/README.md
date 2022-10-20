@@ -71,7 +71,8 @@ Here is the process that worked for me:
 4. dev_barrier. Done with clock manager peripheral, now time for I2S.
 5. Configure the I2S peripheral. This is reasonably well-documented in the Peripherals manual. It can be configured in either polling, interrupt, or DMA mode. I just did polling but in a "real" project you'd probably want to use DMA (or interrupt).
     - Mode register (`0x20203008`). Set FLEN field to 63 and FSLEN field to 32. This means that each frame is 63 + 1 = 64 bits, with each channel being 32 bits. This gives us 32 bits for each channel.
-    - Control and status register (`0x20203000`). Set the EN bit to enable the I2S peripheral. Set STBY bit to disable standby, set RXCLR bit to clear the receive FIFO, and set RXON bit to enable receiver.
+    - Receiver config register (`0x2020300C`). Set CH1EN bit to enable channel 1, set CH1WID bits to 8 and CH1WEX to set channel 1 to 32 bits. 
+    - Control and status register (`0x20203000`). Set the EN bit to enable the I2S peripheralset STBY bit to disable standby, set RXCLR bit to clear the receive FIFO, and set RXON bit to enable receiver. 
 6. dev_barrier. I2S should now be constantly sending the two clocks out to any peripherals connected to it, and loading samples into the FIFO located at `0x20203004`. 
 
 ### Reading a sample
