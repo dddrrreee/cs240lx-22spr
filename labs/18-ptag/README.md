@@ -1,5 +1,8 @@
 ### Passing information to pi programs using `PTAGs`
 
+Today we'll do a low-level lab that will give you a useful artifact
+and hopefully make some of the low-level parts of the pi more clear.
+
 Currently if we want to pass information into our pi programs
 we have to either compile it in or use sensors.  This makes it irritating to
 do a bunch of things, for example:
