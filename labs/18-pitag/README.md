@@ -31,13 +31,32 @@ position independent bootloader from lab 14 indeed works by using
 programs that will eventually run `hello.bin`.
 This is a pretty good test that the code works.
 
+The key files:
+  - `code/cpyjmp.h` --- this has a slightly modified interface from
+    lab 14.
+  - `ptag-linker/ptag-structs.h` --- these are the structures the
+    Unix side writes out and the pi side reads.  Right now there
+    is a single type (a program record).
+  - `ptag-linker/pitag-linker.c` --- the Unix driver to append a pi
+    program to another.  If you have other records you'd add them here.
+  - `reloc-install-pi/ptag-cstart.c` --- the trickiest part of the code.
+    This overrides the default `cstart` (in `libpi`) and constructs
+    a linked list of `ptag` records (if there are any). 
+
+    The main non-obvious tricky thing is that we *must* move the pitag
+    region before zeroing out the `bss` (see `cstart`) or there is a
+    good chance the `PTAG` region will get smashed.  A secondary tricky
+    thing is that moving the `PTAG` region occurs before the `bss`
+    has been initialized, so global / static zero-initialized variables 
+    have not been.
+
+  - `reloc-install-pi/reloc-bootloader.c` --- trivial driver that uses
+    the `ptag` interface to get the first record and jump to its code.
+
 What to do:
  - look through the code and make sure you understand it!  It shouldn't
    be conceptually deep: we just happened a record to a binary.  
 
-   The one tricky thing is that we *must* move this record before zeroing
-   out the `bss` (see `cstart`) or there is a good chance the `PTAG` region
-   will get smashed.
 
  - Replace the `staff-cpyjmp.o` with yours from lab 14.  This will require
    writing a tiny routine that tells the code how large the copy routine

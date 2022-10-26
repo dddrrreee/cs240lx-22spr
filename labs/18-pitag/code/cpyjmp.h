@@ -8,8 +8,8 @@ typedef
    void (*cpyjmp_t)(uint32_t code_dst, const void *code, unsigned nbytes) 
         /* __attribute__((noreturn)) */;
 
+// return how many bytes the copy jump code needs.
 unsigned cpyjmp_nbytes(void);
-
 
 // relocate the copy jump code to <addr>
 //      returns a point to the relocated copy routine.
@@ -26,7 +26,12 @@ __attribute__((noreturn))
 static inline void 
 cpyjmp_default(uint32_t code_dst, const void *code, unsigned nbytes) {
     
-    // uint32_t safe_addr = cpyjmp_lowest_reloc_addr + 8;
+    // we use kmalloc to get an unused address range as 
+    // big as the copy routine.
+    //
+    // might be simpler to have cpyjmp_relocate do this but
+    // we pull it out so you can use it even if you don't have
+    // the heap setup.
     uint32_t safe_addr = (uint32_t)kmalloc(cpyjmp_nbytes());
 
 #   define MB(x) ((x) * 1024 * 1024)
@@ -39,7 +44,7 @@ cpyjmp_default(uint32_t code_dst, const void *code, unsigned nbytes) {
 
     cpyjmp_t cj = cpyjmp_relocate(safe_addr);
 
-     // give any output a chance to flush.
+     // give any output a chance to flush: should use uart_tx_flush()?
     delay_ms(1);   
     cj(code_dst, code, nbytes);
     panic("should not return\n");
