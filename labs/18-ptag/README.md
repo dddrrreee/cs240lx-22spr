@@ -94,8 +94,7 @@ The key files:
 
 What to do:
  - look through the code and make sure you understand it!  It shouldn't
-   be conceptually deep: we just happened a record to a binary.  
-
+   be conceptually deep: we are just appending records to a binary.  
 
  - Replace the `staff-cpyjmp.o` with yours from lab 14.  This will require
    writing a tiny routine that tells the code how large the copy routine
