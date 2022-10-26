@@ -67,12 +67,12 @@ Here is the process that worked for me:
 3. Configure the Clock Manager to manage the clock for I2S. This is pretty much completely undocumented in the Peripherals manual. Every time you write to a Clock Manager register, you must set the MS byte of the word you write to `0x5A`. Why? It's the password for the clock manager. Not a great password if it's published in all the docs... (actually sort of makes sense as it reduces the likelihood of accidentally writing there and messing up the chip clock).  
     - Write `0b0001` to lowest 4 bits of the PCM_CTRL register (`0x20101098`). This uses the highest resolution clock we have available, the 19.2 MHz XTAL clock. We'll also write `0b11` to bits 9 and 10 of this register to enable the 3-stage MASH clock divider.
     - Setup clock divider in the PCM_DIV register (`0x2010109C`). The meaning of this register is explained in the two errata sections listed in Docs, as well as Section 6.3 of the Peripherals manual. The crystal outputs 19.2 MHz so we need a 6.8027 divider to reach 19.2 MHz / 6.8027 / 64 = 44.1001 KHz. Close enough.  
-    - Enable I2S clock. Write 1 to bit 5 of PCM_CTRL. Make sure not to clear anything you already set. This will tell the Clock Manager to start outputting a 19.2 MHz / 6.8027 = 2.822 MHz clock. 
+    - Enable I2S clock. Write 1 to bit 4 of PCM_CTRL. Make sure not to clear anything you already set. This will tell the Clock Manager to start outputting a 19.2 MHz / 6.8027 = 2.822 MHz clock. 
 4. dev_barrier. Done with clock manager peripheral, now time for I2S.
 5. Configure the I2S peripheral. This is reasonably well-documented in the Peripherals manual. It can be configured in either polling, interrupt, or DMA mode. I just did polling but in a "real" project you'd probably want to use DMA (or interrupt).
     - Mode register (`0x20203008`). Set FLEN field to 63 and FSLEN field to 32. This means that each frame is 63 + 1 = 64 bits, with each channel being 32 bits. This gives us 32 bits for each channel.
-    - Receiver config register (`0x2020300C`). Set STBY bit to disable standby, set RXCLR bit to clear the receive FIFO, and set RXON bit to enable receiver.
-    - Control and status register (`0x20203000`). Set the EN bit to enable the I2S peripheral.
+    - Receiver config register (`0x2020300C`). Set CH1EN bit to enable channel 1, set CH1WID bits to 8 and CH1WEX to set channel 1 to 32 bits. 
+    - Control and status register (`0x20203000`). Set the EN bit to enable the I2S peripheralset STBY bit to disable standby, set RXCLR bit to clear the receive FIFO, and set RXON bit to enable receiver. 
 6. dev_barrier. I2S should now be constantly sending the two clocks out to any peripherals connected to it, and loading samples into the FIFO located at `0x20203004`. 
 
 ### Reading a sample
