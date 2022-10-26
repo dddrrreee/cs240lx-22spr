@@ -33,6 +33,42 @@ position independent bootloader from lab 14 indeed works by using
 `pitag-linker` to construct a series of recursive bootloader
 programs that will eventually run `hello.bin`.
 This is a pretty good test that the code works.
+If you type `make` in `18-ptag` you'll get this output:
+
+    ...
+    bootloader: Done.
+    listening on ttyusb=</dev/ttyUSB0>
+    found record for:
+	    progname=<objs/hello-4.ptag>,
+	    addr=0x8000 nbytes=44076,
+	    crc=0x30becd97 code=[0xe3a00013,0xe3800080...]
+    bootloader: about to run: <objs/hello-4.ptag> at addr 0x8000, nbytes=44076
+    found record for:
+	    progname=<objs/hello-3.ptag>,
+	    addr=0x8000 nbytes=33900,
+	    crc=0xc4b1b38b code=[0xe3a00013,0xe3800080...]
+    bootloader: about to run: <objs/hello-3.ptag> at addr 0x8000, nbytes=33900
+    found record for:
+	    progname=<objs/hello-2.ptag>,
+	    addr=0x8000 nbytes=23724,
+	    crc=0xbe6729a2 code=[0xe3a00013,0xe3800080...]
+    bootloader: about to run: <objs/hello-2.ptag> at addr 0x8000, nbytes=23724
+    found record for:
+	    progname=<objs/hello-1.ptag>,
+	    addr=0x8000 nbytes=13548,
+	    crc=0x3f0d4295 code=[0xe3a00013,0xe3800080...]
+    bootloader: about to run: <objs/hello-1.ptag> at addr 0x8000, nbytes=13548
+    found record for:
+	    progname=<objs/hello.bin>,
+	    addr=0x8000 nbytes=3372,
+	    crc=0xcf4943ae code=[0xe3a0d302,0xe3a0b000...]
+    bootloader: about to run: <objs/hello.bin> at addr 0x8000, nbytes=3372
+    hello world
+    DONE!!!
+
+You can of course concatenate more times for even more fun (though it
+starts taking longer to bootload given binary size --- a good extension
+is cutting the default size down!)
 
 The key files:
   - `code/cpyjmp.h` --- this has a slightly modified interface from
