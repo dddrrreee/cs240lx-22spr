@@ -43,7 +43,7 @@ Yes the build system will use Knit. You can get a prebuilt binary for version
 
 ### Check your installation
 
-If you can run successfully `knit` in this directory, then you should be good
+If you can successfully run `knit` in this directory, then you should be good
 to go.
 
 ### Try out D
