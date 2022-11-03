@@ -6,10 +6,10 @@ first released in 2001, trying to be a more sane alternative to C++. The
 language went through a major upgrade from D1 to D2, completing in 2010. D has
 three primary compilers:
 
-* DMD (Digital Mars D): the reference compiler. Only targets amd64 and i386 (so
+* [DMD](https://github.com/dlang/dmd) (Digital Mars D): the reference compiler. Only targets amd64 and i386 (so
   we will not be using it).
-* GDC (GNU D compiler): this is the D compiler provided as part of GCC.
-* LDC (LLVM D compiler): a D compiler using LLVM as the backend.
+* [GDC](https://www.gdcproject.org/) (GNU D compiler): this is the D compiler provided as part of GCC.
+* [LDC](https://github.com/ldc-developers/ldc) (LLVM D compiler): a D compiler using LLVM as the backend.
 
 Today's lab can be done with LDC or GDC (just change a build flag), but the
 default is LDC because it is easier to install.
