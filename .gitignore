@@ -13,3 +13,4 @@ obj_dir
 *.dSYM
 sim
 *.bak
+.knit
