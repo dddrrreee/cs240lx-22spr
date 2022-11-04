@@ -41,6 +41,12 @@ already have this from all the previous labs.
 Yes the build system will use Knit. You can get a prebuilt binary for version
 0.2.0 from [here](https://github.com/zyedidia/knit/releases/tag/v0.2.0).
 
+### Install Qemu (optional)
+
+Qemu lets you run programs for the Pi without needing it to be plugged in, which can be quite useful. You can also use GDB
+with Qemu for some in-depth debugging. Qemu is not necessary for the lab, but
+the build scripts will support it if you want to use it.
+
 ### Check your installation
 
 If you can successfully run `knit` in this directory, then you should be good
