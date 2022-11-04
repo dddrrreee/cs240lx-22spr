@@ -43,7 +43,7 @@ Yes the build system will use Knit. You can get a prebuilt binary for version
 
 ### Install Qemu (optional)
 
-Qemu lets you run programs for the Pi without needing it to be plugged in, which can be quite useful. You can also use GDB
+[Qemu](https://www.qemu.org/download/) lets you run programs for the Pi without needing it to be plugged in, which can be quite useful. You can also use GDB
 with Qemu for some in-depth debugging. Qemu is not necessary for the lab, but
 the build scripts will support it if you want to use it.
 
