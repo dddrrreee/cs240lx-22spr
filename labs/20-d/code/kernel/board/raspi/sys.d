@@ -5,8 +5,6 @@ import mmio = kernel.mmio;
 import sys = kernel.cpu;
 import device = kernel.board.raspi.device;
 
-import io = ulib.io;
-
 version (raspi1ap) {
     enum gpu_freq = 250 * 1000 * 1000;
     enum core_freq = 700 * 1000 * 1000;
@@ -21,7 +19,12 @@ version (raspi4b) {
 }
 
 void reboot() {
-    io.writeln("DONE!!!");
+    // for the first part of the lab we don't have io.writeln yet, so just use
+    // uart.tx directly
+    enum done = "DONE!!!\n";
+    foreach (c; done) {
+        uart.tx(c);
+    }
     uart.tx_flush();
     sys.dsb();
     uint* pm_rstc = cast(uint*)(device.base + 0x10001c);
