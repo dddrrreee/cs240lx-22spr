@@ -1,0 +1,184 @@
+local knit = require("knit")
+knit.addpath("build")
+require("strict")
+
+local _, conf = pcall(dofile, "conf.lua")
+
+local conf = {
+    board = cli.board or conf.board or "raspi3b",
+    lto = tobool(cli.lto) or conf.lto or false,
+    release = tobool(cli.release) or conf.release or false,
+    prog = cli.prog or conf.prog or "hello",
+    dc = cli.dc or conf.dc or "ldc",
+}
+
+local platforms = {
+    raspi1ap = {
+        mcpu = "arm1176jzf-s",
+        march = "armv6zk",
+        archid = "arm",
+    },
+    raspi3b = {
+        mcpu = "cortex-a53",
+        march = "armv8-a",
+        archid = "aarch64",
+    },
+    raspi4b = {
+        mcpu = "cortex-a72",
+        march = "armv8-a+crc",
+        archid = "aarch64",
+    },
+    rv32 = {
+        march = "rv32im",
+        mabi = "ilp32",
+        archid = "riscv32",
+    }
+}
+
+local platform = platforms[conf.board]
+
+if platform == nil then
+    return "unknown board: " .. conf.board
+end
+
+local prefixes = {
+    aarch64 = "aarch64-none-elf",
+    arm = "arm-none-eabi",
+    riscv32 = "riscv64-unknown-elf",
+}
+
+local prefix = prefixes[platform.archid]
+
+function sel(cond, t, f)
+    if cond then return t else return f end
+end
+
+local tools = {
+    dc = sel(conf.dc == "gdc", f"$prefix-gdc", "ldc2"),
+    cc := $prefix-gcc
+    as := $prefix-as
+    ld := $prefix-ld
+    cpp := $prefix-cpp
+    objcopy := $prefix-objcopy
+    objdump := $prefix-objdump
+}
+
+local O = sel(conf.dc == "gdc", "s", "z")
+local link = f"board/$(conf.board)/link.ld"
+
+local dcflags = ""
+local asflags = ""
+
+do
+    -- GNU toolchain flags
+    local flto = ""
+    local release = ""
+    local mflags = ""
+    local versions = {
+        f"-fversion=$(conf.board)",
+    }
+    if conf.lto then
+        flto = "-flto"
+    end
+    if conf.release then
+        release = "-frelease"
+    end
+    if platform.mcpu ~= nil then
+        mflags = mflags .. f" -mcpu=$(platform.mcpu)"
+    end
+    if platform.march ~= nil then
+        mflags = mflags .. f" -march=$(platform.march)"
+    end
+    if platform.mabi ~= nil then
+        mflags = mflags .. f" -mabi=$(platform.mabi)"
+    end
+    if conf.dc == "gdc" then
+        dcflags := -fno-exceptions -fno-rtti -O$O -g -nostartfiles $mflags $versions $flto $release -funittest -ffunction-sections -fdata-sections
+    end
+    asflags := $mflags $flto
+end
+
+if conf.dc ~= "gdc" then
+    -- LDC flags
+    local release = ""
+    local mflags = ""
+    local lto = ""
+    local versions = {
+        f"--d-version=$(conf.board)",
+    }
+    if conf.release then
+        release = "--release"
+    end
+    if platform.mcpu ~= nil then
+        mflags = mflags .. f" -mcpu=$(platform.mcpu)"
+    end
+    mflags = mflags .. f" -mtriple=$prefix"
+    dcflags := --betterC --unittest -O$O -g $mflags $versions $release -defaultlib= --data-sections --function-sections --disable-simplify-libcalls
+end
+
+local flags = {
+    dc = dcflags,
+    as = asflags,
+    -- using gdc as linker for LTO
+    ld := -nostartfiles -nodefaultlibs -T$link -Wl,--no-warn-rwx-segments $flto -Wl,--gc-sections
+}
+
+local libgcc = knit.shell(f"$(tools.cc) $(flags.as) --print-libgcc-file-name")
+
+-- Use Ctrl-A x to quit qemu
+local qemu := qemu-system-$(platform.archid)
+local gdb := gdb-multiarch
+
+local kernel = dofile("kernel/build.knit").build(platform.archid, conf.board)
+local libd = dofile("libd/build.knit")
+
+local allsrc = knit.rglob(".", "*.d")
+
+-- annoyingly, gdc uses -o <output> and ldc uses -of <output>
+local dco = sel(conf.dc == "gdc", "-o", "-of")
+
+local rules = r{
+$ %.o: %.s
+    $(tools.cc) $(flags.as) -xassembler-with-cpp $input -c -o $output
+$ %.bin: %.elf
+    $(tools.objcopy) $input -O binary $output
+$ %.list: %.elf
+    $(tools.objdump) -D $input > $output
+}
+
+local progs = knit.filterout(dcallfrom("progs", knit.glob, "*"), {"build.knit"})
+
+local all = "all:V:"
+
+for _, prog in ipairs(progs) do
+    local files = knit.glob(f"progs/$prog/*.d")
+    all = all .. f" progs/$prog/all"
+    -- we use objcopy to remove the ARM exidx sections LDC stupidly emits for arm32
+    rules = rules + r{
+    $ progs/$prog/all:V: progs/$prog/$prog.bin progs/$prog/$prog.list
+    $ progs/$prog/$prog.o:M: $files $(kernel.files) $(libd.files)
+        $(tools.dc) $(flags.dc) $(kernel.packages) $(libd.packages) $input -c $dco $output
+        $(tools.objcopy) --remove-section=*exidx* $output $output
+    $ progs/$prog/$prog.elf: progs/$prog/$prog.o arch/$(platform.archid)/start.o $link
+        $(tools.cc) $(flags.as) $(flags.ld) $({unpack(inputs, 1, 2)}) $libgcc -o $output
+    $ progs/$prog/qemu:VB: progs/$prog/$prog.elf
+        $qemu -M $(conf.board) -nographic -kernel $input -serial null -serial mon:stdio -no-reboot
+    $ progs/$prog/qemu-gdb:VB: progs/$prog/$prog.elf
+        $qemu -s -S -M $(conf.board) -nographic -kernel $input -serial null -serial mon:stdio -no-reboot &
+        $gdb -ex "file $input" -ex "target remote localhost:1234"
+    $ progs/$prog/install:VB: progs/$prog/$prog.bin
+        pi-install $input
+    }
+end
+
+rules = rules + r{
+$ format:VB:
+    dfmt -i --brace_style=otbs $allsrc
+$ clean:VB:
+    knit :all -t clean
+}
+
+return b{
+    rule(all),
+    rules,
+}
