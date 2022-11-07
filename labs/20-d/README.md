@@ -36,6 +36,19 @@ the one for your laptop (they all have cross-compilation built-in). You'll also
 need a normal GNU toolchain for linking, objcopy, objdump, etc., but you should
 already have this from all the previous labs.
 
+#### Building GDC from source
+
+If you want/need to install GDC from source you can use the gdc builder script at https://github.com/zyedidia/build-gdc. Run the following commands:
+
+```
+git clone https://github.com/zyedidia/build-gdc
+cd build-gdc
+git submodule update --init
+CC=gcc ./build.sh arm-none-eabi
+```
+
+The build should place the resulting binaries in `./gnu-arm-none-eabi`.
+
 ### Install Knit
 
 Yes the build system will use Knit. You can get a prebuilt binary for version
