@@ -2,18 +2,36 @@ module kernel.arch.arm.timer;
 
 import sys = kernel.sys;
 
-void init() {
-    asm {
-        "mcr p15, 0, %0, c15, c12, 0" :  : "r"(1);
-    }
-}
+version (LDC) {
+    import ldc.llvmasm;
 
-uint cycles() {
-    uint cyc;
-    asm {
-        "mrc p15, 0, %0, c15, c12, 1" : "=r"(cyc);
+    void init() {
+        __asm (
+            "mcr p15, 0, $0, c15, c12, 0", "r", 1
+        );
     }
-    return cyc;
+
+    uint cycles() {
+        uint cyc;
+        __asm (
+            "mrc p15, 0, $0, c15, c12, 1", "=*r", &cyc
+        );
+        return cyc;
+    }
+} else {
+    void init() {
+        asm {
+            "mcr p15, 0, %0, c15, c12, 0" :  : "r"(1);
+        }
+    }
+
+    uint cycles() {
+        uint cyc;
+        asm {
+            "mrc p15, 0, %0, c15, c12, 1" : "=r"(cyc);
+        }
+        return cyc;
+    }
 }
 
 void delay_us(uint us) {
