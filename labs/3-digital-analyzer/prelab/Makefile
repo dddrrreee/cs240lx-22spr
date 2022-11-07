@@ -1,5 +1,5 @@
 # list out the driver program source 
-TEST_SRC = 0-simple.c  1-cache.c  4-measure.c  
+TEST_SRC = 4-measure.c # 1-cache.c # 0-simple.c # 1-cache.c  4-measure.c  
 
 
 # your source, shared by driver code.

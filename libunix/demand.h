@@ -31,7 +31,6 @@
 
 // useful lab-macros
 
-#define trace(args...) do { output("TRACE:"); output(args); } while(0)
 
 // same as panic, but differentiate that we literally thought this
 // could not happen (not just that we were simply not handling a 
@@ -55,6 +54,7 @@
 
 
 
+#define trace(msg...) do { output("TRACE:"); output(msg); } while(0)
 
 
 // if you -DNDEBUG these go away

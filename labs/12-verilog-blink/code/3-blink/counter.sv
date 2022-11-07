@@ -7,5 +7,14 @@ module counter
         input  logic clk, rst,
         output logic [$clog2(M)-1:0] q
     );
-    // TODO
+    // always_comb begin
+    always @(posedge clk, posedge rst) begin
+        if(rst)
+            q <= '0;
+        else if(q == M)
+            q <= '0;
+        else
+            q = q + 1;
+    end
+    
 endmodule

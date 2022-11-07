@@ -1,7 +1,7 @@
 # two example programs: measuring a motor level, and a simple 
 # thread interleaving example.
-TEST_SRC = interleave-example.c
 TEST_SRC = measure-motor.c 
+TEST_SRC = interleave-example.c
 
 # if you want to use your own, replace the file in STAFF_OBJS with
 # your file in SRC (or just add to your libpi)

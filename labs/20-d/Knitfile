@@ -1,0 +1,69 @@
+local knit = require("knit")
+
+function split(inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+function detect(program)
+    local exists, version = pcall(knit.shell, program .. " --version")
+    local tbl = {
+        exists = exists,
+        name = program,
+    }
+    if exists then
+        tbl.version = split(version, "\n")[1]
+    end
+    return tbl
+end
+
+local gdc = detect("arm-none-eabi-gdc")
+local ldc = detect("ldc2")
+local knit = detect("knit")
+
+if not ldc.exists and not gdc.exists then
+    return "ERROR: did not detect LDC or GDC"
+end
+
+if not knit.exists then
+    return "ERROR: did not detect knit (how did you run this?)"
+end
+
+gdc.flags := -fno-exceptions -fno-rtti -Os -g -nostartfiles -mcpu=arm1176jzf-s -march=armv6zk
+ldc.flags := --betterC -Os -g -mcpu=arm1176jzf-s -mtriple=arm-none-eabi -defaultlib= --disable-simplify-libcalls
+
+if knit.exists then
+    print("detected knit: " .. knit.version)
+end
+
+local rules = r{}
+local all = "all:V:"
+
+if gdc.exists then
+    print("detected gdc: " .. gdc.version)
+    gdc.rule = $ %.gdc.o: %.d
+                   $(gdc.name) $(gdc.flags) $input -c -o $output
+    rules = rules + r{gdc.rule}
+    all = all .. " cpu.gdc.o"
+end
+
+if ldc.exists then
+    print("detected ldc: " .. ldc.version)
+    ldc.rule = $ %.ldc.o: %.d
+                   $(ldc.name) $(ldc.flags) $input -c -of $output
+    rules = rules + r{ldc.rule}
+    all = all .. " cpu.ldc.o"
+end
+
+return b{
+    rule(all),
+    rules,
+    $ clean:VB:
+        rm -f *.o
+}

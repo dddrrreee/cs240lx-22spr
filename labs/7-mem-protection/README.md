@@ -51,7 +51,7 @@ At this point you'll have a process structure that will:
 
 
 ---------------------------------------------------------------------
-#### Catch reads and writes of illegal memory.
+#### Part 1. Catch reads and writes of illegal memory.
 
 Add these to your `libpi/Makefile`:
 
@@ -88,7 +88,7 @@ Given code:
   - `procmap.h`: a simple map of the address space: we'll map this.
 
 ---------------------------------------------------------------------
-#### [for next time] Prevent null pointers.
+#### Part 2. Prevent null pointers.
 
 If you look at the linker script and any `.list` file you'll see that
 we link the code starting at `0x8000`.   Since null (`0`) is within

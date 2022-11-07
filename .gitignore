@@ -1,6 +1,8 @@
 *.d
 *.bak
 *.asc
+*~
+.gdb_history
 *.bin
 *.json
 *_out.config
@@ -12,3 +14,5 @@ obj_dir
 .DS_Store
 *.dSYM
 sim
+*.bak
+.knit

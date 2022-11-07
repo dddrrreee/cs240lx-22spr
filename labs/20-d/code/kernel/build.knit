@@ -1,0 +1,20 @@
+local knit = require("knit")
+
+local kernel = {}
+
+function kernel.build(arch, board)
+    if board == "raspi1ap" or board == "raspi3b" or board  == "raspi4b" then
+        board = "raspi"
+    end
+
+    local src = knit.glob("kernel/*.d")
+    local archf = knit.glob(f"kernel/arch/$arch/*.d")
+    local boardf = knit.glob(f"kernel/board/$board/*.d")
+
+    return {
+        files = src + archf + boardf,
+        packages = {"-Ikernel", f"-Ikernel/arch/$arch", f"-Ikernel/board/$board"}
+    }
+end
+
+return kernel

@@ -5,4 +5,5 @@ module mux
         output logic out
     );
     // TODO
+    assign out = (!a & sel) | (b & sel);
 endmodule

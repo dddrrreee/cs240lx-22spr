@@ -6,6 +6,7 @@
 char *strcatf(char *dst, const char *fmt, ...) {
     char buf[4096];
 
+    panic("this routine is broken: should not strdup\n");
     va_list args;
     va_start(args, fmt);
         if(vsnprintf(buf, sizeof buf, fmt, args) < 0)
