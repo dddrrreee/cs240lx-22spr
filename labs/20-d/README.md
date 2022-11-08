@@ -203,6 +203,8 @@ Hints:
   https://dlang.org/spec/property.html.
     * In particular, `T.sizeof` is number of bytes needed to store a value of
       type `T`.
+* When allocating a buffer on the stack, use `T[...] x = void` to avoid it
+  being automatically initialized to zero.
 
 ### Extension: buffered writer
 
@@ -278,6 +280,8 @@ Run `progs/alloc/main.d` to make sure your allocator is working.
 
 Hints:
 
+* Use `static if (expr) { ... }` to conditionally include code depending on
+  some compile-time expression.
 * Types have various properties that are listed here:
   https://dlang.org/spec/property.html.
     * In particular, `T.init` gives the initial value for a type `T`.
