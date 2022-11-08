@@ -1,5 +1,6 @@
 # Highlights and Notes on Zig:
 <hr>
+
 ## GENERICS
 - types are values that have to be known at compile time.
 - a generic data structure is just a function that returns a type.
