@@ -197,6 +197,8 @@ next part.
 
 Hints:
 
+* Variadic templates (allows writing variadic functions):
+  https://dlang.org/articles/variadic-function-templates.html.
 * Use the `itoa` function from `ulib/string.d` for converting an integer to a
   string.
 * Types have various properties that are listed here:
