@@ -10,9 +10,8 @@
 2. [Compiler Aside](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#aside-about-the-zig-compiler-v0100-and-others)
 3. [Setup](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#setup)
 4. [Lab](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#lab)
-5
-6. [Extensions](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#extensions)
-7. [Notes/Highlights on Zig]()
+5. [Extensions](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#extensions)
+6. [Notes/Highlights on Zig]()
 </ol>
 <h2>Preface</h2>
 We are going to be trying out Zig for bare-metal programming today. Zig is a "general-purpose programming language and toolchain for maintaining robust, optimal and reusable software." according to the zig language [website](https://ziglang.org). There are many things Zig aims to accomplish (as most programming languages seem to do...), but one that I find interesting is its committment to interoperability with C/C++ code, so that you can maintain C/C++ legacy code bases, while also building on top of it with Zig as you go forward. The Zig language team has also expressed a strong desire to include embedded systems people from the start, so unlike Rust, I hope that Zig is able to become as dead-simple to get working on a new machine as C is, while also giving us many more niceties thanks to advancments in PL theory and computational power.
