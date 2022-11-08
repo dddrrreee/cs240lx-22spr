@@ -6,11 +6,11 @@
 <hr>
 <h2> Table of Contents</h2>
 
-1. [Preface](https://github.com/TristenSeth/CS240LX-spr22/master/labs/21-Zig/README.md#preface)
-2. [Compiler Aside](https://github.com/TristenSeth/CS240LX-spr22/master/labs/21-Zig/README.md#aside-about-the-zig-compiler-v0100-and-others)
-3. [Setup](https://github.com/TristenSeth/CS240LX-spr22/master/labs/21-Zig/README.md#setup
-4. [Lab](https://github.com/TristenSeth/CS240LX-spr22/master/labs/21-Zig/README.md#lab)
-5. [Extensions](https://github.com/TristenSeth/CS240LX-spr22/master/labs/21-Zig/README.md#extensions)
+1. [Preface](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#preface)
+2. [Compiler Aside](https://github.com/TristenSeth/CS240LX-spr22/blob/master/labs/21-Zig/README.md#aside-about-the-zig-compiler-v0100-and-others)
+3. [Setup](https://github.com/TristenSeth/CS240LX-spr22/master/blob/labs/21-Zig/README.md#setup)
+4. [Lab](https://github.com/TristenSeth/CS240LX-spr22/master/blob/labs/21-Zig/README.md#lab)
+5. [Extensions](https://github.com/TristenSeth/CS240LX-spr22/master/blob/labs/21-Zig/README.md#extensions)
 4. [Notes/Highlights on Zig]()
 </ol>
 <h2>Preface</h2>
