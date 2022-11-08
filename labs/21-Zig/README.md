@@ -1,8 +1,8 @@
 # Zig lab
 <hr>
-***Before we start, Zig is an UNSTABLE language still. It is only on version 0.10.0, and will not be considered stable until its 1.0.x release. I estimate another 2 years probably, which would make Zig about 10 years old, a similar age to when Rust stabalized itself.
-<br>***
-***That being said, Zig is ripe for contributions, and if you like any of what you see or have cool ideas for ways to apply some of the things Zig wants to offer, you should consider contributing! They accept a lot of RFC's, so go nuts with it if you want, or just go bug hunting and submit (hopefully helpful) bug issues for them to tackle.***
+<b>Before we start, Zig is an UNSTABLE language still. It is only on version 0.10.0, and will not be considered stable until its 1.0.x release. I estimate another 2 years probably, which would make Zig about 10 years old, a similar age to when Rust stabalized itself.</b>
+<br>
+<b>That being said, Zig is ripe for contributions, and if you like any of what you see or have cool ideas for ways to apply some of the things Zig wants to offer, you should consider contributing! They accept a lot of RFC's, so go nuts with it if you want, or just go bug hunting and submit (hopefully helpful) bug issues for them to tackle.</b>
 <hr>
 <h2> Table of Contents</h2>
 
