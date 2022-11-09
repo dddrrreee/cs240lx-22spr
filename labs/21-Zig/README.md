@@ -116,8 +116,7 @@ Also take a look at the notes I provided as well. They may not be much help, and
 1. Write a Blink with just Zig and asm.
 2. Using Comptime to build a uart driver that does not allow for dumb developer mistakes, yet still takes up (approx) as little space in our binary as libpi's uart driver.
 3. Link to our libpi static library and use our existing C code.
-4. (Maybe) Compare TRACE output of all 3 versions of hello.bin (C uart driver from 140E, comptime uart driver, and using C uart driver from Zig)
-5. (Maybe) Build an allocator interface on top of our kmalloc. This will allow us to use a large portion of the std lib (i.e. container primitives), as well as take advantage of Zig's memory interface. 
+4. Use our libpi code to hook into the std lib (i.e. create a Writer that uses our uart, so we can then use all of the std lib's Writer types (bufferedWriter, countWriter, etc).
 
 
 <h2>Extensions</h2>
