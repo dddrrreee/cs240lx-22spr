@@ -25,11 +25,11 @@ use this feature today.
 
 The Zig language team has also expressed a strong desire to include embedded systems people from the start. So, unlike Rust, I hope that Zig is able to become as dead-simple to get working on a new machine as C is, while also giving us some niceties thanks to advancments in PL development and theory. 
 
-Also, learning Zig is much faster (at least for me) than learning Rust. This isn't an attack on Rust. I have contributions to a [well known embedded OS](https://github.com/tock/tock) written in Rust, and really love the language. However, their idea of supporting embedded systems only extends to micro-controllers, ideally some sort of Cortex-M based system. While that is necessary and cool, I personally want to be able to use the full capabilities of my SBC (Small Board Computer) with entirely my own codebase. I would love to use Rust, but they make it entirely too difficult to get off the ground with an a compilation target that is not officially supported. In that same vein, Zig is much simpler to get stuff done. For our pi, we aren't exactly trying to ship our code to millions of users, or even provide it as open source software, so to me, simple = better, and so I think we have less need for Rust here. 
+Also, learning Zig is much faster (at least for me) than learning Rust. This isn't an attack on Rust. I have contributions to a [well known embedded OS](https://github.com/tock/tock) written in Rust, and really love the language. However, their idea of supporting embedded systems only extends to micro-controllers, ideally some sort of Cortex-M based system. While that is necessary and cool, I personally want to be able to use the full capabilities of my SBC (Small Board Computer) with entirely my own codebase. I would love to use Rust, but they make it entirely too difficult to get off the ground with a compilation target that is not officially supported. In that same vein, Zig is much simpler to get stuff done. For our pi, we aren't exactly trying to ship our code to millions of users, or even provide it as open source software, so to me, simple = better, and so I think we have less need for Rust here. 
 
 <h4>Prose</h4>
 
-We are going to be trying out Zig for bare-metal programming today. Zig is a "general-purpose programming language and toolchain for maintaining robust, optimal and reusable software." according to the zig language [website](https://ziglang.org). I recommend poking aorund the language reference for v0.10.0, and taking note of anything you may want to try out. Zig gives a lot of functionality out of the box even in a freestanding environment. For example, take a look at the async/await functionality of the language. Notice how it does not have host dependencies? Well, then we can use it on our pi! Can you use this to write a single uart driver that supports asynchronous send/recv when available (i.e. it makes sense. We dont need to be async if we are a single thread with no other proc's or threads ever running), as well as serial send/recv? If you want to test this, you can link into libpi to use our threads/processes/etc to actually make use of the async functionality, but be sure you use the -Dstage-1 compile flag so that you're compiling with the bootstrap compiler, since the self-hosted does not support async/await yet.
+We are going to be trying out Zig for bare-metal programming today. Zig is a "general-purpose programming language and toolchain for maintaining robust, optimal and reusable software." according to the zig language [website](https://ziglang.org). I recommend poking aorund the language reference for v0.10.0, and taking note of anything you may want to try out. Zig gives a lot of functionality out of the box even in a freestanding environment. For example, take a look at the async/await functionality of the language. Notice how it does not have host dependencies? Well, then we can use it on our pi! Can you use this to write a single uart driver that supports asynchronous send/recv when available, as well as serial send/recv? Specifically, a single API that is agnostic to whether it is called asynchronously or not. Zig supports exactly this! If you want to test this, you can link into libpi to use our threads/processes/etc to actually make use of the async functionality, but be sure you use the -Dstage-1 compile flag so that you're compiling with the bootstrap compiler, since the self-hosted does not support async/await yet. If you still have issues, try using v0.9.1 of the compiler.
 
 <hr>
 <h3>Aside about the Zig compiler v0.10.0 and others</h3>
@@ -59,8 +59,8 @@ Key milestones for the v0.11.0 release are:
   
 4. Remove the dependencies on C++, LLVM, etc for building a self-hosted zig toolchain (also known as bootstrapping). For this to happen, they need the C backend to be working, and luckily right now it passes (1259/1374) 92% of the behavior tests. This is so that the flow for building a self hosted compiler from bootstrapping (i.e. maybe you only have a C compiler on the machine) can become much easier. The flow becomes 
     - Use system C compiler to compile .c source files into zig1 executable
-    - Use zig1 executable to compile .zig source files into .c generated files
-    - Use system C compiler to compile .c source files + generate .c files into zig2 executable
+    - Use zig1 executable to compile .zig source files into .c source files
+    - Use system C compiler to compile generated .c source files into zig2 executable
     - Use zig2 executable to compile .zig source files into zig executable
 
 The above flow should sound familiar from our trusting-trust lab.
@@ -94,13 +94,13 @@ There is also a set of [neat exercises](https://github.com/ratfactor/ziglings) y
 1. Write a Blink with just Zig and asm.
 2. Using Comptime to build a uart driver that does not allow for dumb developer mistakes, yet still takes up (approx) as little space in our binary as libpi's uart driver.
 3. Link to our libpi static library and use our existing C code.
-4. (Maybe) Compare TRACE output of all 3 versions of hello.bin (C uart driver from 140E, Typestate uart driver, and using C uart driver from Zig)
-5. Build an allocator interface on top of our kmalloc. This will allow us to use a large portion of the std lib (i.e. container primitives), as well as take advantage of Zig's memory interface. 
+4. (Maybe) Compare TRACE output of all 3 versions of hello.bin (C uart driver from 140E, comptime uart driver, and using C uart driver from Zig)
+5. (Maybe) Build an allocator interface on top of our kmalloc. This will allow us to use a large portion of the std lib (i.e. container primitives), as well as take advantage of Zig's memory interface. 
 
 
 <h2>Extensions</h2>
 
-1. Build out the type-state idea with other drivers. This makes has the benefit of generally giving really good optimizations, and decreased binary size since we can use comptime to our advantage and make as many things zero-sized as possible. For more info on stuff like this, Will Chr
+1. Build out the comptime idea with other drivers. This has the benefit of making the API harder to use incorrectly, and decreased binary size compared to runtime safety since we can use comptime to our advantage and make as many things zero-sized as possible. For more info on stuff like this, Will Chr
 2. Try and use zig translate-c utility to translate our existing libpi code into Zig code, see if it can compile and run it. I know this will be kind of gross since its auto-generated code, and what not, but could be cool.
 3. Use the async/await methodology Zig provides for something cool on our pi. UART is definitionally asynchronous, so maybe that could be cool.
-4. Use more of our libpi functionality to bring up more std lib features. Currently, only Macos, Windows and Linux have full std lib support, so it'd be cool to see how much we could get with our code cobbled together.
+4. Use more of our libpi functionality to bring up more std lib features. Currently, only Mac, Windows and Linux have full std lib support, so it'd be cool to see how much we could get with our code cobbled together.
