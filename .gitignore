@@ -16,3 +16,6 @@ obj_dir
 sim
 *.bak
 .knit
+zig-*
+*.o 
+tags/
