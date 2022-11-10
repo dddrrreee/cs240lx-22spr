@@ -120,7 +120,7 @@ local flags = {
     dc = dcflags,
     as = asflags,
     -- using gdc as linker for LTO
-    ld := -nostartfiles -nodefaultlibs -T$link -Wl,--no-warn-rwx-segments $flto -Wl,--gc-sections
+    ld := -nostartfiles -nodefaultlibs -T$link $flto -Wl,--gc-sections
 }
 
 local libgcc = knit.shell(f"$(tools.cc) $(flags.as) --print-libgcc-file-name")
