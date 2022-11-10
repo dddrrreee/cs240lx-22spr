@@ -1,4 +1,0 @@
-TRACE:alloc returned 1 
-TRACE:going to check heap
-TRACE:SUCCESS: checked 1 blocks, detected no errors
-TRACE:SUCCESS heap checked out

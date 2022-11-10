@@ -7,17 +7,12 @@
 #include "src-loc.h"
 
 typedef enum {  ALLOCED = 11, FREED } state_t;
-enum { REDZONE_NBYTES = 128, REDZONE_VAL = 0xfe };
 
 // pull the remainder into the second redzone.
 typedef struct ck_hdr {
     struct ck_hdr *next;
     uint32_t nbytes_alloc;  // how much the user requested to allocate.
     uint32_t state;          // state of the block: { ALLOCED, FREED }
-
-    // unique block id: this lets us compare different runs even if the 
-    // allocation location changes.  starts at 0.
-    uint32_t block_id;
 
     src_loc_t alloc_loc;    // location they called ckalloc() at.
 
@@ -26,15 +21,7 @@ typedef struct ck_hdr {
     uint32_t refs_middle;   // number of pointers to the middle of the block.
 
     uint16_t mark;          // 0 initialize.
-    
-    uint8_t rz1[REDZONE_NBYTES];
 } hdr_t;
-
-// requires that p points to the start of the allocated region.
-static unsigned ck_blk_id(void *p) {
-    hdr_t *h = p;
-    return h[-1].block_id;
-}
 
 // returns pointer to the first header block.
 hdr_t *ck_first_hdr(void);
@@ -51,16 +38,6 @@ void *ck_hdr_start(hdr_t *h);
 // get the end of allocated data for <h>
 void *ck_hdr_end(hdr_t *h);
 
-// pointer to first redzone.
-static inline uint8_t *ck_get_rz1(hdr_t *h) {
-    return h->rz1;
-}
-
-// pointer to the second redzone
-static inline uint8_t *ck_get_rz2(hdr_t *h) {
-    return ck_hdr_end(h);
-}
-
 // is <ptr> in block <h>?
 unsigned 
 ck_ptr_in_block(hdr_t *h, void *ptr);
@@ -72,6 +49,7 @@ hdr_t *ck_ptr_is_alloced(void *ptr);
 #define ckfree(_ptr) (ckfree)(_ptr, SRC_LOC_MK())
 void *(ckalloc)(uint32_t nbytes, src_loc_t loc);
 void (ckfree)(void *addr, src_loc_t loc);
+
 
 // integrity check the allocated / freed blocks in the heap
 //
@@ -126,8 +104,11 @@ struct heap_info heap_info(void);
 
 
 // can use this to do debugging that you can turn off an on.
-#define ck_debug(args...) \
- do { if(ck_verbose_p) debug("CK_DEBUG:" args); } while(0)
+#if 1
+#define ck_debug(args...) debug("CK_DEBUG:" args)
+#else
+#define ck_debug(args...) do { } while(0)
+#endif
 
 // just emits an error.
 #define ck_error(_h, args...) do {      \
@@ -146,10 +127,7 @@ struct heap_info heap_info(void);
 
 // shouldn't be in the header.
 static void inline hdr_print(hdr_t *h) {
-    trace("\tlogical block id=%u, [addr=%p] nbytes=%d\n", 
-            h->block_id, 
-            ck_hdr_start(h),
-            h->nbytes_alloc);
+    trace("\tnbytes=%d\n", h->nbytes_alloc);
     src_loc_t *l = &h->alloc_loc;
     if(l->file)
         trace("\tBlock allocated at: %s:%s:%d\n", l->file, l->func, l->lineno);
@@ -162,9 +140,5 @@ static void inline hdr_print(hdr_t *h) {
 #endif
 }
 
-extern unsigned ck_verbose_p;
-static inline void ck_verbose_set(int v) {
-    ck_verbose_p = v;
-}
 
 #endif

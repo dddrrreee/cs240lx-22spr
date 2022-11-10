@@ -4,7 +4,7 @@ SRC = kr-malloc.c
 RUN = 1
 
 OPT_FLAGS = -Og
-CFLAGS += -DCOMPILE_FOR_UNIX -g -Wno-deprecated-declarations
+CFLAGS += -DCOMPILE_FOR_UNIX -g
 
 # LIBS = -lutil
 include $(CS240LX_2022_PATH)/libunix/mk/Makefile.unix

@@ -1,6 +1,5 @@
 #include "rpi.h"
 #include "rpi-interrupts.h"
-#include "vector-base.h"
 
 // initialize global interrupt state.
 void int_init(void) {
@@ -15,17 +14,16 @@ void int_init(void) {
      * are symbols defined in the interrupt assembly file, at the beginning
      * and end of the table and its embedded constants.
      */
-    extern unsigned _interrupt_table[];
+    extern unsigned _interrupt_table;
+    extern unsigned _interrupt_table_end;
 
     // where the interrupt handlers go.
-// #   define RPI_VECTOR_START  0
-//     unsigned *dst = (void*)RPI_VECTOR_START,
-//                  *src = &_interrupt_table,
-//                  n = &_interrupt_table_end - src;
-//     for(int i = 0; i < n; i++)
-//         dst[i] = src[i];
-
-	vector_base_set(_interrupt_table);
+#   define RPI_VECTOR_START  0
+    unsigned *dst = (void*)RPI_VECTOR_START,
+                 *src = &_interrupt_table,
+                 n = &_interrupt_table_end - src;
+    for(int i = 0; i < n; i++)
+        dst[i] = src[i];
 }
 
 #define UNHANDLED(msg,r) \

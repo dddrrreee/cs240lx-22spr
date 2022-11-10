@@ -17,9 +17,8 @@ void notmain(void) {
     uint32_t result = 0;
 
     for(int i = 0; i < p.n; i++) {
-        demand(tlb_contains_va(&result, p.map[i].addr), "did not contain valid VA");
-        demand(result == p.map[i].addr, "VA address didn't match!");
-		
+        demand(tlb_contains_va(&result, p.map[i].addr + 0xFAA0), "did not contai valid VA");
+        demand(result == p.map[i].addr + 0xFAA0, "VA address didn't match!");
     }
 
     demand(!tlb_contains_va(&result, 0xDEADFAA0), "contained invalid VA");

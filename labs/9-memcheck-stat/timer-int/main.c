@@ -24,10 +24,7 @@ void interrupt_vector(unsigned pc) {
 
     // Checkoff: add a check to make sure we have a timer interrupt
     // use p 113,114 of broadcom.
-	unsigned timer_int = GET32(arm_timer_MaskedIRQ);
-	if (!timer_int)
-		panic("interrupted, but wasnt timer?\n");
-	
+
     /* 
      * Clear the ARM Timer interrupt - it's the only interrupt we have
      * enabled, so we don't have to work out which interrupt source

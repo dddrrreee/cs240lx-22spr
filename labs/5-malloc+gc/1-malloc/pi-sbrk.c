@@ -2,5 +2,5 @@
 
 // implement in libpi.
 void *sbrk(long increment) {
-	return kmalloc(increment);
+    unimplemented();
 }

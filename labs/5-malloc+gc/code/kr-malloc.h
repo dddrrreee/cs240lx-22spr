@@ -22,20 +22,6 @@
 
 #   include "rpi.h"
 
-union align {
-        double d;
-        void *p;
-        void (*fp)(void);
-};
-
-typedef union header { /* block header */
-	struct {
-    		union header *ptr; /* next block if on free list */
-    		unsigned size; /* size of this block */
-  	} s;
-  	union align x; /* force alignment of blocks */
-} Header;
-
     // you have to implement this: fail if it tries to free.
     void *sbrk(long increment);
 

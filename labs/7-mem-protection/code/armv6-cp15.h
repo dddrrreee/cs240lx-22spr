@@ -122,7 +122,7 @@ void cp15_tlbr_print(void);
 void cp15_domain_print(void);
 
 
-#if 1
+#if 0
 /*******************************************************************************
  * MMU register read and writes.  
  */

@@ -1,5 +1,0 @@
-TRACE:in sbrk
-TRACE:alloc returned 1 
-TRACE:found allocated 0x101f78 in 0x101ed0
-TRACE:checking heap for errors...
-TRACE:SUCCESS heap checked out

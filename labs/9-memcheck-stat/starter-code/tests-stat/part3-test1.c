@@ -8,56 +8,32 @@
 
 #define N 80
 
-void test_check(void) { 
-    volatile char *p = ckalloc(N);
-    ckfree((void*)p);
+// should have no checks
+void test_nullcheck(void) { 
     ck_mem_on();
-    for(int j = 0; j < 1000; j++) {
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-        *p = 1;
-    }
+
+
+    // don't do anything of note.
+    delay_ms(100);
+
+
+    ck_mem_off();
+
+    ck_mem_stats(1);
+}
+void test_nullcheck_end(void) {  }
+
+void test_check(void) { 
+
+
+    volatile char *p = ckalloc(N);
+
+    ck_mem_on();
+    ckfree((void*)p);
+    *p = 1;
+    for(int j = 0; j < 1000; j++)
+        dummy(j);
+
     ck_mem_off();
     if(!ck_mem_stats(1))
         panic("no checks happened??\n");
@@ -69,6 +45,10 @@ void notmain(void) {
 
     // start heap allocating after the first mb.   give it 1mb to use.
     ck_mem_init();
+
+    // should have no checks.
+    ck_mem_set_range(test_nullcheck, test_nullcheck_end);
+    test_nullcheck();
 
     ck_mem_set_range(test_check, test_check_end);
     test_check();

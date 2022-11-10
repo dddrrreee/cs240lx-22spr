@@ -2,8 +2,6 @@
 #define __TEST_INTERFACE_H__
 
 #include "kr-malloc.h"
-#include "ckalloc.h"
-
 
 #ifdef COMPILE_FOR_UNIX
 #   include "libunix.h"

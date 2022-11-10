@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"ckalloc.h": "c",
-		"rpi-interrupts.h": "c",
-		"cassert": "c",
-		"memory": "c",
-		"optional": "c"
-	}
-}

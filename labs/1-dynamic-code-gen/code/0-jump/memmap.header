@@ -11,20 +11,14 @@ SECTIONS
 
     /* our simple a.out header.  will add as needed. */
     .crt0_header LINK_ADDR : {
-        /* b instr to branch to _start (header is 64 bytes) */
-        LONG(0xea00000e);
-
-		/* put string "hello\0" next to the jump */
-		LONG(0x6C6C6568);
-		LONG(0x0000006F);
-
+        /* magic cookie for sanity checking */
+        LONG(0x12345678);
         /* 
-         * the third word is the size of the header.  this lets us avoid changing
+         * the second word is the size of the header.  this lets us avoid changing
          * a bunch of code as we add fields.  You should copy the entire header
          * and just jump over it.
          */
-       LONG(SIZEOF(.crt0_header));
-	  
+        LONG(SIZEOF(.crt0_header));
 
         /* Where we are linked at */
         LONG(LINK_ADDR);
@@ -36,12 +30,7 @@ SECTIONS
         LONG(SIZEOF(.text) + SIZEOF(.data) + SIZEOF(.rodata) );
 
         /* can add stuff below and loader should still work */
-
-		/* move  location pointer to end of header (64 byte header) */
-		. += 40;
-		
-    } =0x0
-
+    }
 	.text :  { KEEP(*(.text.boot))  *(.text*) }
     .data :   { . = ALIGN(4); *(.data*)   . = ALIGN(4); } 
     .rodata : { . = ALIGN(4); *(.rodata*) . = ALIGN(4); }

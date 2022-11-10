@@ -2,7 +2,7 @@
 TEST_SRC = test-gen.c
 
 # pick one of your attachment points (first or last) consistently.
-BOOTLOADER = my-install
+BOOTLOADER = my-install -last
 
 # your source, shared by driver code.
 #   if you want to use our staff-hc-sr04.o,

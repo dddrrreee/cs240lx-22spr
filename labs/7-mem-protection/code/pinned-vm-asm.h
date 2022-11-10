@@ -29,11 +29,6 @@ uint32_t lockdown_pa_get(void);
 void lockdown_attr_set(uint32_t x);
 uint32_t lockdown_attr_get(void);
 
-// cp_asm(lockdown_index, p15, 5, c15, c4, 2); //get/set for lockdown index reg
-// cp_asm(lockdown_attr, p15, 5, c15, c7, 2); //get/set for lockdown attr reg
-// cp_asm(lockdown_va, p15, 5, c15, c5, 2); //get/set for lockdown VA reg
-// cp_asm(lockdown_pa, p15, 5, c15, c6, 2); //get/set for lockdown PA reg
-
 void xlate_pa_set(uint32_t x);
 
 // routines to manually check that a translation

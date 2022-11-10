@@ -15,17 +15,12 @@
 #include "i2c.h"
 #include "ads1115.h"
 #include "libc/bit-support.h"
-#include "libc/math-helpers.h"
 
 // for bitfield checking
 #include "libc/helper-macros.h"
 
-// bit masks for checking default reg values
-const static uint16_t CONFIG_DEF = 0x8583;
-const static uint16_t DESIRED_CONFIG_RD = 0x2e3;
-
 // p27: register names
-// enum { conversion_reg = 0, config_reg = 1 };
+enum { conversion_reg = ??, config_reg = ?? };
 
 
 // p21 states device will reset itself when you do an
@@ -46,16 +41,8 @@ void ads1115_reset(void) {
 //  send it:
 //    3. call i2c_write with <dev_addr> and the array.
 void ads1115_write16(uint8_t dev_addr, uint8_t reg, uint16_t v) {
-<<<<<<< HEAD
-	uint8_t send[3];
-	send[0] = reg;
-	send[1] = (uint8_t)(v >> 8);
-	send[2] = (uint8_t)((v << 8) >> 8);
-	i2c_write(dev_addr, send, 3);
-=======
     uint8_t data[3];
     unimplemented();
->>>>>>> 5b46d5074052e3418b03a56efa421503e6f54125
 }
 
 // read a 16-bit register
@@ -63,35 +50,8 @@ void ads1115_write16(uint8_t dev_addr, uint8_t reg, uint16_t v) {
 // 2. read the two bytes that come back (a 2-byte i2c_read)
 // 3. reconstruct the 16-bit value.
 uint16_t ads1115_read16(uint8_t dev_addr, uint8_t reg) {
-<<<<<<< HEAD
-	uint8_t send[1];
-	send[0] = reg;
-	i2c_write(dev_addr, send, 1);
-
-	uint8_t rec[2];
-	i2c_read(dev_addr, rec, 2);
-
-	uint16_t ret = ((uint16_t)rec[0] << 8 )| (uint16_t)rec[1];
-	return ret;
-}
-
-// helper for _config that will set proper bits for our preffered configuration
-uint16_t ads1115_setup(uint16_t conf_val) {
-	//set p/g to 4v
-	conf_val &= 0xF1FF; // strip val of default p/g 
-	conf_val |= 0x200; // place desired p/g val into conf_val[9:11] 0b001
-
-	//set mode to continuous
-	conf_val &= 0xFEFF; // flip mode bit to 0b0 conf_val[8]
-
-	//set data rate to 860sps
-	conf_val |= 0xE0; // set DR bits to 0b111 conf_val[5:7]
-
-	return conf_val;
-=======
     uint8_t data[2];
     unimplemented();
->>>>>>> 5b46d5074052e3418b03a56efa421503e6f54125
 }
 
 // returns the device addr: hard-coded configuration atm.
@@ -101,8 +61,8 @@ uint8_t ads1115_config(void) {
     delay_ms(30);   // allow time to settle after init.
 
     // dev address: p23
-    enum { dev_addr = 0x48 };
-    // panic("set dev_addr!\n");
+    enum { dev_addr = ?? };
+    panic("set dev_addr!\n");
 
     // p28
     // one way to set fields in a register.
@@ -131,25 +91,21 @@ uint8_t ads1115_config(void) {
     //   mode: 8 is 1
     //   dr: 7:5 = 0b100
     //   pg: 11:9 = 010
-	demand((c & CONFIG_DEF) == CONFIG_DEF, "default config incorrect.\n");
-	
+    unimplemented();
 
     // 3. set the config to:
     //  - PGA gain to +/-4v 
     //  - MODE to continuous.
     //  - DR to 860sps
     // see page 28.
-	uint16_t new_conf = c; //want other fields to prob stay the same?
-	new_conf = ads1115_setup(new_conf);
+    unimplemented();
 
-
-	printk("writing config: %x\n", new_conf);
-    ads1115_write16(dev_addr, config_reg, new_conf);
+	printk("writing config: 0x%x\n", c);
+    ads1115_write16(dev_addr, config_reg, c);
 
     // 4. read back the config and make sure the fields we set
     // are correct.
-	uint16_t conf = ads1115_read16(dev_addr, config_reg);
-	demand(DESIRED_CONFIG_RD == conf, "read config does not match what we wrote.\n");
+    unimplemented();
 
     return dev_addr;
 }

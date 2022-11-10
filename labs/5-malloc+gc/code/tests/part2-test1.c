@@ -20,11 +20,15 @@ void notmain(void) {
     // up.
     test1();
 
+#if 0
+    if(ck_heap_errors())
+        panic("invalid error!!\n");
+    else
+        trace("SUCCESS heap checked out\n");
+#endif
 
-    if(ck_find_leaks(1)) {
+    if(ck_find_leaks(1))
         panic("should have no leaks!\n");
-	}
-    else {
+    else
         trace("SUCCESS: no leaks!\n");
-	}
 }

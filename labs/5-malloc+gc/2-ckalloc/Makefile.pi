@@ -1,6 +1,6 @@
 # list out the driver program source 
 TEST_SRC = 0-test-malloc.c  2-test-malloc.c 1-test-malloc.c
-SRC = kr-malloc.c pi-sbrk.c ckalloc.c
+SRC = kr-malloc.c pi-sbrk.c
 
 # your source, shared by driver code.
 #   if you want to use our staff-hc-sr04.o,
@@ -16,6 +16,6 @@ TTYUSB =
 
 DEPS = ./Makefile
 SUPPORT_OBJS := $(SRC:.c=.o)
-# include $(CS240LX_2022_PATH)/libpi/mk/Makefile.template
+# include $(CS49N_2021_PATH)/libpi/mk/Makefile.template
 
 include $(CS240LX_2022_PATH)/libpi/mk/Makefile.template
