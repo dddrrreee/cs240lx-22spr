@@ -1,6 +1,13 @@
 # Highlights and Notes on Zig:
 <hr>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3b2ce371e6de231b529e14be51416585c2a798e
+>>>>>>> merger
 ## GENERICS
 - types are values that have to be known at compile time.
 - a generic data structure is just a function that returns a type.
@@ -60,8 +67,17 @@
 - Zig does automatic Link time optimization
 - Robust undefined behavior
 	- Ex. Both signed and unsigned ints have clearly defined undefined behavior like overflows, but in C, only signed integers have undefined behavior on overflow
+<<<<<<< HEAD
 - Direct exposure of SIMD Vector types	
 - NOT FULLY MEMORY SAFE, but this is not Rust, and does not aim to be. It aims to compete with C for ease of development, and blazing speed, but with nicer Programming lang theory stuff added in from the past 50 years to make dev experience nicer
+=======
+<<<<<<< HEAD
+- Direct exposure of SIMD Vector types	- NOT FULLY SAFE, but this is not Rust, and does not aim to be. It aims to compete with C for ease of development, and blazing speed, but with nicer Programming lang theory stuff added in from the past 50 years to make dev experience nicer
+=======
+- Direct exposure of SIMD Vector types	
+- NOT FULLY MEMORY SAFE, but this is not Rust, and does not aim to be. It aims to compete with C for ease of development, and blazing speed, but with nicer Programming lang theory stuff added in from the past 50 years to make dev experience nicer
+>>>>>>> d3b2ce371e6de231b529e14be51416585c2a798e
+>>>>>>> merger
 - Zig std lib CAN integrate with libc, but does not depend on it.
 - Global scope declarations (like variables) are order-independent, lazily evaluated, and initialized at compile time.
 - standard ptrs can NOT be null
@@ -74,4 +90,12 @@
 	- In debug and release-safe, Reaching this statement will force a call to panic with a message that we reached unreachable code.
 	- in optimized builds the compiler relies on these statements to be true to make optimizations
 
+<<<<<<< HEAD
 </details>
+=======
+<<<<<<< HEAD
+</details>
+=======
+</details>
+>>>>>>> d3b2ce371e6de231b529e14be51416585c2a798e
+>>>>>>> merger
