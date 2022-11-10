@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>main.zig - source view</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgklEQVR4AWMYWuD7EllJIM4G4g4g5oIJ/odhOJ8wToOxSTXgNxDHoeiBMfA4+wGShjyYOCkG/IGqWQziEzYAoUAeiF9D5U+DxEg14DRU7jWIT5IBIOdCxf+A+CQZAAoopEB7QJwBCBwHiip8UYmRdrAlDpIMgApwQZNnNii5Dq0MBgCxxycBnwEd+wAAAABJRU5ErkJggg=="/>
+    <style>
+      body{
+        font-family: system-ui, -apple-system, Roboto, "Segoe UI", sans-serif;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      pre > code {
+        display: block;
+        overflow: auto;
+        line-height: normal;
+        margin: 0em;
+      }
+      .tok-kw {
+          color: #333;
+          font-weight: bold;
+      }
+      .tok-str {
+          color: #d14;
+      }
+      .tok-builtin {
+          color: #005C7A;
+      }
+      .tok-comment {
+          color: #545454;
+          font-style: italic;
+      }
+      .tok-fn {
+          color: #900;
+          font-weight: bold;
+      }
+      .tok-null {
+          color: #005C5C;
+      }
+      .tok-number {
+          color: #005C5C;
+      }
+      .tok-type {
+          color: #458;
+          font-weight: bold;
+      }
+      pre {
+        counter-reset: line;
+      }
+      pre .line:before {
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
+        padding-right: 1em;
+        width: 2em;
+        text-align: right;
+        color: #999;
+      }
+      
+      .line {
+        width: 100%;
+        display: inline-block;
+      }
+      .line:target {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        background: #fafafa;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body{
+            background:#222;
+            color: #ccc;
+        }
+        pre > code {
+            color: #ccc;
+            background: #222;
+            border: unset;
+        }
+        .line:target {
+            border-top: 1px solid #444;
+            border-bottom: 1px solid #444;
+            background: #333;
+        }
+        .tok-kw {
+            color: #eee;
+        }
+        .tok-str {
+            color: #2e5;
+        }
+        .tok-builtin {
+            color: #ff894c;
+        }
+        .tok-comment {
+            color: #aa7;
+        }
+        .tok-fn {
+            color: #B1A0F8;
+        }
+        .tok-null {
+            color: #ff8080;
+        }
+        .tok-number {
+            color: #ff8080;
+        }
+        .tok-type {
+            color: #68f;
+        }
+      }
+    </style>
+</head>
+<body>
+<pre><code><span class="line" id="L1"><span class="tok-kw">extern</span> <span class="tok-kw">fn</span> <span class="tok-fn">GET32</span>(val: <span class="tok-type">u32</span>) <span class="tok-type">u32</span>;</span>
+<span class="line" id="L2"><span class="tok-kw">extern</span> <span class="tok-kw">fn</span> <span class="tok-fn">PUT32</span>(addr: <span class="tok-type">u32</span>, val: <span class="tok-type">u32</span>) <span class="tok-type">void</span>;</span>
+<span class="line" id="L3"><span class="tok-kw">extern</span> <span class="tok-kw">fn</span> <span class="tok-fn">nop</span>() <span class="tok-type">void</span>;</span>
+<span class="line" id="L4"><span class="tok-comment">// GPIO stuff</span>
+</span>
+<span class="line" id="L5"></span>
+<span class="line" id="L6"><span class="tok-comment">// see broadcomm documents for magic addresses.</span>
+</span>
+<span class="line" id="L7"><span class="tok-comment">//const GPIO_BASE = @intToPtr(*volatile u32, 0x20200000);</span>
+</span>
+<span class="line" id="L8"></span>
+<span class="line" id="L9"><span class="tok-comment">//const gpio_set0 = @intToPtr(*volatile u32, GPIO_BASE + 0x1C);</span>
+</span>
+<span class="line" id="L10"><span class="tok-comment">//const gpio_clr0 = @intToPtr(*volatile u32, GPIO_BASE + 0x28);</span>
+</span>
+<span class="line" id="L11"><span class="tok-comment">//const gpio_lev0 = @intToPtr(*volatile u32, GPIO_BASE + 0x34);</span>
+</span>
+<span class="line" id="L12"><span class="tok-comment">//const gppud = @intToPtr(*volatile u32, GPIO_BASE + 0x94);</span>
+</span>
+<span class="line" id="L13"><span class="tok-comment">//const gppud_clk0 = @intToPtr(*volatile u32, GPIO_BASE + 0x98);</span>
+</span>
+<span class="line" id="L14"><span class="tok-comment">//const gppud_clk1 = @intToPtr(*volatile u32, GPIO_BASE + 0x9c);</span>
+</span>
+<span class="line" id="L15"></span>
+<span class="line" id="L16"><span class="tok-comment">// see broadcomm documents for magic addresses.</span>
+</span>
+<span class="line" id="L17"><span class="tok-kw">const</span> GPIO_BASE = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, <span class="tok-number">0x20200000</span>);</span>
+<span class="line" id="L18"><span class="tok-kw">const</span> GPIO_BASE_INT = <span class="tok-builtin">@ptrToInt</span>(GPIO_BASE);</span>
+<span class="line" id="L19"><span class="tok-kw">const</span> gpio_set0 = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x1C</span>);</span>
+<span class="line" id="L20"><span class="tok-kw">const</span> gpio_clr0 = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x28</span>);</span>
+<span class="line" id="L21"><span class="tok-kw">const</span> gpio_lev0 = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x34</span>);</span>
+<span class="line" id="L22"><span class="tok-kw">const</span> gppud = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x94</span>);</span>
+<span class="line" id="L23"><span class="tok-kw">const</span> gppud_clk0 = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x98</span>);</span>
+<span class="line" id="L24"><span class="tok-kw">const</span> gppud_clk1 = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, GPIO_BASE_INT + <span class="tok-number">0x9c</span>);</span>
+<span class="line" id="L25"></span>
+<span class="line" id="L26"><span class="tok-kw">const</span> GpioFunc = <span class="tok-kw">enum</span>(<span class="tok-type">u32</span>) {</span>
+<span class="line" id="L27">    GPIO_FUNC_INPUT = <span class="tok-number">0</span>,</span>
+<span class="line" id="L28">    GPIO_FUNC_OUTPUT = <span class="tok-number">1</span>,</span>
+<span class="line" id="L29">    GPIO_FUNC_ALT0 = <span class="tok-number">4</span>,</span>
+<span class="line" id="L30">    GPIO_FUNC_ALT1 = <span class="tok-number">5</span>,</span>
+<span class="line" id="L31">    GPIO_FUNC_ALT2 = <span class="tok-number">6</span>,</span>
+<span class="line" id="L32">    GPIO_FUNC_ALT3 = <span class="tok-number">7</span>,</span>
+<span class="line" id="L33">    GPIO_FUNC_ALT4 = <span class="tok-number">3</span>,</span>
+<span class="line" id="L34">    GPIO_FUNC_ALT5 = <span class="tok-number">2</span>,</span>
+<span class="line" id="L35">};</span>
+<span class="line" id="L36"></span>
+<span class="line" id="L37"><span class="tok-kw">const</span> GpioError = <span class="tok-kw">error</span>{</span>
+<span class="line" id="L38">    InvalidPin,</span>
+<span class="line" id="L39">    InvalidFunction,</span>
+<span class="line" id="L40">};</span>
+<span class="line" id="L41"></span>
+<span class="line" id="L42"><span class="tok-comment">// set GPIO &lt;pin&gt; on.</span>
+</span>
+<span class="line" id="L43"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_set_on</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>) GpioError!<span class="tok-type">void</span> {</span>
+<span class="line" id="L44">    <span class="tok-kw">if</span> (pin &gt;= <span class="tok-number">32</span> <span class="tok-kw">or</span> pin == <span class="tok-number">47</span>) {</span>
+<span class="line" id="L45">        <span class="tok-kw">return</span> GpioError.InvalidPin;</span>
+<span class="line" id="L46">    }</span>
+<span class="line" id="L47">    <span class="tok-comment">//set bit 'pin' to 1 within gpio_set0</span>
+</span>
+<span class="line" id="L48">    <span class="tok-comment">//</span>
+</span>
+<span class="line" id="L49">    <span class="tok-comment">//PUT32(gpio_set0, @as(u32, 1) &lt;&lt; pin);</span>
+</span>
+<span class="line" id="L50">    gpio_set0.* = <span class="tok-number">1</span> &lt;&lt; pin;</span>
+<span class="line" id="L51">}</span>
+<span class="line" id="L52"></span>
+<span class="line" id="L53"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_set_off</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>) GpioError!<span class="tok-type">void</span> {</span>
+<span class="line" id="L54">    <span class="tok-kw">if</span> (pin &gt;= <span class="tok-number">32</span> <span class="tok-kw">or</span> pin == <span class="tok-number">47</span>) {</span>
+<span class="line" id="L55">        <span class="tok-kw">return</span> GpioError.InvalidPin;</span>
+<span class="line" id="L56">    }</span>
+<span class="line" id="L57">    <span class="tok-comment">//PUT32(gpio_clr0, 1 &lt;&lt; pin);</span>
+</span>
+<span class="line" id="L58">    gpio_clr0.* = <span class="tok-number">1</span> &lt;&lt; pin;</span>
+<span class="line" id="L59">}</span>
+<span class="line" id="L60"></span>
+<span class="line" id="L61"><span class="tok-kw">const</span> GpioState = <span class="tok-kw">enum</span>(<span class="tok-type">u8</span>) {</span>
+<span class="line" id="L62">    off = <span class="tok-number">0</span>,</span>
+<span class="line" id="L63">    on = <span class="tok-number">1</span>,</span>
+<span class="line" id="L64">};</span>
+<span class="line" id="L65"></span>
+<span class="line" id="L66"><span class="tok-comment">// set &lt;pin&gt; to be an output pin.</span>
+</span>
+<span class="line" id="L67"><span class="tok-comment">//</span>
+</span>
+<span class="line" id="L68"><span class="tok-comment">// note: fsel0, fsel1, fsel2 are contiguous in memory, so you</span>
+</span>
+<span class="line" id="L69"><span class="tok-comment">// can (and should) use array calculations!</span>
+</span>
+<span class="line" id="L70"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_set_function</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>, function: GpioFunc) GpioError!<span class="tok-type">void</span> {</span>
+<span class="line" id="L71">    <span class="tok-kw">if</span> (pin &gt;= <span class="tok-number">32</span> <span class="tok-kw">or</span> pin == <span class="tok-number">47</span>) {</span>
+<span class="line" id="L72">        <span class="tok-kw">return</span> GpioError.InvalidPin;</span>
+<span class="line" id="L73">    }</span>
+<span class="line" id="L74">    <span class="tok-kw">if</span> (<span class="tok-builtin">@enumToInt</span>(function) &gt; <span class="tok-number">7</span> <span class="tok-kw">or</span> <span class="tok-builtin">@enumToInt</span>(function) &lt; <span class="tok-number">0</span>) {</span>
+<span class="line" id="L75">        <span class="tok-kw">return</span> GpioError.InvalidFunction;</span>
+<span class="line" id="L76">    }</span>
+<span class="line" id="L77">    <span class="tok-comment">// find which GPFSELn word to write to for pin n</span>
+</span>
+<span class="line" id="L78">    <span class="tok-comment">// each  word controls 10 pins</span>
+</span>
+<span class="line" id="L79">    <span class="tok-comment">// so GPFSEL0 controls pins 0-9, etc</span>
+</span>
+<span class="line" id="L80">    <span class="tok-comment">//</span>
+</span>
+<span class="line" id="L81">    <span class="tok-kw">const</span> GPFSELN: <span class="tok-type">u32</span> = pin / <span class="tok-number">10</span>;</span>
+<span class="line" id="L82">    <span class="tok-kw">const</span> addr = <span class="tok-builtin">@intToPtr</span>(*<span class="tok-kw">volatile</span> <span class="tok-type">u32</span>, <span class="tok-builtin">@ptrToInt</span>(GPIO_BASE) + (<span class="tok-number">4</span> * GPFSELN));</span>
+<span class="line" id="L83">    <span class="tok-comment">// call GET32 to avoid the C compiler optimizing out our loads and stores</span>
+</span>
+<span class="line" id="L84">    <span class="tok-comment">// to device memory</span>
+</span>
+<span class="line" id="L85">    <span class="tok-comment">//</span>
+</span>
+<span class="line" id="L86">    <span class="tok-kw">var</span> addr_val: <span class="tok-type">u32</span> = addr.*;</span>
+<span class="line" id="L87">    <span class="tok-comment">// set proper bit to be output</span>
+</span>
+<span class="line" id="L88">    <span class="tok-comment">// done by setting a sepcific bit within the addr word to 1</span>
+</span>
+<span class="line" id="L89">    <span class="tok-kw">const</span> FSELN: <span class="tok-type">u32</span> = pin % <span class="tok-number">10</span>;</span>
+<span class="line" id="L90">    <span class="tok-comment">// want the pins 3 bits to be 001</span>
+</span>
+<span class="line" id="L91">    <span class="tok-comment">// since we may be setting a pin in the middle of</span>
+</span>
+<span class="line" id="L92">    <span class="tok-comment">// our word, we should shift by multiples of 3</span>
+</span>
+<span class="line" id="L93">    <span class="tok-comment">// depending on where our pin lives in the word</span>
+</span>
+<span class="line" id="L94">    addr_val &amp;= ~(<span class="tok-builtin">@as</span>(<span class="tok-type">u32</span>, <span class="tok-number">0b111</span>) &lt;&lt; (<span class="tok-number">3</span> * FSELN)); <span class="tok-comment">//clear bits we want to set</span>
+</span>
+<span class="line" id="L95">    addr_val |= (<span class="tok-builtin">@enumToInt</span>(function) &lt;&lt; (<span class="tok-number">3</span> * FSELN));</span>
+<span class="line" id="L96">    <span class="tok-comment">//PUT32(addr, addr_val);</span>
+</span>
+<span class="line" id="L97">    addr.* = addr_val;</span>
+<span class="line" id="L98">}</span>
+<span class="line" id="L99"></span>
+<span class="line" id="L100"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_set_output</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>) GpioError!<span class="tok-type">void</span> {</span>
+<span class="line" id="L101">    <span class="tok-kw">try</span> gpio_set_function(pin, GpioFunc.GPIO_FUNC_OUTPUT);</span>
+<span class="line" id="L102">}</span>
+<span class="line" id="L103"></span>
+<span class="line" id="L104"><span class="tok-comment">// set &lt;pin&gt; to input.</span>
+</span>
+<span class="line" id="L105"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_set_input</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>) GpioError!<span class="tok-type">void</span> {</span>
+<span class="line" id="L106">    <span class="tok-kw">try</span> gpio_set_function(pin, GpioFunc.GPIO_FUNC_INPUT);</span>
+<span class="line" id="L107">}</span>
+<span class="line" id="L108"></span>
+<span class="line" id="L109"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_read</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>) !<span class="tok-type">u32</span> {</span>
+<span class="line" id="L110">    <span class="tok-kw">if</span> (pin &gt;= <span class="tok-number">32</span> <span class="tok-kw">or</span> pin == <span class="tok-number">47</span>) {</span>
+<span class="line" id="L111">        <span class="tok-kw">return</span> GpioError.InvalidPin;</span>
+<span class="line" id="L112">    }</span>
+<span class="line" id="L113"></span>
+<span class="line" id="L114">    <span class="tok-kw">var</span> val = GET32(gpio_lev0);</span>
+<span class="line" id="L115">    val &gt;&gt;= pin;</span>
+<span class="line" id="L116">    val &amp;= <span class="tok-number">1</span>;</span>
+<span class="line" id="L117">    <span class="tok-kw">return</span> val;</span>
+<span class="line" id="L118">}</span>
+<span class="line" id="L119"></span>
+<span class="line" id="L120"><span class="tok-comment">// set &lt;pin&gt; to &lt;v&gt; (v \in {0,1})</span>
+</span>
+<span class="line" id="L121"><span class="tok-kw">fn</span> <span class="tok-fn">gpio_write</span>(<span class="tok-kw">comptime</span> pin: <span class="tok-type">u32</span>, state: <span class="tok-type">bool</span>) !<span class="tok-type">void</span> {</span>
+<span class="line" id="L122">    <span class="tok-kw">if</span> (state == GpioState.on) {</span>
+<span class="line" id="L123">        <span class="tok-kw">try</span> gpio_set_on(pin);</span>
+<span class="line" id="L124">    } <span class="tok-kw">else</span> {</span>
+<span class="line" id="L125">        <span class="tok-kw">try</span> gpio_set_off(pin);</span>
+<span class="line" id="L126">    }</span>
+<span class="line" id="L127">    <span class="tok-kw">unreachable</span>;</span>
+<span class="line" id="L128">}</span>
+<span class="line" id="L129"></span>
+<span class="line" id="L130"><span class="tok-comment">// countdown 'ticks' cycles</span>
+</span>
+<span class="line" id="L131"><span class="tok-kw">fn</span> <span class="tok-fn">delay</span>(ticks: <span class="tok-type">u32</span>) <span class="tok-type">void</span> {</span>
+<span class="line" id="L132">    <span class="tok-kw">var</span> cnt = <span class="tok-builtin">@as</span>(<span class="tok-type">u32</span>, ticks);</span>
+<span class="line" id="L133">    <span class="tok-kw">while</span> (cnt &gt; <span class="tok-number">0</span>) {</span>
+<span class="line" id="L134">        nop();</span>
+<span class="line" id="L135">        cnt -= <span class="tok-builtin">@as</span>(<span class="tok-type">u32</span>, <span class="tok-number">1</span>);</span>
+<span class="line" id="L136">    }</span>
+<span class="line" id="L137">}</span>
+<span class="line" id="L138"></span>
+<span class="line" id="L139"></span>
+<span class="line" id="L140"><span class="tok-kw">export</span> <span class="tok-kw">fn</span> <span class="tok-fn">zigMain</span>() <span class="tok-type">noreturn</span> {</span>
+<span class="line" id="L141">    <span class="tok-kw">const</span> led_pin = <span class="tok-number">20</span>;</span>
+<span class="line" id="L142">    gpio_set_output(led_pin) <span class="tok-kw">catch</span> <span class="tok-kw">unreachable</span>;</span>
+<span class="line" id="L143"></span>
+<span class="line" id="L144">    <span class="tok-kw">while</span> (<span class="tok-null">true</span>) {  </span>
+<span class="line" id="L145">        gpio_set_on(led_pin) <span class="tok-kw">catch</span> <span class="tok-kw">unreachable</span>;</span>
+<span class="line" id="L146">        delay(<span class="tok-number">1000000</span>);</span>
+<span class="line" id="L147">        gpio_set_off(led_pin) <span class="tok-kw">catch</span> <span class="tok-kw">unreachable</span>;</span>
+<span class="line" id="L148">        delay(<span class="tok-number">1000000</span>);</span>
+<span class="line" id="L149">    }</span>
+<span class="line" id="L150"></span>
+<span class="line" id="L151">    <span class="tok-kw">unreachable</span>;</span>
+<span class="line" id="L152">}</span>
+<span class="line" id="L153"></span>
+</code></pre></body>
+</html>

@@ -1,0 +1,24 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part1-test4-bug.bin> about to boot
+HASH: simple_boot: sending 12960 bytes, crc32=2268d5bc
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+test4: use after free
+TRACE:going to check heap
+TRACE:SUCCESS: checked 1 blocks, detected no errors
+TRACE:SUCCESS heap checked out
+TRACE:going to check heap
+TRACE:ERROR:block 1 [0x17fef8] corrupted at offset 3
+TRACE:	logical block id=1, [addr=0x17fef8] nbytes=4
+TRACE:	Block allocated at: tests-2.0/part1-test4-bug.c:notmain:7
+TRACE:	Wrote block after free!
+TRACE:checked 1 blocks, detected 1 errors
+TRACE:SUCCESS: detected corruption on block 1 [0x17fef8]
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

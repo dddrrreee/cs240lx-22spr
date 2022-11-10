@@ -1,0 +1,3 @@
+TRACE:in sbrk
+TRACE:found allocated 0x101f78 in 0x101ed0
+PANIC:ckalloc.c:ckfree:159:Error: redzone corruption detected on free of block = 1 .

@@ -1,0 +1,105 @@
+00009cec <staff_pin_mmu_on>:
+    9cec:	e92d4070 	push	{r4, r5, r6, lr}
+    9cf0:	e24dd008 	sub	sp, sp, #8, 0
+    9cf4:	e1a05000 	mov	r5, r0
+    9cf8:	ebfffcba 	bl	8fe8 <cp15_ctrl_reg1_rd>
+    9cfc:	e3100001 	tst	r0, #1, 0
+    9d00:	1a000021 	bne	9d8c <staff_pin_mmu_on+0xa0>
+    9d04:	ebfffdd2 	bl	9454 <staff_mmu_init>
+    9d08:	e1a00005 	mov	r0, r5
+    9d0c:	ebffff47 	bl	9a30 <pin_procmap>
+    9d10:	e3a01901 	mov	r1, #16384	; 0x4000
+    9d14:	e1a00001 	mov	r0, r1
+    9d18:	eb000487 	bl	af3c <kmalloc_aligned>
+    9d1c:	e1a06000 	mov	r6, r0
+    9d20:	e1a03900 	lsl	r3, r0, #18
+    9d24:	e1a03923 	lsr	r3, r3, #18
+    9d28:	e3530000 	cmp	r3, #0, 0
+    9d2c:	1a00001e 	bne	9dac <staff_pin_mmu_on+0xc0>
+    9d30:	e3a00004 	mov	r0, #4, 0
+    9d34:	ebfffe14 	bl	958c <staff_domain_access_ctrl_set>
+    9d38:	e59f0110 	ldr	r0, [pc, #272]	; 9e50 <staff_pin_mmu_on+0x164>
+    9d3c:	e210401f 	ands	r4, r0, #31, 0
+    9d40:	1a000022 	bne	9dd0 <staff_pin_mmu_on+0xe4>
+    9d44:	ebfffe74 	bl	971c <vector_base_asm_set>
+    9d48:	ebfffe77 	bl	972c <vector_base_asm_get>
+    9d4c:	e59f30fc 	ldr	r3, [pc, #252]	; 9e50 <staff_pin_mmu_on+0x164>
+    9d50:	e1530000 	cmp	r3, r0
+    9d54:	1a000024 	bne	9dec <staff_pin_mmu_on+0x100>
+    9d58:	e59f00f4 	ldr	r0, [pc, #244]	; 9e54 <staff_pin_mmu_on+0x168>
+    9d5c:	eb000152 	bl	a2ac <printk>
+    9d60:	e1a01006 	mov	r1, r6
+    9d64:	e3a00001 	mov	r0, #1, 0
+    9d68:	ebfffd75 	bl	9344 <staff_mmu_on_first_time>
+    9d6c:	ebfffc9d 	bl	8fe8 <cp15_ctrl_reg1_rd>
+    9d70:	e3100001 	tst	r0, #1, 0
+    9d74:	0a000024 	beq	9e0c <staff_pin_mmu_on+0x120>
+    9d78:	e59f00d8 	ldr	r0, [pc, #216]	; 9e58 <staff_pin_mmu_on+0x16c>
+    9d7c:	eb00014a 	bl	a2ac <printk>
+    9d80:	e59f00d4 	ldr	r0, [pc, #212]	; 9e5c <staff_pin_mmu_on+0x170>
+    9d84:	eb000148 	bl	a2ac <printk>
+    9d88:	ea00002b 	b	9e3c <staff_pin_mmu_on+0x150>
+    9d8c:	e59f30cc 	ldr	r3, [pc, #204]	; 9e60 <staff_pin_mmu_on+0x174>
+    9d90:	e58d3000 	str	r3, [sp]
+    9d94:	e3a030b2 	mov	r3, #178, 0	; 0xb2
+    9d98:	e59f20c4 	ldr	r2, [pc, #196]	; 9e64 <staff_pin_mmu_on+0x178>
+    9d9c:	e59f10c4 	ldr	r1, [pc, #196]	; 9e68 <staff_pin_mmu_on+0x17c>
+    9da0:	e59f00c4 	ldr	r0, [pc, #196]	; 9e6c <staff_pin_mmu_on+0x180>
+    9da4:	eb000140 	bl	a2ac <printk>
+    9da8:	eb000341 	bl	aab4 <clean_reboot>
+    9dac:	eb000159 	bl	a318 <rpi_reset_putc>
+    9db0:	e59f30b8 	ldr	r3, [pc, #184]	; 9e70 <staff_pin_mmu_on+0x184>
+    9db4:	e58d3000 	str	r3, [sp]
+    9db8:	e3a030ba 	mov	r3, #186, 0	; 0xba
+    9dbc:	e59f20a0 	ldr	r2, [pc, #160]	; 9e64 <staff_pin_mmu_on+0x178>
+    9dc0:	e59f10a0 	ldr	r1, [pc, #160]	; 9e68 <staff_pin_mmu_on+0x17c>
+    9dc4:	e59f00a8 	ldr	r0, [pc, #168]	; 9e74 <staff_pin_mmu_on+0x188>
+    9dc8:	eb000137 	bl	a2ac <printk>
+    9dcc:	eb000338 	bl	aab4 <clean_reboot>
+    9dd0:	e58d0000 	str	r0, [sp]
+    9dd4:	e3a0301c 	mov	r3, #28, 0
+    9dd8:	e59f2098 	ldr	r2, [pc, #152]	; 9e78 <staff_pin_mmu_on+0x18c>
+    9ddc:	e59f1098 	ldr	r1, [pc, #152]	; 9e7c <staff_pin_mmu_on+0x190>
+    9de0:	e59f0098 	ldr	r0, [pc, #152]	; 9e80 <staff_pin_mmu_on+0x194>
+    9de4:	eb000130 	bl	a2ac <printk>
+    9de8:	eb000331 	bl	aab4 <clean_reboot>
+    9dec:	e59f3090 	ldr	r3, [pc, #144]	; 9e84 <staff_pin_mmu_on+0x198>
+    9df0:	e58d3000 	str	r3, [sp]
+    9df4:	e3a0301e 	mov	r3, #30, 0
+    9df8:	e59f2078 	ldr	r2, [pc, #120]	; 9e78 <staff_pin_mmu_on+0x18c>
+    9dfc:	e59f1078 	ldr	r1, [pc, #120]	; 9e7c <staff_pin_mmu_on+0x190>
+    9e00:	e59f0064 	ldr	r0, [pc, #100]	; 9e6c <staff_pin_mmu_on+0x180>
+    9e04:	eb000128 	bl	a2ac <printk>
+    9e08:	eb000329 	bl	aab4 <clean_reboot>
+    9e0c:	e59f3074 	ldr	r3, [pc, #116]	; 9e88 <staff_pin_mmu_on+0x19c>
+    9e10:	e58d3000 	str	r3, [sp]
+    9e14:	e3a030c8 	mov	r3, #200, 0	; 0xc8
+    9e18:	e59f2044 	ldr	r2, [pc, #68]	; 9e64 <staff_pin_mmu_on+0x178>
+    9e1c:	e59f1044 	ldr	r1, [pc, #68]	; 9e68 <staff_pin_mmu_on+0x17c>
+    9e20:	e59f0044 	ldr	r0, [pc, #68]	; 9e6c <staff_pin_mmu_on+0x180>
+    9e24:	eb000120 	bl	a2ac <printk>
+    9e28:	eb000321 	bl	aab4 <clean_reboot>
+    9e2c:	e0853204 	add	r3, r5, r4, lsl #4
+    9e30:	e5930004 	ldr	r0, [r3, #4]
+    9e34:	ebffff75 	bl	9c10 <staff_pin_check_exists>
+    9e38:	e2844001 	add	r4, r4, #1, 0
+    9e3c:	e5953000 	ldr	r3, [r5]
+    9e40:	e1530004 	cmp	r3, r4
+    9e44:	8afffff8 	bhi	9e2c <staff_pin_mmu_on+0x140>
+    9e48:	e28dd008 	add	sp, sp, #8, 0
+    9e4c:	e8bd8070 	pop	{r4, r5, r6, pc}
+    9e50:	0000b1a0 	andeq	fp, r0, r0, lsr #3
+    9e54:	0000ba50 	andeq	fp, r0, r0, asr sl
+    9e58:	0000ba84 	andeq	fp, r0, r4, lsl #21
+    9e5c:	0000ba98 	muleq	r0, r8, sl
+    9e60:	0000b914 	andeq	fp, r0, r4, lsl r9
+    9e64:	0000be98 	muleq	r0, r8, lr
+    9e68:	0000bd58 	andeq	fp, r0, r8, asr sp
+    9e6c:	0000b364 	andeq	fp, r0, r4, ror #6
+    9e70:	0000b960 	andeq	fp, r0, r0, ror #18
+    9e74:	0000b928 	andeq	fp, r0, r8, lsr #18
+    9e78:	0000beac 	andeq	fp, r0, ip, lsr #29
+    9e7c:	0000bde4 	andeq	fp, r0, r4, ror #27
+    9e80:	0000b9e4 	andeq	fp, r0, r4, ror #19
+    9e84:	0000ba2c 	andeq	fp, r0, ip, lsr #20
+    9e88:	0000ba70 	andeq	fp, r0, r0, ror sl

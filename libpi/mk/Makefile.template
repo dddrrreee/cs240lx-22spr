@@ -31,7 +31,7 @@ ifdef START
 export START
 endif
 
-BOOTLOADER ?= pi-install
+BOOTLOADER ?= my-install
 
 MAKEFLAGS += --no-print-directory
 TEST_PROGS := $(patsubst %.c, %.bin, $(TEST_SRC))

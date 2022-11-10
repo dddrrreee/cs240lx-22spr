@@ -1,3 +1,5 @@
+*.d
+*.bak
 *.asc
 *~
 .gdb_history
@@ -14,3 +16,6 @@ obj_dir
 sim
 *.bak
 .knit
+zig-*
+*.o 
+tags/

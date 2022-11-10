@@ -74,8 +74,8 @@ void notmain(void) {
     test_check();
 
     printk("about to call again\n");
-    if(ck_heap_errors())
-        panic("FAIL: no heap errors??\n");
+    if(!ck_heap_errors())
+        panic("FAIL: Many use after frees\n");
     else
-        trace("SUCCESS heap checked out\n");
+        trace("SUCCESS detected use after free\n");
 }

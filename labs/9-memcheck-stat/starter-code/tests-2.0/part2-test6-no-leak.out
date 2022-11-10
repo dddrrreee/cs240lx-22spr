@@ -1,0 +1,10 @@
+TRACE:alloc returned block id=1 
+TRACE:test1 returned 
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+TRACE:ERROR:GC:MAYBE LEAK of block 1  (no pointer to the start)
+TRACE:	logical block id=1,  nbytes=4
+TRACE:	Block allocated at: tests-2.0/part2-test6-no-leak.c:test1:12
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 0 errors, 1 maybe_errors
+TRACE:SUCCESS: detected a maybe leak!

@@ -1,0 +1,21 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/ttyUSB0>
+opened tty port </dev/ttyUSB0>.
+pi-install: tty-usb=</dev/ttyUSB0> program=<./tests-2.0/part2-test4-no-leak.bin> about to boot
+HASH: simple_boot: sending 12932 bytes, crc32=1d3496e8
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/ttyUSB0>
+GC test: checking that a doubly-linked list is handled.
+---------------------------------------------------------
+checking for leaks:
+TRACE:	GC:Checked 100 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+TRACE:last alloc = block id=100 [addr=0x1751b0]
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

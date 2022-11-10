@@ -1,0 +1,57 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part2-test5-gc.bin> about to boot
+HASH: simple_boot: sending 11052 bytes, crc32=eb1f0edd
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+GC test: checking that a doubly-linked list is handled.
+TRACE:in sbrk
+tests-3.0/part2-test5-gc.c:test:20:allocating block = 1 [addr = 0x101f70]
+TRACE:have a live pointer <h>: should not leak
+TRACE:Marking...TRACE:found 0x101f70 in 0x101ec8
+TRACE:found 0x101f70 in 0x101ec8
+TRACE:found 0x101f70 in 0x101ec8
+TRACE:found 0x101f70 in 0x101ec8
+Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:outside: curr = 0x101ec8, start refs = 1, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+TRACE:should leak
+TRACE:Marking...Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:first: curr = 0x101ec8, start refs = 0, mid refs = 0
+TRACE:outside: curr = 0x101ec8, start refs = 0, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:ERRORS: 1 errors, 0 maybe_errors
+----------------------------------------------------------
+TRACE:GC: SUCCESS: found 1 leaks!
+---------------------------------------------------------
+compacting:
+TRACE:leak found for block: 1 [addr = 1056456]. Freeing.
+TRACE:	GC:Checked 1 blocks, freed 1, 12 bytes
+TRACE:compacted = [nbytes=12]
+should find 0 bytes on second gc
+---------------------------------------------------------
+compacting:
+TRACE:	GC:Checked 1 blocks, freed 0, 0 bytes
+TRACE:should find no leak
+TRACE:Marking...Done!
+---------------------------------------------------------
+checking for leaks:
+TRACE:outside: curr = 0x101ec8, start refs = 0, mid refs = 0
+TRACE:	GC:Checked 1 blocks.
+TRACE:		GC:SUCCESS: No leaks found!
+----------------------------------------------------------
+TRACE:GC: SUCCESS: no leaks!
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

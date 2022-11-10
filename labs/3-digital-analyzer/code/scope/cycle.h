@@ -2,6 +2,8 @@
 #define __CYCLE_H__
 // utilities: you don't have to use these.
 
+static inline unsigned cycle_cnt_read_fast(void);
+
 static inline unsigned usec_to_cycle(unsigned us) {
     return 700 * us;
 }

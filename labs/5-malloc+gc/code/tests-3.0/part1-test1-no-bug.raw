@@ -1,0 +1,21 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part1-test1-no-bug.bin> about to boot
+HASH: simple_boot: sending 10692 bytes, crc32=4831bbeb
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+test1
+TRACE:in sbrk
+tests-3.0/part1-test1-no-bug.c:notmain:11:allocating block = 1 [addr = 0x101f78]
+TRACE:alloc returned 1 [0x101f78]
+tests-3.0/part1-test1-no-bug.c:notmain:14:freeing block = 1 [addr = 0x101f78]
+TRACE:found allocated 0x101f78 in 0x101ed0
+TRACE:checking heap for errors...
+TRACE:SUCCESS heap checked out
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up

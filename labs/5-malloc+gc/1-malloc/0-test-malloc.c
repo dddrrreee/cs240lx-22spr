@@ -9,7 +9,7 @@ void notmain(void) {
     for(unsigned i = 0; i < ntests; i++)  {
         char *p1 = kr_malloc(1);
 
-        output("malloc(1)=%p, diff=%ld\n", kr_malloc(1), p1-p0);
+        output("malloc(1)=%p, diff=%lld\n", kr_malloc(1), p1-p0);
 
         // see that we get back the previous.
         kr_free(p1);

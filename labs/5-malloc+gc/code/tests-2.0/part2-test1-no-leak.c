@@ -32,3 +32,4 @@ void notmain(void) {
     else
         trace("SUCCESS: no leaks!\n");
 }
+

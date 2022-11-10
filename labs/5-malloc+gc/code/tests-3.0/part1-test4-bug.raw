@@ -1,0 +1,23 @@
+find-ttyusb.c:find_ttyusb:55:FOUND: </dev/cu.SLAB_USBtoUART>
+opened tty port </dev/cu.SLAB_USBtoUART>.
+pi-install: tty-usb=</dev/cu.SLAB_USBtoUART> program=<./tests-3.0/part1-test4-bug.bin> about to boot
+HASH: simple_boot: sending 10768 bytes, crc32=5d8bfb54
+waiting for a start
+putting code
+bootloader: Done.
+listening on ttyusb=</dev/cu.SLAB_USBtoUART>
+test4: use after free
+TRACE:in sbrk
+tests-3.0/part1-test4-bug.c:notmain:7:allocating block = 1 [addr = 0x101f78]
+tests-3.0/part1-test4-bug.c:notmain:9:freeing block = 1 [addr = 0x101f78]
+TRACE:found allocated 0x101f78 in 0x101ed0
+TRACE:checking heap for errors...
+TRACE:SUCCESS heap checked out
+TRACE:checking heap for errors...
+TRACE:udata incrementing errs.
+TRACE:SUCCESS: detected corruption on block 1 [0x101f78]
+DONE!!!
+
+Saw done
+
+bootloader: pi exited.  cleaning up
