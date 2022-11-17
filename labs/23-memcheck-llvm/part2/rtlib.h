@@ -2,6 +2,7 @@
 #define __RTLIB_H__
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef enum { ALLOC, FREE, STACK } state_t;
 
