@@ -13,7 +13,7 @@ run: test
 	./$(BUILD_DIR)/$(TEST_SRC)
 
 test: $(BUILD_DIR)/$(TEST_SRC)-instrument.ll  $(BUILD_DIR)/$(RTLIB).o
-	c$(LLVM_BIN)/clang $(BUILD_DIR)/$(TEST_SRC)-instrument.ll $(BUILD_DIR)/$(RTLIB).o  -o $(BUILD_DIR)/$(TEST_SRC)
+	$(LLVM_BIN)/clang $(BUILD_DIR)/$(TEST_SRC)-instrument.ll $(BUILD_DIR)/$(RTLIB).o  -o $(BUILD_DIR)/$(TEST_SRC)
 
 $(BUILD_DIR)/$(TEST_SRC).ll: $(TEST_SRC).c
 	$(LLVM_BIN)/clang -S -emit-llvm -Xclang -disable-O0-optnone $(TEST_SRC).c -o $(BUILD_DIR)/$(TEST_SRC).ll
