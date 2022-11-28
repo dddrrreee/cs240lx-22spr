@@ -6,6 +6,14 @@ the following two claims:
 2. Using watched literals instead of a counter can achieve a ~5--10x speedup
    over the basic DP SAT solver algorithm.
 
+There isn't a lot of code to write in the first place. My version of part 1
+ends up with ~150 loc (~25 lines over the starter code) and my version of part
+2 end sup with ~190 loc (~30 lines over the start code). But there are a fairly
+large number of interacting data structures (mostly simple heap arrays) so it
+may longer than expected. If you'd like more of a challenge, try starting all
+the functions from scratch or try implementing some of the remaining tricks in
+the "What's Next?" section below!
+
 ## Part 1: Implement & profile the basic DP algorithm
 #### Implementation
 Implement the `assert(!"Implement me!");` locations in `basic.c`. The comments
