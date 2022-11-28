@@ -3,6 +3,11 @@
 #include <string.h>
 #include <assert.h>
 
+#define append_field(OBJ, FIELD) (*({ \
+    OBJ.FIELD = realloc(OBJ.FIELD, (++OBJ.n_##FIELD) * sizeof(OBJ.FIELD[0])); \
+    OBJ.FIELD + (OBJ.n_##FIELD - 1); \
+}))
+
 /****** GLOBAL DATA STRUCTURES ******/
 
 // Any sequence of events you want to cross-check across the basic & optimized
@@ -223,11 +228,7 @@ int main(int argc, char **argv) {
             if (repeat) continue;
 
             // Append to the clause's literal list.
-#define append(obj, field) \
-            (obj).n_##field++; \
-            (obj).field = realloc((obj).field, (obj).n_##field * sizeof((obj).field[0])); \
-            (obj).field[(obj).n_##field - 1]
-            append(CLAUSES[i], literals) = literal;
+            append_field(CLAUSES[i], literals) = literal;
 
             // Append to the list of clauses touching this literal. Hint: use
             // clauses_touching and append!
