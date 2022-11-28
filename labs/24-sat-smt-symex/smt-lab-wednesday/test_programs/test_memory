@@ -1,0 +1,6 @@
+load 0 0
+; assert(r0 == 10)
+immediate 1 10
+branch_eq 0 1 2
+fail
+exit

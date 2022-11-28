@@ -1,0 +1,8 @@
+immediate 0 5
+immediate 1 2
+; r3 = (r1=2) + r2
+add 3 1 2
+; assert(r3 == 5)
+branch_eq 3 0 2
+exit
+fail
