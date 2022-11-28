@@ -4,8 +4,8 @@
 #include <assert.h>
 
 #define append_field(OBJ, FIELD) (*({ \
-    OBJ.FIELD = realloc(OBJ.FIELD, (++OBJ.n_##FIELD) * sizeof(OBJ.FIELD[0])); \
-    OBJ.FIELD + (OBJ.n_##FIELD - 1); \
+    (OBJ).FIELD = realloc((OBJ).FIELD, (++((OBJ).n_##FIELD)) * sizeof((OBJ).FIELD[0])); \
+    (OBJ).FIELD + ((OBJ).n_##FIELD - 1); \
 }))
 
 /****** GLOBAL DATA STRUCTURES ******/
