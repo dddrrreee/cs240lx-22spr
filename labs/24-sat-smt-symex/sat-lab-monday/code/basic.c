@@ -104,13 +104,7 @@ int set_literal(int literal, enum decision_type type) {
     DECISION_STACK[N_DECISION_STACK++].type = type;
 
     // Update clause counters, check if any is completely false
-    int conflict_found = 0;
-    struct clause_list *list = clauses_touching(-literal);
-    for (int i = 0; i < list->n_clauses; i++) {
-        list->clauses[i]->n_zeros++;
-        conflict_found |= (list->clauses[i]->n_zeros == list->clauses[i]->n_literals);
-    }
-    return !conflict_found; // 1 -> good
+    assert(!"Implement me!");
 }
 
 // Undo the latest assignment on the decision stack. Then update all the
