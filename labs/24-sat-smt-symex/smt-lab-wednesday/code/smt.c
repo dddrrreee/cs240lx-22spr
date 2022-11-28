@@ -56,7 +56,7 @@ static int NEXT_SAT_VAR = 1;
 int new_array() {
     // Create a new array. It has no parent (-1) and no lookups yet (NULL, 0).
     // Returns its index in the ARRAYS vector.
-    assert(!"Implement me!")
+    assert(!"Implement me!");
 }
 
 int array_store(int old_array, int bv_key, int bv_value) {
