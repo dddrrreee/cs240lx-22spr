@@ -97,10 +97,11 @@ int satisfiable() {
     for (int i = 1; i < N_VARS; i++)
         printf("%d ", is_literal_true(i) ? i : -i);
     printf("\n");
+    return 0;
 }
 
 // Called when it is proved that no solution exists
-int unsatisfiable() { printf("UNSAT\n"); }
+int unsatisfiable() { printf("UNSAT\n"); return 0; }
 
 // Specify the @which'th watched literal for clause CLAUSES[clause_i]. Called
 // by main().
