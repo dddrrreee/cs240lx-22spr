@@ -43,7 +43,7 @@ frontend to a SAT solver, which allows you to construct constraints involving
 arrays and bitvectors (finite bitwidth integers, like in C).
 
 For simplicity, we'll be building an eager SMT solver, also known as bit
-banging. This is the same fundamental approach used by the STP solver:
+blasting. This is the same fundamental approach used by the STP solver:
 https://github.com/stp/stp
 
 The idea is to "compile" the higher-level constraints into a big SAT problem,
@@ -79,7 +79,7 @@ Some tips/reminders for the SAT encoding:
 - Extend the symex IR to support more operations
 - Write a compiler (or interpreter!) from a higher-level language (some useful
   subset of C?) to the symex IR
-- Modern SMT solvers often use a *lazy* encoding instead of eager/bitbanging.
+- Modern SMT solvers often use a *lazy* encoding instead of eager/bitblasting.
   The idea is to only give the SAT solver a subset of the clauses; if it says
   "unsat" with that subset, you're already done. Otherwise, check if its
   solution also satisfies the remaining clauses. If not, give it a few more

@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 
 #define APPEND_GLOBAL(NAME) (*({ \
     NAME = realloc(NAME, (++N_##NAME) * sizeof(NAME[0])); \
