@@ -56,7 +56,6 @@ struct in_var {
 static struct in_var *IN_VARS = NULL;
 static int N_IN_VARS = 0;
 
-// Assume we only use registers 0--99
 static int *REGS = NULL, N_REGS = 0;
 static void set_register(int n, int val) {
     while (n >= N_REGS)
