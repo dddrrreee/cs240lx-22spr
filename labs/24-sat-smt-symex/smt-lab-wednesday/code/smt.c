@@ -185,7 +185,7 @@ int solve() {
     sprintf(result_path, "temp_files/results.%d.txt", getpid());
 
     char cmd[1024] = "";
-#if 0
+#ifdef USE_MINISAT
     sprintf(cmd, "minisat %s %s > /dev/null", constraint_path, result_path);
 #else
     sprintf(cmd, "cat %s | ./fast > %s", constraint_path, result_path);

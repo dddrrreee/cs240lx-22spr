@@ -3,6 +3,7 @@
 CFLAGS += -g
 CFLAGS += -O3
 # CFLAGS += -fsanitize=address
+# CFLAGS += -DUSE_MINISAT
 
 main: main.c smt.o
 	mkdir -p temp_files

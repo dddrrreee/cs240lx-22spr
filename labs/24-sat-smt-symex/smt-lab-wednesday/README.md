@@ -2,6 +2,15 @@
 The goal of this lab is to build a working symbolic execution engine off of our
 SAT solver.
 
+### STOP!!!
+Before you proceed, make sure you do one of:
+- If you finished the "fast" SAT solver last week, copy the `fast` binary into
+  `code/` as `code/fast`.
+- If you only finished the "basic" SAT solver last week, copy the `basic`
+  binary into `code/` as `code/fast` (yes, pretend it's fast!).
+- If you finished neither, but downloaded minisat and it's on your path, pass
+  `-DUSE_MINISAT` to all compilation steps (see the Makefile).
+
 ### Symbolic Interpreter
 We'll work top-down, building the symbolic interpreter against my SMT solver
 binary so that we can start running test cases ASAP. Then you'll swap your SMT
