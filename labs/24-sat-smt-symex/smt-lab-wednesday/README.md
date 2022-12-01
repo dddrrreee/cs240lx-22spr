@@ -94,6 +94,11 @@ bitvectors representing register values; these methods will automatically
 update IN_VARS for register operations, but you'll need to do it yourself for
 memory operations.
 
+### Symbolic Interpreter Without Arrays
+If you want to try doing the symex engine without finishing the arrays portion
+of `smt.c`, you can do that too. You should be able to run
+`test_programs/test_prog`.
+
 ### Extensions
 - Extend the symex IR to support more operations
 - Write a compiler (or interpreter!) from a higher-level language (some useful

@@ -96,8 +96,9 @@ int main() {
         memcpy(PROGRAM[N_PROGRAM - 1].args, args, sizeof(args));
     }
 
-    // Create an array to represent program memory
-    int array_memory = new_array();
+    // Create an array to represent program memory (uncomment once your solver
+    // supports arrays!)
+    // int array_memory = new_array();
 
     // Do the symbolic interpretation. We generally use dst src ordering.
     int pc = 0;
