@@ -7,8 +7,8 @@
 }))
 
 #define APPEND_FIELD(OBJ, FIELD) (*({ \
-    OBJ.FIELD = realloc(OBJ.FIELD, (++OBJ.n_##FIELD) * sizeof(OBJ.FIELD[0])); \
-    OBJ.FIELD + (OBJ.n_##FIELD - 1); \
+    (OBJ).FIELD = realloc((OBJ).FIELD, (++(OBJ).n_##FIELD) * sizeof((OBJ).FIELD[0])); \
+    (OBJ).FIELD + ((OBJ).n_##FIELD - 1); \
 }))
 
 // Create a fresh array and return a handle to it
