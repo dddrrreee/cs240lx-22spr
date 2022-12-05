@@ -73,6 +73,10 @@ of the manual:
 
 ![riscv-imm-encoding](img/riscv-imm-encoding.png)
 
+Here are the same encodings, but reformulated so that it shows how the
+immediate is constructed from the bits of the instruction, rather than how the
+immediate is encoded into the instruction.
+
 ![riscv-imm-encoding2](img/riscv-imm-encoding2.png)
 
 ## Writing the simulator
