@@ -1,0 +1,6 @@
+*.o
+*.elf
+*.list
+.knit
+/rvsim
+*.out

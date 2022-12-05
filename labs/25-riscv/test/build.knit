@@ -1,0 +1,35 @@
+local knit = require("knit")
+
+local prefix := riscv64-unknown-elf
+local cc := $prefix-gcc
+local objdump := $prefix-objdump
+
+local flags := -O2 -march=rv32i -mabi=ilp32
+
+local csrc = knit.glob("*.c")
+local ssrc = knit.glob("*.s")
+
+local build = b{}
+
+for _, file in ipairs(csrc) do
+    elf = knit.extrepl({file}, ".c", ".elf")
+    build = build + r{
+        $ $elf: $file
+            $cc $flags $input -o $output
+    }
+end
+
+for _, file in ipairs(ssrc) do
+    elf = knit.extrepl({file}, ".s", ".elf")
+    build = build + r{
+        $ $elf: $file
+            $cc -ffreestanding -nostdlib -nostartfiles -Ttext=0x100000 $flags $input -o $output
+    }
+end
+
+build = build + r{
+    $ %.list: %.elf
+        $objdump -D $input > $output
+}
+
+return build

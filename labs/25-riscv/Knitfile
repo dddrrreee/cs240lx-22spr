@@ -1,0 +1,44 @@
+local conf = {
+    cc = "gcc",
+    cflags = "-Wall"
+}
+
+if tobool(cli.san) then
+    conf.cflags = conf.cflags .. " -g -Og -fsanitize=address,undefined"
+else
+    conf.cflags = conf.cflags .. " -O2"
+end
+
+if tobool(cli.dump) then
+    cli.dumpreg = "1"
+    cli.dumpmem = "1"
+end
+
+if tobool(cli.dumpreg) then
+    conf.cflags = conf.cflags .. " -DDUMPREG"
+end
+if tobool(cli.dumpmem) then
+    conf.cflags = conf.cflags .. " -DDUMPMEM"
+end
+
+local tests = include("test/build.knit")
+
+return b{
+    $ %.o: %.c
+        $(conf.cc) $(conf.cflags) -c $input -o $output
+    $ rvsim: rvsim.o mem.o main.o elf.o syscall.o
+        $(conf.cc) $(conf.cflags) $input -o $output
+    $ test-%:VB: test/%.elf rvsim
+        ./rvsim $(inputs[1])
+    $ check-%:VBQ: test/%.elf rvsim
+        ./rvsim $(inputs[1]) > test/$match.out
+        diff test/$match.out test/$match.expect
+        echo PASS-$match
+    $ check:VBQ:
+        knit -q check-nop dump=1
+        knit -q check-utype dump=1
+        knit -q check-arith dump=1
+        knit -q check-itype dump=1
+        knit -q check-jmp dump=1
+    tests
+}
