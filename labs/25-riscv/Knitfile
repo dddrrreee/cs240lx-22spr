@@ -40,5 +40,6 @@ return b{
         knit -q check-arith dump=1
         knit -q check-itype dump=1
         knit -q check-jmp dump=1
+        knit -q check-riscvtest dump=1
     tests
 }
