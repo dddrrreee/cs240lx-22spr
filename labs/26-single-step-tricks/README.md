@@ -8,7 +8,7 @@ We will do two tricks that we have talked about in class several times:
 2. Pressing a key on your keyboard and printing a backtrace.
 
 ## Part 1: Single Stepping through super level code.
-To build the code, you will need to add ```kernel-debug.S``` as a ```SRC``` in your libpi. Please also copy your ```armv6-debug-impl.h``` from 140e )where the single stepping functions are implemented) into the part-1 folder. If people in lab need an implementation, let me know.
+To build the code, you will need to add ```kernel-debug.S``` as a ```SRC``` in your libpi. Please also copy your ```armv6-debug-impl.h``` from 140e (where the single stepping functions are implemented) into the part-1 folder. If people in lab need an implementation, let me know.
 
 From CS140e, we know that we can only single step through user level code. Therefore, it is not possible for us to single step through instructions that cannot be run in user mode. 
 
