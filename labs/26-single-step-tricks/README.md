@@ -1,4 +1,8 @@
 # Tricks for Single Stepping
+
+Lab by Manya Bansal. 
+
+
 We will do two tricks that we have talked about in class several times:
 1. Single stepping through super level code.
 2. Pressing a key on your keyboard and printing a backtrace.

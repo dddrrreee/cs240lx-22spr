@@ -1,5 +1,7 @@
 # Memcheck: LLVM Edition
 
+Lab by Manya Bansal. 
+
 Read the [PRELAB](PRELAB.md).
 
 Today, we are going to write an LLVM pass that checks for memory corruption. The LLVM pass instruments every call to malloc and free, and logs which memory locations are safe to access. It also instruments every load and store and checks whether that memory access is safe using our log.
