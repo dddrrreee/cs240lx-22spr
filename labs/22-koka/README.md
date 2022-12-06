@@ -1,4 +1,5 @@
 # Koka
+Joe :)
 Hi everyone. This is yet another language lab, this time on (Koka)[https://koka-lang.github.io/koka/doc/index.html], a functional language. Koka is a research language that, unlike the other languages we covered, is unlikely to break into the mainstream anytime soon. But it has a few ideas that I think will eventually break into the mainstream. Much like how Cyclone's ideas for memory management eventually made their way into and inspired rust, I think that Koka's ideas will eventually make it into a mainstream language at some point down the line. In particular, its reference counting technique and algebraic effects make pure functional programming relatively performant and easier to use. If you are interested in its reference counting, I recommend (this paper)[https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf]. This lab will focus on the effect system of Koka.
 
 As a sidenote, Koka uses a [novel reference counting](https://dl.acm.org/doi/pdf/10.1145/3453483.3454032) mechanism to claw back a lot of the performance that is lost by only having immutable data structures. We could have a whole lab on this too.
