@@ -27,6 +27,7 @@ void machine_load(machine_t* m, char* data) {
         }
 
         memcpy(m->mem.data + ph->vaddr - m->mem.base, data + ph->off, ph->filesz);
+        memset(m->mem.data + ph->vaddr - m->mem.base + ph->filesz, 0, ph->memsz - ph->filesz);
     }
 
     m->pc = elf->entry;
