@@ -1,6 +1,11 @@
 ## Pico Lab
 When starting this lab keep in mind that there are lots of ways to make it better. Especially when it comes to how I utilize the meson build system. One example is how I use object files instead of share library within all my sub programs. I made a couple attempts to make it work but Meson makes too many assumptions. This is one of the tradeoffs you make with a build system thats supposed to be easier and faster. So summary if you feel like something could be done better feel free to completely restructure my folder setup and code. Let me know if you have any good suggestions for increasing readability.
 
+## Meson Commands
+1. `meson setup buildir` vs. `meson setup buildir --cross-file ../arm-cross-comp.txt` You only have to run each of these commands once to create your build directory. If you are building things for your embedded system then you will want to include your cross file.
+2. `meson compile` You can run this inside of buildir to test that your meson.build file is working.
+3. `meson install` If you look inside meson.build you will see that some targets are labeled with `install:true`. The output of these targets will be installed into your source directory where all your code is at. 
+
 ## Part 0 (Check that Pico Works)
 The pico's bootrom as outlined in Section 2.8 has a .uf2 file bootloader. If you copy a valid UF2 as defined in section 2.8.4.2 the pico will automatically load the program into flash. More of these details will be covered in following parts but for now we'll make sure that the pico works. Copy the .uf2 file inside of the `bin` folder to your pico and make sure that the provided LED is blinking. Note: When plugging in the pico you have to hold down the BootSel button. This will put the pico into bootloader mode instead loading up from flash. A quick way to copy things over is to run the following command `cp firmware.uf2 /media/<user>/RPI-RP2`.
 
