@@ -1,0 +1,24 @@
+[constants]
+toolchain_folder = TODO
+proj_folder = TODO
+XCPU = '-mcpu=cortex-m0'
+
+[binaries]
+# Note that / creates a path
+c = toolchain_folder / 'arm-none-eabi-gcc'
+lld = toolchain_folder / 'arm-none-eabi-ld'
+strip = toolchain_folder / 'arm-none-eabi-strip'
+
+[host_machine]
+system = 'pico'
+cpu_family = 'arm'
+cpu = 'cortex-m0'
+endian = 'little' 
+
+[properties]
+ARMGNU = toolchain_folder / 'arm-none-eabi'
+CFLAGS = ['-g', '-mthumb', '-Wall', '-nostdlib', '-nostartfiles', '-ffreestanding', XCPU]
+ASMFLAGS = ['-g', '-mthumb', '-Wall', '-nostdlib', '-nostartfiles', '-ffreestanding', XCPU]
+LFLAGS = ['-nostdlib']
+MEMMAP = proj_folder / 'library/mem_layout/memmap'
+OBJS_DIR = proj_folder / 'library/objects'
