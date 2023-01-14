@@ -1,4 +1,4 @@
-# Tiny RISC-V simulator
+# Tiny RISC-V simulator by Zach
 
 Today we are going to write a small RISC-V simulator.
 

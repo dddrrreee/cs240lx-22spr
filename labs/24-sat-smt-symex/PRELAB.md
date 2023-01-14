@@ -1,4 +1,5 @@
-# SAT/Symex+SMT Labs Prelab
+# SAT/Symex+SMT Labs Prelab by Matthew
+
 By Wednesday, we will make a symbolic execution (symex) engine for a simple
 little "assembly language." Think of a symex engine as a tool that tries to
 generate inputs to your program that cause it to execute a certain line. For

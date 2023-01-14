@@ -44,9 +44,17 @@
     @ IMPORTANT!!!!!!: This how much code to copy over 0xf000 = 61KB
     @ Had a bug here for a while since I was only copying over 1KB
     ldr r2, =0x2000f000
-    @_boot_start_loop:
+
     @TODO: Write loop to copy over contents from Flash to RAM
-    @bne _boot_start_loop
+_boot_start_loop:
+    ldr r3, [r0]
+    str r3, [r1]
+    add r0, #4
+    add r1, #4
+    @ is this correct?
+    cmp r1, r2
+    bne _boot_start_loop
+
     @ Tricky: Start at postion in ram after second stage boot which is 256 bytes
     ldr r0, =0x20000101
     bx r0

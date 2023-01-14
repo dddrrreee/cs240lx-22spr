@@ -33,7 +33,22 @@ void gpio_set_output(uint32_t pin) {
     if (pin > NUM_GPIOS) {
         return;
     } 
+    // p268
+    volatile uint32_t *fn = (void*)  (0x40014000 + 0x4 + 8 * pin);
+    *fn = 5;
+
     // 0. Get offset
+    volatile uint32_t *oe = (void*)GPIO_OE;
+    uint32_t v = *oe;
+    // clear
+    v &= ~ (1 << pin);
+    // set
+    v |= 1 << pin;
+    // write it out.
+    *oe = v;
+
+
+    
     // 1. Output enable clear
     // 2. Clear output
     // 3. Function select SIO use IO_BANK_BASE_CTRL
@@ -42,12 +57,14 @@ void gpio_set_output(uint32_t pin) {
 
 // TODO: pg.42 in rp2040 datasheet
 void gpio_set_on(uint32_t pin) {
-    return;
+    volatile uint32_t *out_set = (void*) 0xd0000000 + 0x14;
+    *out_set  = 1 << pin;
 }
 
 // TODO: pg.42 in rp2040 datasheet
 void gpio_set_off(uint32_t pin) {
-    return;
+    volatile uint32_t *out_clr = (void*) 0xd0000000 + 0x18;
+    *out_clr  = 1 << pin;
 }
 
 //TODO: Only If you're doing the hw-uart lab do you have to write the gpio_set_function.

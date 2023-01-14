@@ -1,7 +1,9 @@
-extern fn GET32() i32;
-extern fn PUT32(val: u32) void;
+extern fn GET32(addr: u32) u32;
+extern fn PUT32(addr: u32, val: u32) void;
+
 // see broadcomm documents for magic addresses.
-const GPIO_BASE = @intToPtr(*volatile u32, 0x20200000);
+//const GPIO_BASE = @intToPtr(*volatile u32, 0x20200000);
+const GPIO_BASE = 0x20200000;
 const GPIO_BASE_INT = @ptrToInt(GPIO_BASE);
 const gpio_set0 = @intToPtr(*volatile u32, GPIO_BASE_INT + 0x1C);
 const gpio_clr0 = @intToPtr(*volatile u32, GPIO_BASE_INT + 0x28);
@@ -43,24 +45,35 @@ pub const Pin = struct {
 // You can choose to either make a Gpio struct with member functions or just make regular public functions. 
 // Pick whichever way you like and try it, but youll probably want to comment out the other.
 // struct : 
-const Gpio = struct {
-    _base: *volatile u32,
-
-    // member functions here
-    // pub fn 
-    fn set_function(comptime pin: Pin, func: GpioFunc) void {
-    
-    }
-
-    pub fn set_output(comptime pin: Pin) GpioError!void {
-
-    }
-};
 
 
+pub fn gpio_set_output(pin : Pin) void {
+    gpio_set_function(pin, GpioFunc.GPIO_FUNC_OUTPUT);
+}
+
+// set <pin> on.
+pub fn gpio_set_on(pin : Pin) void {
+    if(pin.num >= 32)
+        return;
+    PUT32(gpio_set0, 1 << pin.num);
+}
+
+// set <pin> off
+pub fn gpio_set_off(pin : Pin) void {
+    if(pin.num >= 32)
+        return;
+    PUT32(gpio_clr0, 1 << pin.num);
+}
 
 // regular static function decl
 // pub fn 
-pub fn gpio_set_function(comptime pin: Pin, func: GpioFunc) void {
-    
+pub fn gpio_set_function(pin: Pin, func: GpioFunc) void {
+    const off : u5 = @truncate(u5, pin.num%10*3);
+    const g = GPIO_BASE + (pin.num/10)*4;
+
+    var v : u32 = GET32(g) ;
+
+    v &= ~ (@as(u32, 0b111) << off);
+    v |= @as(u32, @enumToInt(func)) << off;
+    PUT32(g,v);
 }

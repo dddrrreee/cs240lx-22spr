@@ -8,7 +8,7 @@ LFLAGS = meson.get_external_property('LFLAGS')
 
 #TODO: Add gpio.h and gpio.c to these lists
 C_DIR = 'libc'
-C_FILES = ['cstart.c', 'start.S', 'clock.c']
+C_FILES = ['cstart.c', 'start.S', 'clock.c', 'gpio.c']
 H_DIR = 'include'
 H_FILES = ['cstart.h', 'clock.h', 'integer-math.h']
 ASM_FILES = ['start.S']

@@ -1,4 +1,4 @@
-SUBDIRS=  weird-timing cycles-per-sec # code
+SUBDIRS=  weird-timing cycles-per-sec code 
 
 .PHONY: all check clean
 all check clean: $(SUBDIRS)

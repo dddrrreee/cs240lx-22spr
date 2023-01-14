@@ -1,6 +1,6 @@
 [constants]
-toolchain_folder = TODO
-proj_folder = TODO
+toolchain_folder = '/usr/share/gcc-arm-none-eabi-10.3-2021.10/bin/'
+proj_folder = '/home/engler/class/cs240lx-22spr/labs/27-pico/'
 XCPU = '-mcpu=cortex-m0'
 
 [binaries]

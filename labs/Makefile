@@ -4,7 +4,29 @@
 # ah: for test, doesn't work for us b/c we don't have the code...
 #
 # also it is tricky if they swap with our code and their code.
-SUBDIRS=  # 1-trusting-trust 2-dynamic-code-gen 3-logic-analyzer 4-uart-8n1 5-ws2812b 6-fake
+SUBDIRS=  \
+    1-dynamic-code-gen  \
+    2-ir  \
+    3-digital-analyzer  \
+    4-ws2812b  \
+    5-malloc+gc  \
+    6-debug-alloc  \
+    7-mem-protection  \
+    8-i2c-adc  \
+    9-memcheck-stat  \
+    10-i2c-accel  \
+    11-memcheck-trap  \
+    14-reloc-bootloader  \
+    15-stepper-motor  \
+    16-eraser  \
+    17-i2s  \
+    18-ptag  \
+
+#    12-verilog-blink  \
+#    13-verilog-uart  \
+#    19-pcb  \
+#    20-d
+
 
 .PHONY: all check clean
 all check clean: $(SUBDIRS)

@@ -1,4 +1,5 @@
-## Pico Lab
+## Pico Lab by Evan
+
 When starting this lab keep in mind that there are lots of ways to make it better. Especially when it comes to how I utilize the meson build system. One example is how I use object files instead of share library within all my sub programs. I made a couple attempts to make it work but Meson makes too many assumptions. This is one of the tradeoffs you make with a build system thats supposed to be easier and faster. So summary if you feel like something could be done better feel free to completely restructure my folder setup and code. Let me know if you have any good suggestions for increasing readability.
 
 ## Meson Commands

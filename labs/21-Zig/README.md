@@ -1,4 +1,4 @@
-# Zig lab
+# Zig lab by Tristan
 <hr>
 <<<<<<< HEAD
 ***Before we start, Zig is an UNSTABLE language still. It is only on version 0.10.0, and will not be considered stable until its 1.0.x release. I estimate another 2 years probably, which would make Zig about 10 years old, a similar age to when Rust stabalized itself.

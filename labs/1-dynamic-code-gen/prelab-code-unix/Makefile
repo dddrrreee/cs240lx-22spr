@@ -4,4 +4,4 @@ all:
 
 
 clean:
-	rm dcg *~
+	rm -f dcg *~

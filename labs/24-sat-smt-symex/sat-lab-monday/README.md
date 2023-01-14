@@ -1,4 +1,5 @@
-# Chaff/SAT Solver Lab
+# Chaff/SAT Solver Lab by Matthew
+
 In this lab we'll be reproducing the Chaff paper. In particular, we'll focus on
 the following two claims:
 1. In a normal SAT solver, around 90% of the time is spent in boolean

@@ -1,4 +1,4 @@
-# Getting started with Verilog
+# Getting started with Verilog by Zach
 
 First check out the [Prelab](PRELAB.md) for instructions for installation and
 the SystemVerilog document.

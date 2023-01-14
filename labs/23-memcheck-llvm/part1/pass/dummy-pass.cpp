@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/InstrTypes.h"
@@ -46,9 +48,20 @@ struct SkeletonPass : public ModulePass {
             insertedStart = true;
           }
 
+          std::cerr << "2xxxx"  << std::endl;
           if (CallInst* call = dyn_cast<CallInst>(&I)) {
             // Check if function being called is test.
             if (call->getCalledFunction()->getName() == "test") {
+                auto fn = call->getCalledFunction();
+                auto it = fn->arg_begin();
+                for(const auto a = fn->arg_begin(); a != fn->arg_end(); a = fn->arg_next()) {
+                    std::cerr << "got an arg"  << a << std::endl;
+                }
+                if(it != fn->arg_end())
+                    std::cerr << "got an arg"  << fn << std::endl;
+                else
+                    std::cerr << "no arg!"  << fn << std::endl;
+                    
               // TODO: Get the first argument of test.
 
               // TODO: Create a call to print_with_arg that also passes

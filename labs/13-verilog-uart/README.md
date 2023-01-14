@@ -1,4 +1,4 @@
-# Part 1: UART receiver
+# Part 1: UART receiver by Zach
 
 UART is a simple protocol for communication over a wire. Data is received over
 one wire and transmitted over another.

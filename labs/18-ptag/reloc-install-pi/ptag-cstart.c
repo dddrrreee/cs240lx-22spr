@@ -27,6 +27,8 @@ static void *ptag_move(unsigned *out_nbytes, unsigned *out_ntags) {
         h = (void*)((char*)h + h->tot_nbytes);
     }
 
+    if(ntags == 0)
+        return 0;
     // for today we always expect a tag: you should remove this.
     assert(ntags > 0);
     assert(nbytes > 0);
@@ -46,8 +48,9 @@ static void *ptag_move(unsigned *out_nbytes, unsigned *out_ntags) {
 static void ptag_make_list(void *addr, unsigned nbytes, unsigned ntags) {
     unsigned onemb = 1024 * 1024;
 
-    // oh: this trashes it.
     Q_init(&tagQ);
+    if(!addr)
+        return;
 
     // start heap after
     void *end = (char*)addr + nbytes;
@@ -55,7 +58,11 @@ static void ptag_make_list(void *addr, unsigned nbytes, unsigned ntags) {
     if(end >= (void*)onemb)
         panic("ptags %p should be below heap location %p\n", addr,onemb);
 
+#ifdef OLD_STYLE
+    kmalloc_init_set_start(onemb);
+#else
     kmalloc_init_set_start(onemb, onemb);
+#endif
 
     ptag_hdr_t *h = addr;
     for(int i = 0; i < ntags; i++) {
@@ -108,6 +115,7 @@ void _cstart() {
         *bss++ = 0;
 
     // wait: we don't call uart init?
+    uart_init();
 
     ptag_make_list(addr,nbytes,ntags);
     

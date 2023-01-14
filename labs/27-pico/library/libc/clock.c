@@ -55,3 +55,18 @@ uint32_t micro_second_end() {
     uint32_t hit_zero = (GET32(STK_CSR) >> 16) & 1;
     return !hit_zero;
 }
+
+
+void boot_copy(uint32_t *from, uint32_t *to, uint32_t *end) {
+    while(to < end)
+        *to++ = *from++;
+}
+
+#if 0
+    ldr r0, =0x10000000
+    ldr r1, =0x20000000
+    @ IMPORTANT!!!!!!: This how much code to copy over 0xf000 = 61KB
+    @ Had a bug here for a while since I was only copying over 1KB
+    ldr r2, =0x2000f000
+#endif
+

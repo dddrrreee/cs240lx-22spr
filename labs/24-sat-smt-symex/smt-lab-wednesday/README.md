@@ -1,4 +1,5 @@
-# SMT + SymEx Lab
+# SMT + SymEx Lab by Matthew
+
 The goal of this lab is to build a working symbolic execution engine off of our
 SAT solver.
 
