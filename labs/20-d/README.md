@@ -1,4 +1,4 @@
-# D lab
+# D lab by Zach
 
 In this lab we'll try out using [D](https://dlang.org) for bare-metal
 programming on the Raspberry Pi. D is a systems programming language that was
